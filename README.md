@@ -1,2 +1,3 @@
-# pyalgostrategies
-Algorithmic Trading Strategies for AlgoBulls Platform
+# pyalgostrategypool
+Algorithmic Trading Strategies for the AlgoBulls Platform
+
