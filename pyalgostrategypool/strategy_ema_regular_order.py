@@ -23,7 +23,7 @@ class StrategyEMARegularOrder(StrategyBase):
 
     @staticmethod
     def versions_supported():
-        return VERSION_3_1_0
+        return AlgoBullsEngineVersion.VERSION_3_1_0
 
     def get_crossover_value(self, instrument):
         hist_data = self.get_historical_data(instrument)
