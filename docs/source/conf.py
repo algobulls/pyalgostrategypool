@@ -67,7 +67,7 @@ html_sidebars = {
 html_theme_options = {
     # 'logo': 'logo.svg',       # TODO: Enable this when there is a logo for this package
     # 'touch_icon': 'favicon.svg',  # TODO: Enable this when there is a logo for this package
-    'description': 'Official pool of Algorithmic Trading Strategies for the AlgoBulls Platform',
+    'description' : 'Official pool of Algorithmic Trading Strategies powered by AlgoBulls Platform',
     'fixed_sidebar': 'fixed',
     'logo_name': 'true',
     'show_related': 'true',
