@@ -57,8 +57,8 @@ class StrategyMACDBracketOrder(StrategyBase):
             qty = self.number_of_lots * instrument.lot_size
             ltp = self.broker.get_ltp(instrument)
             self.main_order[instrument] = self.broker.BuyOrderBracket(instrument=instrument,
-                                                                      order_code=BrokerOrderCodeConstants.BROKER_ORDER_CODE_INTRADAY,
-                                                                      order_variety=BrokerOrderVarietyConstants.BROKER_ORDER_VARIETY_LIMIT,
+                                                                      order_code=BrokerOrderCodeConstants.INTRADAY,
+                                                                      order_variety=BrokerOrderVarietyConstants.LIMIT,
                                                                       quantity=qty,
                                                                       price=ltp,
                                                                       stoploss_trigger=ltp - (ltp * self.stoploss),
@@ -69,8 +69,8 @@ class StrategyMACDBracketOrder(StrategyBase):
             qty = self.number_of_lots * instrument.lot_size
             ltp = self.broker.get_ltp(instrument)
             self.main_order[instrument] = self.broker.SellOrderBracket(instrument=instrument,
-                                                                       order_code=BrokerOrderCodeConstants.BROKER_ORDER_CODE_INTRADAY,
-                                                                       order_variety=BrokerOrderVarietyConstants.BROKER_ORDER_VARIETY_LIMIT,
+                                                                       order_code=BrokerOrderCodeConstants.INTRADAY,
+                                                                       order_variety=BrokerOrderVarietyConstants.LIMIT,
                                                                        quantity=qty,
                                                                        price=ltp,
                                                                        stoploss_trigger=ltp + (ltp * self.stoploss),

@@ -53,14 +53,14 @@ class StrategyEMARegularOrder(StrategyBase):
         if sideband_info['action'] == 'BUY':
             qty = self.number_of_lots * instrument.lot_size
             self.main_order[instrument] = self.broker.BuyOrderRegular(instrument=instrument,
-                                                                      order_code=BrokerOrderCodeConstants.BROKER_ORDER_CODE_INTRADAY,
-                                                                      order_variety=BrokerOrderVarietyConstants.BROKER_ORDER_VARIETY_MARKET,
+                                                                      order_code=BrokerOrderCodeConstants.INTRADAY,
+                                                                      order_variety=BrokerOrderVarietyConstants.MARKET,
                                                                       quantity=qty)
         elif sideband_info['action'] == 'SELL':
             qty = self.number_of_lots * instrument.lot_size
             self.main_order[instrument] = self.broker.SellOrderRegular(instrument=instrument,
-                                                                       order_code=BrokerOrderCodeConstants.BROKER_ORDER_CODE_INTRADAY,
-                                                                       order_variety=BrokerOrderVarietyConstants.BROKER_ORDER_VARIETY_MARKET,
+                                                                       order_code=BrokerOrderCodeConstants.INTRADAY,
+                                                                       order_variety=BrokerOrderVarietyConstants.MARKET,
                                                                        quantity=qty)
         else:
             raise SystemExit(f'Got invalid sideband_info value: {sideband_info}')
