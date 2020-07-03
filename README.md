@@ -1,9 +1,9 @@
 # pyalgostrategypool
-Official pool of Algorithmic Trading Strategies powered by AlgoBulls Platform
+Official pool of Algorithmic Trading Strategies powered by the AlgoBulls Platform
 
 
 ### Features
-- Powered by [AlgoBulls Platform](https://algobulls.com)
+- Powered by the [AlgoBulls Platform](https://algobulls.com)
 - Check complete features on [pyalgotrading](https://github.com/algobulls/pyalgotrading#features)!
     
 Backtesting, Paper Trading and Real Trading can be performed on the same strategy code base!
