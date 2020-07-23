@@ -31,7 +31,10 @@ class StrategyMACDBracketOrder(StrategyBase):
 
     def get_crossover_value(self, instrument):
         hist_data = self.get_historical_data(instrument)
-        macdline, macdsignal, _ = talib.MACD(hist_data['close'], fastperiod=self.fastMA_period, slowperiod=self.slowMA_period, signalperiod=self.signal_period)
+        macdline, macdsignal, _ = talib.MACD(hist_data['close'],
+                                             fastperiod=self.fastMA_period,
+                                             slowperiod=self.slowMA_period,
+                                             signalperiod=self.signal_period)
         crossover_value = self.utils.crossover(macdline, macdsignal)
         return crossover_value
 
@@ -56,26 +59,28 @@ class StrategyMACDBracketOrder(StrategyBase):
         if sideband_info['action'] == 'BUY':
             qty = self.number_of_lots * instrument.lot_size
             ltp = self.broker.get_ltp(instrument)
-            self.main_order[instrument] = self.broker.BuyOrderBracket(instrument=instrument,
-                                                                      order_code=BrokerOrderCodeConstants.INTRADAY,
-                                                                      order_variety=BrokerOrderVarietyConstants.LIMIT,
-                                                                      quantity=qty,
-                                                                      price=ltp,
-                                                                      stoploss_trigger=ltp - (ltp * self.stoploss),
-                                                                      target_trigger=ltp + (ltp * self.target),
-                                                                      trailing_stoploss_trigger=ltp * self.trailing_stoploss)
+            self.main_order[instrument] = \
+                self.broker.BuyOrderBracket(instrument=instrument,
+                                            order_code=BrokerOrderCodeConstants.INTRADAY,
+                                            order_variety=BrokerOrderVarietyConstants.LIMIT,
+                                            quantity=qty,
+                                            price=ltp,
+                                            stoploss_trigger=ltp - (ltp * self.stoploss),
+                                            target_trigger=ltp + (ltp * self.target),
+                                            trailing_stoploss_trigger=ltp * self.trailing_stoploss)
 
         elif sideband_info['action'] == 'SELL':
             qty = self.number_of_lots * instrument.lot_size
             ltp = self.broker.get_ltp(instrument)
-            self.main_order[instrument] = self.broker.SellOrderBracket(instrument=instrument,
-                                                                       order_code=BrokerOrderCodeConstants.INTRADAY,
-                                                                       order_variety=BrokerOrderVarietyConstants.LIMIT,
-                                                                       quantity=qty,
-                                                                       price=ltp,
-                                                                       stoploss_trigger=ltp + (ltp * self.stoploss),
-                                                                       target_trigger=ltp - (ltp * self.target),
-                                                                       trailing_stoploss_trigger=ltp * self.trailing_stoploss)
+            self.main_order[instrument] = \
+                self.broker.SellOrderBracket(instrument=instrument,
+                                             order_code=BrokerOrderCodeConstants.INTRADAY,
+                                             order_variety=BrokerOrderVarietyConstants.LIMIT,
+                                             quantity=qty,
+                                             price=ltp,
+                                             stoploss_trigger=ltp + (ltp * self.stoploss),
+                                             target_trigger=ltp - (ltp * self.target),
+                                             trailing_stoploss_trigger=ltp * self.trailing_stoploss)
         else:
             raise SystemExit(f'Got invalid sideband_info value: {sideband_info}')
 

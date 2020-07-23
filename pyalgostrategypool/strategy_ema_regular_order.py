@@ -52,16 +52,18 @@ class StrategyEMARegularOrder(StrategyBase):
     def strategy_enter_position(self, candle, instrument, sideband_info):
         if sideband_info['action'] == 'BUY':
             qty = self.number_of_lots * instrument.lot_size
-            self.main_order[instrument] = self.broker.BuyOrderRegular(instrument=instrument,
-                                                                      order_code=BrokerOrderCodeConstants.INTRADAY,
-                                                                      order_variety=BrokerOrderVarietyConstants.MARKET,
-                                                                      quantity=qty)
+            self.main_order[instrument] = \
+                self.broker.BuyOrderRegular(instrument=instrument,
+                                            order_code=BrokerOrderCodeConstants.INTRADAY,
+                                            order_variety=BrokerOrderVarietyConstants.MARKET,
+                                            quantity=qty)
         elif sideband_info['action'] == 'SELL':
             qty = self.number_of_lots * instrument.lot_size
-            self.main_order[instrument] = self.broker.SellOrderRegular(instrument=instrument,
-                                                                       order_code=BrokerOrderCodeConstants.INTRADAY,
-                                                                       order_variety=BrokerOrderVarietyConstants.MARKET,
-                                                                       quantity=qty)
+            self.main_order[instrument] = \
+                self.broker.SellOrderRegular(instrument=instrument,
+                                             order_code=BrokerOrderCodeConstants.INTRADAY,
+                                             order_variety=BrokerOrderVarietyConstants.MARKET,
+                                             quantity=qty)
         else:
             raise SystemExit(f'Got invalid sideband_info value: {sideband_info}')
 
