@@ -1,0 +1,214 @@
+[2020-07-09 09:13:02] Performing sanity checks on cfg strategy_parameters, setting up broker connection and required data structures...
+[2020-07-09 09:13:02] ABBroker connection has been setup successfully.
+[2020-07-09 09:13:02] Sanity checks on cfg successful.
+[2020-07-09 09:13:02] Setting up broker connection...
+[2020-07-09 09:13:05] Broker connection has been setup successfully.
+[2020-07-09 09:13:05] (NSE_EQ) Funds available in client's AliceBlue account is : Rs. '10110.60'
+[2020-07-09 09:13:05] [QUERYING] Sanity check: Ensuring all instruments are affordable...
+[2020-07-09 09:13:05] [PASSED] Sanity check: All instruments are affordable
+[2020-07-09 09:13:05] 
+########################################
+ INITIALIZING ALGOBULLS CORE (v3.2.0)... 
+########################################
+[2020-07-09 09:13:05] Welcome PUSHPAK MAHAVIR DAGADE!
+[2020-07-09 09:13:05] Reading strategy...
+[2020-07-09 09:13:05] STARTING ALGOBULLS CORE...
+[2020-07-09 09:13:05] 
+            
+  #####  #######    #    ######  ####### ### #     #  #####     
+ #     #    #      # #   #     #    #     #  ##    # #     #    
+ #          #     #   #  #     #    #     #  # #   # #          
+  #####     #    #     # ######     #     #  #  #  # #  ####    
+       #    #    ####### #   #      #     #  #   # # #     #    
+ #     #    #    #     # #    #     #     #  #    ## #     #    
+  #####     #    #     # #     #    #    ### #     #  #####     
+
+    #    #        #####  ####### ######  #     # #       #        #####    
+   # #   #       #     # #     # #     # #     # #       #       #     #   
+  #   #  #       #       #     # #     # #     # #       #       #         
+ #     # #       #  #### #     # ######  #     # #       #        #####    
+ ####### #       #     # #     # #     # #     # #       #             #   
+ #     # #       #     # #     # #     # #     # #       #       #     #   
+ #     # #######  #####  ####### ######   #####  ####### #######  #####    
+
+  #####  ####### ######  #######
+ #     # #     # #     # #
+ #       #     # #     # #
+ #       #     # ######  #####
+ #       #     # #   #   #
+ #     # #     # #    #  #
+  #####  ####### #     # ####### 
+
+[2020-07-09 09:13:05] [INFO] [tls] --------------------Master Cfg Parameters:--------------------
+[2020-07-09 09:13:05] [INFO] [tls] User: PUSHPAK MAHAVIR DAGADE
+[2020-07-09 09:13:05] [INFO] [tls] Broker: ALICEBLUE
+[2020-07-09 09:13:05] [INFO] [tls] AUTO_ADD_INSTRUMENTS_BUCKET_FROM_POSITIONS: False
+[2020-07-09 09:13:05] [INFO] [tls] AUTO_ADD_INSTRUMENTS_BUCKET_FROM_HOLDINGS_TPLUS1: False
+[2020-07-09 09:13:05] [INFO] [tls] AUTO_ADD_INSTRUMENTS_BUCKET_FROM_HOLDINGS_TPLUS2: False
+[2020-07-09 09:13:05] [INFO] [tls] RESUME_POSITIONS_ON_START: False
+[2020-07-09 09:13:05] [INFO] [tls] RESUME_HOLDINGS_TPLUS1_ON_START: False
+[2020-07-09 09:13:05] [INFO] [tls] RESUME_HOLDINGS_TPLUS2_ON_START: False
+[2020-07-09 09:13:05] [INFO] [tls] EXIT_INTRADAY_ORDERS_ON_STOP: False
+[2020-07-09 09:13:05] [INFO] [tls] EXIT_TPLUS1_DELIVERY_ORDERS_ON_STOP: False
+[2020-07-09 09:13:05] [INFO] [tls] EXIT_TPLUS2_DELIVERY_ORDERS_ON_STOP: False
+[2020-07-09 09:13:05] [INFO] [tls] --------------------User Cfg Parameters: System Parameters--------------------
+[2020-07-09 09:13:05] [INFO] [tls] Trading type: REALTRADING
+[2020-07-09 09:13:05] [INFO] [tls] User trading start time: 2020-07-09 09:15:00
+[2020-07-09 09:13:05] [INFO] [tls] User trading end time: 2020-07-09 15:30:00
+[2020-07-09 09:13:05] [INFO] [tls] --------------------User Cfg Parameters: Funds Parameters--------------------
+[2020-07-09 09:13:05] [INFO] [tls] Credit Exposure: 1000
+[2020-07-09 09:13:05] [INFO] [tls] Fund Allocator: FundAllocatorLots
+[2020-07-09 09:13:05] [INFO] [tls] Fund Allocator Parameters: {'NUMBER_OF_LOTS': 1}
+[2020-07-09 09:13:05] [INFO] [tls] --------------------User Cfg Parameters: Candle Parameters--------------------
+[2020-07-09 09:13:05] [INFO] [tls] Candle interval (sec): 60
+[2020-07-09 09:13:05] [INFO] [tls] --------------------User Cfg Parameters: Strategy Parameters--------------------
+[2020-07-09 09:13:05] [INFO] [tls] Strategy: EMA Regular Order Strategy
+[2020-07-09 09:13:05] [INFO] [tls] Parameters: {'timeperiod1': 5, 'timeperiod2': 12}
+[2020-07-09 09:13:05] [INFO] [tls] Strategy Mode: INTRADAY
+[2020-07-09 09:13:05] [INFO] [tls] Instruments Bucket: instruments_bucket | [NSE_EQ:SBIN]
+[2020-07-09 09:13:05] [INFO] [tls] --------------------User Cfg Parameters: Other Parameters--------------------
+[2020-07-09 09:13:05] [INFO] [tls] Allow multiple orders for same script: True
+[2020-07-09 09:13:05] [INFO] [tls] Allow new order when order for script already running: True
+[2020-07-09 09:13:05] [INFO] [tls] Instrument max orders count: 100
+[2020-07-09 09:13:05] [INFO] [tls] Remove Instrument if Order Rejected: False
+[2020-07-09 09:13:05] [INFO] [tls] ------------------------------------------------------------
+[2020-07-09 09:13:05] [INFO] [utils] Instrument (NSE_EQ:SBIN) subscribed to historical data successfully
+[2020-07-09 09:13:05] [INFO] [utils] 1 Instrument(s) (re)subscribed to historical data successfully
+[2020-07-09 09:13:05] [INFO] [utils] Prefetching historical data for 1 instruments...
+[2020-07-09 09:13:05] [INFO] [strategy] (NSE_EQ) Funds available in client's AliceBlue account is : Rs. '10110.60'
+[2020-07-09 09:13:05] 
+####################
+Strategy Parameters:
+StrategyParameters([('timeperiod1', 5), ('timeperiod2', 12)])
+####################
+[2020-07-09 09:15:00] [INFO] [utils] 1 Instrument(s) (re)subscribed to historical data successfully
+[2020-07-09 09:15:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 09:30:00)...
+[2020-07-09 09:30:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 09:45:00)...
+[2020-07-09 09:45:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 10:00:00)...
+[2020-07-09 10:00:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 10:15:00)...
+[2020-07-09 10:15:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 10:30:00)...
+[2020-07-09 10:30:00] [INFO] [tls] Entering position for instrument: NSE_EQ:SBIN...
+[2020-07-09 10:30:00] [CRITICAL] [order] [PLACING NEW ORDER] [2020-07-09 10:30:00] [2b079bc873f64f53a33f91b6ceec707b] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.7] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[2020-07-09 10:30:00] [INFO] [positions] Created new Position: Position: [BUY] [NSE:SBIN] [QTY:1] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY]
+[2020-07-09 10:30:00] [INFO] [order] [ORDER ID RECEIVED] [AliceBlue] [ID:2b079bc873f64f53a33f91b6ceec707b] [BUY] [NSE_EQ:SBIN] [Order ID: (Order: [2020-07-09 10:30:00] [2b079bc873f64f53a33f91b6ceec707b] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.7] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[2020-07-09 10:30:00] [INFO] [order] [NEW ORDER SUCCESS] [2020-07-09 10:30:00] [2b079bc873f64f53a33f91b6ceec707b] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.7] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[2020-07-09 10:30:00] [INFO] [tls] Instrument entered position: NSE_EQ:SBIN. Order placed
+[2020-07-09 10:30:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 10:45:00)...
+[2020-07-09 10:45:00] [CRITICAL] [order] [PLACING NEW ORDER] [2020-07-09 10:45:00] [8a8e7403cc7241c9ae4d922744b4d214] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.0] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+[2020-07-09 10:45:00] [INFO] [order] [ORDER ID RECEIVED] [AliceBlue] [ID:8a8e7403cc7241c9ae4d922744b4d214] [SELL] [NSE_EQ:SBIN] [Order ID: (Order: [2020-07-09 10:45:00] [8a8e7403cc7241c9ae4d922744b4d214] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 194.0] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[2020-07-09 10:45:00] [INFO] [order] [NEW ORDER SUCCESS] [2020-07-09 10:45:00] [8a8e7403cc7241c9ae4d922744b4d214] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 194.0] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT] [STATUS:COMPLETE]
+[2020-07-09 10:45:00] [INFO] [tls] Entering position for instrument: NSE_EQ:SBIN...
+[2020-07-09 10:45:00] [CRITICAL] [order] [PLACING NEW ORDER] [2020-07-09 10:45:00] [20e9e182a39541a58555d82edb7d4524] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.0] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[2020-07-09 10:45:00] [INFO] [positions] Created new Position: Position: [SELL] [NSE:SBIN] [QTY:-1] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY]
+[2020-07-09 10:45:00] [INFO] [order] [ORDER ID RECEIVED] [AliceBlue] [ID:20e9e182a39541a58555d82edb7d4524] [SELL] [NSE_EQ:SBIN] [Order ID: (Order: [2020-07-09 10:45:00] [20e9e182a39541a58555d82edb7d4524] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.0] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[2020-07-09 10:45:00] [INFO] [order] [NEW ORDER SUCCESS] [2020-07-09 10:45:00] [20e9e182a39541a58555d82edb7d4524] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.0] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[2020-07-09 10:45:00] [INFO] [tls] Instrument entered position: NSE_EQ:SBIN. Order placed
+[2020-07-09 10:45:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 11:00:00)...
+[2020-07-09 11:00:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 11:15:00)...
+[2020-07-09 11:15:00] [CRITICAL] [order] [PLACING NEW ORDER] [2020-07-09 11:15:00] [1176d17c1fcb40d68568059de2feec5f] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.75] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+[2020-07-09 11:15:00] [INFO] [order] [ORDER ID RECEIVED] [AliceBlue] [ID:1176d17c1fcb40d68568059de2feec5f] [BUY] [NSE_EQ:SBIN] [Order ID: (Order: [2020-07-09 11:15:00] [1176d17c1fcb40d68568059de2feec5f] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 194.75] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[2020-07-09 11:15:00] [INFO] [order] [NEW ORDER SUCCESS] [2020-07-09 11:15:00] [1176d17c1fcb40d68568059de2feec5f] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 194.75] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT] [STATUS:COMPLETE]
+[2020-07-09 11:15:00] [INFO] [tls] Entering position for instrument: NSE_EQ:SBIN...
+[2020-07-09 11:15:00] [CRITICAL] [order] [PLACING NEW ORDER] [2020-07-09 11:15:00] [e4a65eeb95184ebcb84ebd944e5af81f] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.75] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[2020-07-09 11:15:00] [INFO] [positions] Created new Position: Position: [BUY] [NSE:SBIN] [QTY:1] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY]
+[2020-07-09 11:15:00] [INFO] [order] [ORDER ID RECEIVED] [AliceBlue] [ID:e4a65eeb95184ebcb84ebd944e5af81f] [BUY] [NSE_EQ:SBIN] [Order ID: (Order: [2020-07-09 11:15:00] [e4a65eeb95184ebcb84ebd944e5af81f] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.75] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[2020-07-09 11:15:00] [INFO] [order] [NEW ORDER SUCCESS] [2020-07-09 11:15:00] [e4a65eeb95184ebcb84ebd944e5af81f] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.75] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[2020-07-09 11:15:00] [INFO] [tls] Instrument entered position: NSE_EQ:SBIN. Order placed
+[2020-07-09 11:15:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 11:30:00)...
+[2020-07-09 11:30:00] [CRITICAL] [order] [PLACING NEW ORDER] [2020-07-09 11:30:00] [4179892e63b24d69a6005ca55726352f] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.05] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+[2020-07-09 11:30:00] [INFO] [order] [ORDER ID RECEIVED] [AliceBlue] [ID:4179892e63b24d69a6005ca55726352f] [SELL] [NSE_EQ:SBIN] [Order ID: (Order: [2020-07-09 11:30:00] [4179892e63b24d69a6005ca55726352f] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 194.05] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[2020-07-09 11:30:00] [INFO] [order] [NEW ORDER SUCCESS] [2020-07-09 11:30:00] [4179892e63b24d69a6005ca55726352f] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 194.05] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT] [STATUS:COMPLETE]
+[2020-07-09 11:30:00] [INFO] [tls] Entering position for instrument: NSE_EQ:SBIN...
+[2020-07-09 11:30:00] [CRITICAL] [order] [PLACING NEW ORDER] [2020-07-09 11:30:00] [d65b94b73c0d4073bb4833492c6e1999] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.05] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[2020-07-09 11:30:00] [INFO] [positions] Created new Position: Position: [SELL] [NSE:SBIN] [QTY:-1] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY]
+[2020-07-09 11:30:00] [INFO] [order] [ORDER ID RECEIVED] [AliceBlue] [ID:d65b94b73c0d4073bb4833492c6e1999] [SELL] [NSE_EQ:SBIN] [Order ID: (Order: [2020-07-09 11:30:00] [d65b94b73c0d4073bb4833492c6e1999] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.05] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[2020-07-09 11:30:00] [INFO] [order] [NEW ORDER SUCCESS] [2020-07-09 11:30:00] [d65b94b73c0d4073bb4833492c6e1999] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.05] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[2020-07-09 11:30:00] [INFO] [tls] Instrument entered position: NSE_EQ:SBIN. Order placed
+[2020-07-09 11:30:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 11:45:00)...
+[2020-07-09 11:45:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 12:00:00)...
+[2020-07-09 12:00:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 12:15:00)...
+[2020-07-09 12:15:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 12:30:00)...
+[2020-07-09 12:30:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 12:45:00)...
+[2020-07-09 12:45:00] [CRITICAL] [order] [PLACING NEW ORDER] [2020-07-09 12:45:00] [6287a8e893314f41acaa37cd12d129fe] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.45] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+[2020-07-09 12:45:00] [INFO] [order] [ORDER ID RECEIVED] [AliceBlue] [ID:6287a8e893314f41acaa37cd12d129fe] [BUY] [NSE_EQ:SBIN] [Order ID: (Order: [2020-07-09 12:45:00] [6287a8e893314f41acaa37cd12d129fe] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 194.45] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[2020-07-09 12:45:00] [INFO] [order] [NEW ORDER SUCCESS] [2020-07-09 12:45:00] [6287a8e893314f41acaa37cd12d129fe] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 194.45] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT] [STATUS:COMPLETE]
+[2020-07-09 12:45:00] [INFO] [tls] Entering position for instrument: NSE_EQ:SBIN...
+[2020-07-09 12:45:00] [CRITICAL] [order] [PLACING NEW ORDER] [2020-07-09 12:45:00] [32041c33d11f4d11a4c0c50fd6d7091e] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.45] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[2020-07-09 12:45:00] [INFO] [positions] Created new Position: Position: [BUY] [NSE:SBIN] [QTY:1] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY]
+[2020-07-09 12:45:00] [INFO] [order] [ORDER ID RECEIVED] [AliceBlue] [ID:32041c33d11f4d11a4c0c50fd6d7091e] [BUY] [NSE_EQ:SBIN] [Order ID: (Order: [2020-07-09 12:45:00] [32041c33d11f4d11a4c0c50fd6d7091e] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.45] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[2020-07-09 12:45:00] [INFO] [order] [NEW ORDER SUCCESS] [2020-07-09 12:45:00] [32041c33d11f4d11a4c0c50fd6d7091e] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.45] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[2020-07-09 12:45:00] [INFO] [tls] Instrument entered position: NSE_EQ:SBIN. Order placed
+[2020-07-09 12:45:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 13:00:00)...
+[2020-07-09 13:00:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 13:15:00)...
+[2020-07-09 13:15:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 13:30:00)...
+[2020-07-09 13:30:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 13:45:00)...
+[2020-07-09 13:45:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 14:00:00)...
+[2020-07-09 14:00:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 14:15:00)...
+[2020-07-09 14:15:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 14:30:00)...
+[2020-07-09 14:30:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 14:45:00)...
+[2020-07-09 14:45:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 15:00:00)...
+[2020-07-09 15:00:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 15:15:00)...
+[2020-07-09 15:15:00] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2020-07-09 15:30:00)...
+[2020-07-09 15:30:00] [INFO] [oms] Exiting OPEN POSITION (Order: [2020-07-09 12:45:00] [32041c33d11f4d11a4c0c50fd6d7091e] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 194.45] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])... 
+[2020-07-09 15:30:00] [CRITICAL] [order] [PLACING NEW ORDER] [2020-07-09 15:30:00] [eca45c32b31d416382cbb268248c7ba4] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 1] [ENTRY PRICE: 200.0] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+[2020-07-09 15:30:00] [INFO] [order] [ORDER ID RECEIVED] [AliceBlue] [ID:eca45c32b31d416382cbb268248c7ba4] [SELL] [NSE_EQ:SBIN] [Order ID: (Order: [2020-07-09 15:30:00] [eca45c32b31d416382cbb268248c7ba4] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 200.0] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[2020-07-09 15:30:00] [INFO] [order] [NEW ORDER SUCCESS] [2020-07-09 15:30:00] [eca45c32b31d416382cbb268248c7ba4] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 200.0] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT] [STATUS:COMPLETE]
+[2020-07-09 15:30:00] [INFO] [clock] Candle generation has been stopped...
+[2020-07-09 15:30:00] [INFO] [tls] Received event END OF MARKET. Stopping Trading Core Engine...
+[2020-07-09 15:30:00] [INFO] [tls] Exiting all open positions with order code: ORDER_CODE_INTRADAY (if any)...
+[2020-07-09 15:30:00] [CRITICAL] [tls] [User: PUSHPAK MAHAVIR DAGADE] Trading session completed
+[2020-07-09 15:30:00] [INFO] [oms] 
+
+PENDING ORDERS:
+
+
+COMPLETED ORDERS:
+[2020-07-09 10:30:00] [2b079bc873f64f53a33f91b6ceec707b] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 194.7] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2020-07-09 10:45:00] [8a8e7403cc7241c9ae4d922744b4d214] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 194.0] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2020-07-09 10:45:00] [20e9e182a39541a58555d82edb7d4524] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 194.0] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2020-07-09 11:15:00] [1176d17c1fcb40d68568059de2feec5f] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 194.75] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2020-07-09 11:15:00] [e4a65eeb95184ebcb84ebd944e5af81f] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 194.75] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2020-07-09 11:30:00] [4179892e63b24d69a6005ca55726352f] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 194.05] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2020-07-09 11:30:00] [d65b94b73c0d4073bb4833492c6e1999] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 194.05] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2020-07-09 12:45:00] [6287a8e893314f41acaa37cd12d129fe] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 194.45] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2020-07-09 12:45:00] [32041c33d11f4d11a4c0c50fd6d7091e] [BUY] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 194.45] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2020-07-09 15:30:00] [eca45c32b31d416382cbb268248c7ba4] [SELL] [NSE:SBIN] [QTY:1] [QTY PENDING: 0] [ENTRY PRICE: 200.0] [PRICE:None] [TRIGGER PRICE:None] [ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+
+POSITIONS:
+
+
+HOLDINGS:
+
+
+
+
