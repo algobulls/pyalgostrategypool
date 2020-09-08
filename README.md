@@ -9,11 +9,12 @@ Official pool of Algorithmic Trading Strategies powered by the AlgoBulls Platfor
 Backtesting, Paper Trading and Real Trading can be performed on the same strategy code base!
 
 ### Documentation
-Coming soon!
+You can find the docs [here](https://algobulls.github.io/pyalgotrading/).
 
 ### Python 
-- Python Support: `Python 3.5+`.
-- Python Requirements: See [requirements.txt]().
+- Python Support: `Python 3.6+`.
+- Python Requirements: See [requirements.txt](https://github.com/algobulls/pyalgostrategypool/blob/master/requirements.txt).
+- We recommend you to use the latest version of Python (v3.8+) to enjoy better performance benefits, especially for pandas. (For Python 3.6, the latest supported Pandas version is v0.25.3. For Python 3.8, the latest supported version is v1.0.x)
 
 ### Installation
 Package can be easily installed using `pip` - 
@@ -41,6 +42,10 @@ Here’s how we suggest you go about proposing a change to this project:
 [fork]: https://help.github.com/articles/fork-a-repo/
 [branch]: https://help.github.com/articles/creating-and-deleting-branches-within-your-repository
 [pr]: https://help.github.com/articles/using-pull-requests/
+
+### Rewards
+If you are interested in contributing to this repo, [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool), our official pool of FREE algorithmic trading strategies, please reach out to support@algobulls.com.
+You would be provided with credits for unlimited trading access on the AlgoBulls platform.
 
 ### Changelog
 See [CHANGELOG.md](https://github.com/algobulls/pyalgostrategypool/blob/master/CHANGELOG.md).
