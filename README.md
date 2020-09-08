@@ -6,7 +6,7 @@ Official pool of Algorithmic Trading Strategies powered by the AlgoBulls Platfor
 - Powered by the [AlgoBulls Platform](https://algobulls.com)
 - Check complete features on [pyalgotrading](https://github.com/algobulls/pyalgotrading#features)!
     
-Backtesting, Paper Trading and Real Trading can be performed on the same strategy code base!
+Backtesting, Paper Trading and Real Trading (across multiple brokers) can be performed on the same strategy code base!
 
 ### Documentation
 You can find the docs [here](https://algobulls.github.io/pyalgotrading/).
@@ -44,7 +44,7 @@ Here’s how we suggest you go about proposing a change to this project:
 [pr]: https://help.github.com/articles/using-pull-requests/
 
 ### Rewards
-If you are interested in contributing to this repo, [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool), our official pool of FREE algorithmic trading strategies, please reach out to support@algobulls.com.
+If you are interested in contributing to this repo, our official pool of FREE algorithmic trading strategies, please reach out to support@algobulls.com.
 You would be provided with credits for unlimited trading access on the AlgoBulls platform.
 
 ### Changelog
