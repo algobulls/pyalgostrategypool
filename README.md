@@ -27,9 +27,9 @@ pip install pyalgostrategypool
 <a href="https://www.packtpub.com/product/python-algorithmic-trading-cookbook/9781838989354"><img src="https://static.packt-cdn.com/products/9781838989354/cover/smaller" alt="Python Algorithmic Trading Cookbook" height="256px" align="right"></a>
 
 - *Bug Reporting / New Feature Request*: Please [create a new issue](https://github.com/algobulls/pyalgostrategypool/issues/new) here on GitHub.
-- *Discussion Forum*: Coming Soon!
+- *Discussions*: [AlgoBulls Community Forum](https://community.algobulls.com)
 - *Want to learn faster and easier?* [Purchase our book - Python Algorithmic Trading Cookbook, Published by Packt](https://www.packtpub.com/product/python-algorithmic-trading-cookbook/9781838989354).
-- *Additional Support*: If none of the above help, please contact [pushpak@algobulls.com](mailto:pushpak@algobulls.com).
+- *Additional Support*: If none of the above help, please contact [developers@algobulls.com](mailto:developers@algobulls.com).
 
 ### Contribution Guidelines
 Here’s how we suggest you go about proposing a change to this project:
@@ -44,8 +44,7 @@ Here’s how we suggest you go about proposing a change to this project:
 [pr]: https://help.github.com/articles/using-pull-requests/
 
 ### Rewards
-If you are interested in contributing to this repo, our official pool of FREE algorithmic trading strategies, please reach out to support@algobulls.com.
-You would be provided with credits for unlimited trading access on the AlgoBulls platform.
+If you are interested in contributing to this repo, our official pool of FREE algorithmic trading strategies, please reach out to [developers@algobulls.com](mailto:developers@algobulls.com). You would be provided with credits for unlimited trading access on the AlgoBulls platform.
 
 ### Changelog
 See [CHANGELOG.md](https://github.com/algobulls/pyalgostrategypool/blob/master/CHANGELOG.md).
