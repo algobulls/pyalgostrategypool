@@ -34,10 +34,21 @@ pip install pyalgostrategypool
 ### Contribution Guidelines
 Here’s how we suggest you go about proposing a change to this project:
 
+1. Checkout the list of strategies waiting to be developed on this Google Sheet: https://bit.ly/2H9JaOl
+2. Ask for ownership for a strategy development by sending a mail to [developers@algobulls.com](mailto:developers@algobulls.com). 
+    1. You may also ask for an explanation of the strategy specifications over a phone call/whatsapp/screen share from Team AlgoBulls based on Strategy Complexity.
+    1. Once you get the ownership, your name will be updated on the excel sheet and you would be given comment access to the Google Sheet.    
 1. [Fork this project][fork] to your account.
-2. [Create a branch][branch] for the change you intend to make.
-3. Make your changes to your fork.
-4. [Send a pull request][pr] from your fork’s branch to our `master` branch.
+1. [Create a branch][branch] for the change you intend to make.
+1. Make your changes to your fork.
+1. Verify that your strategy performs as the given specification using the P&L Table generated on [submitting Backtesting jobs](https://algobulls.github.io/pyalgotrading/testing/#submit-a-job). 
+    1. For technical issues, refer to the [Getting Help](https://github.com/algobulls/pyalgostrategypool#support--getting-help) section. Posting questions over the [AlgoBulls Community Forum](https://community.algobulls.com) is the preferred way for getting technical help.
+    1. If the above doesn't helpo, you can take help from Team AlgoBulls for the same over a phone call/whatsapp/screen share.
+1. Ensure you have followed these coding guidelines:
+    1. Your code should be [PEP-8](https://www.python.org/dev/peps/pep-0008/) compliant. You can use tools like [PyCharm](https://www.jetbrains.com/pycharm/download/) to help you quickly comply with PEP-8.
+    1. Your code should be [PEP-8](https://www.python.org/dev/peps/pep-0008/) compliant. You can use tools like [PyCharm]() to help you quickly comply with PEP-8.
+1. [Send a pull request][pr] from your fork’s branch to our `master` branch.
+1. If your changes are good, they would be accepted and merged with the `master` branch.
 
 [fork]: https://help.github.com/articles/fork-a-repo/
 [branch]: https://help.github.com/articles/creating-and-deleting-branches-within-your-repository
