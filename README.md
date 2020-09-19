@@ -36,7 +36,7 @@ Here’s how we suggest you go about proposing a change to this project:
 
 1. Checkout the list of strategies waiting to be developed on this Google Sheet: https://bit.ly/2H9JaOl
 2. Ask for ownership for a strategy development by sending a mail to [developers@algobulls.com](mailto:developers@algobulls.com). 
-    1. You may also ask for an explanation of the strategy specifications over a phone call/whatsapp/screen share from Team AlgoBulls based on Strategy Complexity.
+    1. You may also ask for an explanation of the strategy specifications over a phone call/whatsapp/screen share from Team AlgoBulls based on the strategy complexity.
     1. Once you get the ownership, your name will be updated on the excel sheet and you would be given comment access to the Google Sheet.    
 1. [Fork this project][fork] to your account.
 1. [Create a branch][branch] for the change you intend to make.
@@ -46,7 +46,6 @@ Here’s how we suggest you go about proposing a change to this project:
     1. If the above doesn't helpo, you can take help from Team AlgoBulls for the same over a phone call/whatsapp/screen share.
 1. Ensure you have followed these coding guidelines:
     1. Your code should be [PEP-8](https://www.python.org/dev/peps/pep-0008/) compliant. You can use tools like [PyCharm](https://www.jetbrains.com/pycharm/download/) to help you quickly comply with PEP-8.
-    1. Your code should be [PEP-8](https://www.python.org/dev/peps/pep-0008/) compliant. You can use tools like [PyCharm]() to help you quickly comply with PEP-8.
 1. [Send a pull request][pr] from your fork’s branch to our `master` branch.
 1. If your changes are good, they would be accepted and merged with the `master` branch.
 
