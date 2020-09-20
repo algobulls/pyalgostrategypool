@@ -32,7 +32,7 @@ pip install pyalgostrategypool
 - *Additional Support*: If none of the above help, please contact [developers@algobulls.com](mailto:developers@algobulls.com).
 
 ### Contribution Guidelines
-Here’s how we suggest you go about proposing a change to this project:
+Here’s how we suggest you go about adding an algo strategy to this project:
 
 1. Checkout the list of strategies waiting to be developed on this Google Sheet: https://bit.ly/2H9JaOl
 2. Ask for ownership for a strategy development by sending a mail to [developers@algobulls.com](mailto:developers@algobulls.com). 
