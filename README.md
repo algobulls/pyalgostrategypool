@@ -41,9 +41,9 @@ Here’s how we suggest you go about adding an algo strategy to this project:
 1. [Fork this project][fork] to your account.
 1. [Create a branch][branch] for the change you intend to make.
 1. Make your changes to your fork.
-1. Verify that your strategy performs as the given specification using the P&L Table generated on [submitting Backtesting jobs](https://algobulls.github.io/pyalgotrading/testing/#submit-a-job). 
+1. Verify that your strategy performs as per the given specifications. You can do this by comparing the P&L Table against the specifications, optionally by using technical charts. A P&L is generated on [submitting Backtesting jobs](https://algobulls.github.io/pyalgotrading/testing/#submit-a-job). 
     1. For technical issues, refer to the [Getting Help](https://github.com/algobulls/pyalgostrategypool#support--getting-help) section. Posting questions over the [AlgoBulls Community Forum](https://community.algobulls.com) is the preferred way for getting technical help.
-    1. If the above doesn't helpo, you can take help from Team AlgoBulls for the same over a phone call/whatsapp/screen share.
+    1. If the above doesn't help, you can take help from Team AlgoBulls for the same over a phone call/whatsapp/screen share.
 1. Ensure you have followed these coding guidelines:
     1. Your code should be [PEP-8](https://www.python.org/dev/peps/pep-0008/) compliant. You can use tools like [PyCharm](https://www.jetbrains.com/pycharm/download/) to help you quickly comply with PEP-8.
 1. [Send a pull request][pr] from your fork’s branch to our `master` branch.
