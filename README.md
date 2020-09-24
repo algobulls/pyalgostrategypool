@@ -54,7 +54,7 @@ Here’s how we suggest you go about adding an algo strategy to this project:
 [pr]: https://help.github.com/articles/using-pull-requests/
 
 ### Rewards
-This is our official pool of FREE algorithmic trading strategies. If you are interested in contributing to this repo, please reach out to [developers@algobulls.com](mailto:developers@algobulls.com). Get credits for unlimited trading access on the AlgoBulls platform by contributing to this repo.
+This is our official pool of FREE algorithmic trading strategies. If you are interested in contributing to this repo, please reach out to [developers@algobulls.com](mailto:developers@algobulls.com). You can get credits for unlimited trading access on the AlgoBulls platform by contributing to this repo and more benefits!
 
 ### Changelog
 See [CHANGELOG.md](https://github.com/algobulls/pyalgostrategypool/blob/master/CHANGELOG.md).
