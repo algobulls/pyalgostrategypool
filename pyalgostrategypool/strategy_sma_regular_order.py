@@ -4,7 +4,7 @@ from constants import *
 from strategy.core.strategy_base import StrategyBase
 
 
-class StrategyEMARegularOrder(StrategyBase):
+class StrategySMARegularOrder(StrategyBase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -22,7 +22,7 @@ class StrategyEMARegularOrder(StrategyBase):
 
     @staticmethod
     def name():
-        return 'EMA Regular Order Strategy'
+        return 'SMA Regular Order Strategy'
 
     @staticmethod
     def versions_supported():
@@ -30,8 +30,8 @@ class StrategyEMARegularOrder(StrategyBase):
 
     def get_crossover_value(self, instrument):
         hist_data = self.get_historical_data(instrument)
-        ema_x = talib.EMA(hist_data['close'], timeperiod=self.timeperiod1)
-        ema_y = talib.EMA(hist_data['close'], timeperiod=self.timeperiod2)
+        ema_x = talib.SMA(hist_data['close'], timeperiod=self.timeperiod1)
+        ema_y = talib.SMA(hist_data['close'], timeperiod=self.timeperiod2)
         crossover_value = self.utils.crossover(ema_x, ema_y)
         return crossover_value
 

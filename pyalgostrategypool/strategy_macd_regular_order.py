@@ -4,16 +4,18 @@ from constants import *
 from strategy.core.strategy_base import StrategyBase
 
 
-class StrategyEMARegularOrder(StrategyBase):
+class StrategyMACDRegularOrder(StrategyBase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.timeperiod1 = self.strategy_parameters['TIMEPERIOD1']
-        self.timeperiod2 = self.strategy_parameters['TIMEPERIOD2']
+        self.fastMA_period = self.strategy_parameters['FASTMA_PERIOD']
+        self.slowMA_period = self.strategy_parameters['SLOWMA_PERIOD']
+        self.signal_period = self.strategy_parameters['SIGNAL_PERIOD']
 
-        assert (0 < self.timeperiod1 == int(self.timeperiod1)), f"Strategy parameter TIMEPERIOD1 should be a positive integer. Received: {self.timeperiod1}"
-        assert (0 < self.timeperiod2 == int(self.timeperiod2)), f"Strategy parameter TIMEPERIOD2 should be a positive integer. Received: {self.timeperiod2}"
+        assert (0 < self.fastMA_period == int(self.fastMA_period)), f"Strategy parameter FASTMA_PERIOD should be a positive integer. Received: {self.fastMA_period}"
+        assert (0 < self.slowMA_period == int(self.slowMA_period)), f"Strategy parameter SLOWMA_PERIOD should be a positive integer. Received: {self.slowMA_period}"
+        assert (0 < self.signal_period == int(self.signal_period)), f"Strategy parameter SIGNAL_PERIOD should be a positive integer. Received: {self.signal_period}"
 
         self.main_order = None
 
@@ -22,7 +24,7 @@ class StrategyEMARegularOrder(StrategyBase):
 
     @staticmethod
     def name():
-        return 'EMA Regular Order Strategy'
+        return 'MACD Regular Order Strategy'
 
     @staticmethod
     def versions_supported():
@@ -30,9 +32,11 @@ class StrategyEMARegularOrder(StrategyBase):
 
     def get_crossover_value(self, instrument):
         hist_data = self.get_historical_data(instrument)
-        ema_x = talib.EMA(hist_data['close'], timeperiod=self.timeperiod1)
-        ema_y = talib.EMA(hist_data['close'], timeperiod=self.timeperiod2)
-        crossover_value = self.utils.crossover(ema_x, ema_y)
+        macdline, macdsignal, _ = talib.MACD(hist_data['close'],
+                                             fastperiod=self.fastMA_period,
+                                             slowperiod=self.slowMA_period,
+                                             signalperiod=self.signal_period)
+        crossover_value = self.utils.crossover(macdline, macdsignal)
         return crossover_value
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):

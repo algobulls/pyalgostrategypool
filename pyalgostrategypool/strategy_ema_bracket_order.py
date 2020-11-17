@@ -4,16 +4,22 @@ from constants import *
 from strategy.core.strategy_base import StrategyBase
 
 
-class StrategyEMARegularOrder(StrategyBase):
+class StrategyEMABracketOrder(StrategyBase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.timeperiod1 = self.strategy_parameters['TIMEPERIOD1']
         self.timeperiod2 = self.strategy_parameters['TIMEPERIOD2']
+        self.stoploss = self.strategy_parameters['STOPLOSS_TRIGGER']
+        self.target = self.strategy_parameters['TARGET_TRIGGER']
+        self.trailing_stoploss = self.strategy_parameters['TRAILING_STOPLOSS_TRIGGER']
 
         assert (0 < self.timeperiod1 == int(self.timeperiod1)), f"Strategy parameter TIMEPERIOD1 should be a positive integer. Received: {self.timeperiod1}"
         assert (0 < self.timeperiod2 == int(self.timeperiod2)), f"Strategy parameter TIMEPERIOD2 should be a positive integer. Received: {self.timeperiod2}"
+        assert (0 < self.stoploss < 1), f"Strategy parameter STOPLOSS_TRIGGER should be a positive fraction between 0 and 1. Received: {self.stoploss}"
+        assert (0 < self.target < 1), f"Strategy parameter TARGET_TRIGGER should be a positive fraction between 0 and 1. Received: {self.target}"
+        assert (0 < self.trailing_stoploss), f"Strategy parameter TRAILING_STOPLOSS_TRIGGER should be a positive number. Received: {self.trailing_stoploss}"
 
         self.main_order = None
 
@@ -22,17 +28,18 @@ class StrategyEMARegularOrder(StrategyBase):
 
     @staticmethod
     def name():
-        return 'EMA Regular Order Strategy'
+        return 'EMA Bracket Order Strategy'
 
     @staticmethod
     def versions_supported():
         return AlgoBullsEngineVersion.VERSION_3_2_0
 
     def get_crossover_value(self, instrument):
+
         hist_data = self.get_historical_data(instrument)
-        ema_x = talib.EMA(hist_data['close'], timeperiod=self.timeperiod1)
-        ema_y = talib.EMA(hist_data['close'], timeperiod=self.timeperiod2)
-        crossover_value = self.utils.crossover(ema_x, ema_y)
+        ema_one = talib.EMA(hist_data['close'], timeperiod=self.timeperiod1)
+        ema_two = talib.EMA(hist_data['close'], timeperiod=self.timeperiod2)
+        crossover_value = self.utils.crossover(ema_one, ema_two)
         return crossover_value
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
@@ -55,18 +62,29 @@ class StrategyEMARegularOrder(StrategyBase):
     def strategy_enter_position(self, candle, instrument, sideband_info):
         if sideband_info['action'] == 'BUY':
             qty = self.number_of_lots * instrument.lot_size
+            ltp = self.broker.get_ltp(instrument)
             self.main_order[instrument] = \
-                self.broker.BuyOrderRegular(instrument=instrument,
+                self.broker.BuyOrderBracket(instrument=instrument,
                                             order_code=BrokerOrderCodeConstants.INTRADAY,
-                                            order_variety=BrokerOrderVarietyConstants.MARKET,
-                                            quantity=qty)
+                                            order_variety=BrokerOrderVarietyConstants.LIMIT,
+                                            quantity=qty,
+                                            price=ltp,
+                                            stoploss_trigger=ltp - (ltp * self.stoploss),
+                                            target_trigger=ltp + (ltp * self.target),
+                                            trailing_stoploss_trigger=ltp * self.trailing_stoploss)
+
         elif sideband_info['action'] == 'SELL':
             qty = self.number_of_lots * instrument.lot_size
+            ltp = self.broker.get_ltp(instrument)
             self.main_order[instrument] = \
-                self.broker.SellOrderRegular(instrument=instrument,
+                self.broker.SellOrderBracket(instrument=instrument,
                                              order_code=BrokerOrderCodeConstants.INTRADAY,
-                                             order_variety=BrokerOrderVarietyConstants.MARKET,
-                                             quantity=qty)
+                                             order_variety=BrokerOrderVarietyConstants.LIMIT,
+                                             quantity=qty,
+                                             price=ltp,
+                                             stoploss_trigger=ltp + (ltp * self.stoploss),
+                                             target_trigger=ltp - (ltp * self.target),
+                                             trailing_stoploss_trigger=ltp * self.trailing_stoploss)
         else:
             raise SystemExit(f'Got invalid sideband_info value: {sideband_info}')
 

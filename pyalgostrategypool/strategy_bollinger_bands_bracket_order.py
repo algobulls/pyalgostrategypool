@@ -4,21 +4,26 @@ from constants import *
 from strategy.core.strategy_base import StrategyBase
 
 
-class StrategyMACDBracketOrder(StrategyBase):
+class StrategyBollingerBandsBracketOrder(StrategyBase):
+
+    class MktAction(Enum):
+        NO_ACTION = 0
+        ENTRY_BUY_EXIT_SELL = 1
+        ENTRY_SELL_EXIT_BUY = 2
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fastMA_period = self.strategy_parameters['FASTMA_PERIOD']
-        self.slowMA_period = self.strategy_parameters['SLOWMA_PERIOD']
-        self.signal_period = self.strategy_parameters['SIGNAL_PERIOD']
+        self.time_period = self.strategy_parameters['TIME_PERIOD']
+        self.std_deviations = self.strategy_parameters['STANDARD_DEVIATIONS']
+
         self.stoploss = self.strategy_parameters['STOPLOSS_TRIGGER']
         self.target = self.strategy_parameters['TARGET_TRIGGER']
         self.trailing_stoploss = self.strategy_parameters['TRAILING_STOPLOSS_TRIGGER']
 
-        assert (0 < self.fastMA_period == int(self.fastMA_period)), f"Strategy parameter FASTMA_PERIOD should be a positive integer. Received: {self.fastMA_period}"
-        assert (0 < self.slowMA_period == int(self.slowMA_period)), f"Strategy parameter SLOWMA_PERIOD should be a positive integer. Received: {self.slowMA_period}"
-        assert (0 < self.signal_period == int(self.signal_period)), f"Strategy parameter SIGNAL_PERIOD should be a positive integer. Received: {self.signal_period}"
+        assert (0 < self.time_period == int(self.time_period)), f"Strategy parameter TIME_PERIOD should be a positive integer. Received: {self.time_period}"
+        assert (0 < self.std_deviations == int(self.std_deviations)), f"Strategy parameter STANDARD_DEVIATIONS should be a positive integer. Received: {self.std_deviations}"
+
         assert (0 < self.stoploss < 1), f"Strategy parameter STOPLOSS_TRIGGER should be a positive fraction between 0 and 1. Received: {self.stoploss}"
         assert (0 < self.target < 1), f"Strategy parameter TARGET_TRIGGER should be a positive fraction between 0 and 1. Received: {self.target}"
         assert (0 < self.trailing_stoploss), f"Strategy parameter TRAILING_STOPLOSS_TRIGGER should be a positive number. Received: {self.trailing_stoploss}"
@@ -30,20 +35,30 @@ class StrategyMACDBracketOrder(StrategyBase):
 
     @staticmethod
     def name():
-        return 'MACD Bracket Order Strategy'
+        return 'Bollinger Bands Bracket Order Strategy'
 
     @staticmethod
     def versions_supported():
         return AlgoBullsEngineVersion.VERSION_3_2_0
 
-    def get_crossover_value(self, instrument):
+    def get_market_action(self, instrument):
         hist_data = self.get_historical_data(instrument)
-        macdline, macdsignal, _ = talib.MACD(hist_data['close'],
-                                             fastperiod=self.fastMA_period,
-                                             slowperiod=self.slowMA_period,
-                                             signalperiod=self.signal_period)
-        crossover_value = self.utils.crossover(macdline, macdsignal)
-        return crossover_value
+        upperband, _, lowerband = talib.BBANDS(hist_data['close'], timeperiod=self.time_period, nbdevup=self.std_deviations, nbdevdn=self.std_deviations, matype=0)
+        upperband_value = upperband.iloc[-1]
+        lowerband_value = lowerband.iloc[-1]
+
+        action = self.MktAction.NO_ACTION
+        latest_candle_close = hist_data['close'].iloc[-1]
+        openn, high, low, close = hist_data['open'].iloc[-2], hist_data['high'].iloc[-2], hist_data['low'].iloc[-2], hist_data['close'].iloc[-2]
+        if (openn <= lowerband_value or high <= lowerband_value or low <= lowerband_value or close <= lowerband_value) and \
+                (latest_candle_close > close):
+            action = self.MktAction.ENTRY_BUY_EXIT_SELL
+        elif (openn >= upperband_value or high >= upperband_value or low >= upperband_value or close >= upperband_value) and \
+                (latest_candle_close < close):
+            action = self.MktAction.ENTRY_SELL_EXIT_BUY
+        else:
+            action = self.MktAction.NO_ACTION
+        return action
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
 
@@ -51,14 +66,15 @@ class StrategyMACDBracketOrder(StrategyBase):
         sideband_info_bucket = []
 
         for instrument in instruments_bucket:
-            crossover_value = self.get_crossover_value(instrument)
-            if crossover_value == 1:
-                selected_instruments_bucket.append(instrument)
-                sideband_info_bucket.append({'action': 'BUY'})
-            elif crossover_value == -1:
-                if self.strategy_mode is StrategyMode.INTRADAY:
+            action = self.get_market_action(instrument)
+            if self.main_order.get(instrument) is not None:
+                if action is self.MktAction.ENTRY_BUY_EXIT_SELL:
                     selected_instruments_bucket.append(instrument)
-                    sideband_info_bucket.append({'action': 'SELL'})
+                    sideband_info_bucket.append({'action': 'BUY'})
+                elif action is self.MktAction.ENTRY_SELL_EXIT_BUY:
+                    if self.strategy_mode is StrategyMode.INTRADAY:
+                        selected_instruments_bucket.append(instrument)
+                        sideband_info_bucket.append({'action': 'SELL'})
 
         return selected_instruments_bucket, sideband_info_bucket
 
@@ -99,8 +115,9 @@ class StrategyMACDBracketOrder(StrategyBase):
 
         for instrument in instruments_bucket:
             if self.main_order.get(instrument) is not None:
-                crossover_value = self.get_crossover_value(instrument)
-                if crossover_value in [1, -1]:
+                action = self.get_market_action(instrument)
+                if (self.main_order[instrument].order_transaction_type is BrokerOrderTransactionTypeConstants.BUY and action is self.MktAction.ENTRY_SELL_EXIT_BUY) or \
+                        (self.main_order[instrument].order_transaction_type is BrokerOrderTransactionTypeConstants.SELL and action is self.MktAction.ENTRY_BUY_EXIT_SELL):
                     selected_instruments_bucket.append(instrument)
                     sideband_info_bucket.append({'action': 'EXIT'})
         return selected_instruments_bucket, sideband_info_bucket
