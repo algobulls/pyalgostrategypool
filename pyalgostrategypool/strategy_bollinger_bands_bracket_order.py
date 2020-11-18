@@ -5,7 +5,6 @@ from strategy.core.strategy_base import StrategyBase
 
 
 class StrategyBollingerBandsBracketOrder(StrategyBase):
-
     class MktAction(Enum):
         NO_ACTION = 0
         ENTRY_BUY_EXIT_SELL = 1
@@ -43,21 +42,33 @@ class StrategyBollingerBandsBracketOrder(StrategyBase):
 
     def get_market_action(self, instrument):
         hist_data = self.get_historical_data(instrument)
+
+        latest_candle = hist_data.iloc[-1]
+        previous_candle = hist_data.iloc[-2]
+
+        self.logger.info(f'LATEST CANDLE - \n {latest_candle}')
+        self.logger.info(f'PREVIOUS CANDLE - \n {previous_candle}')
+
         upperband, _, lowerband = talib.BBANDS(hist_data['close'], timeperiod=self.time_period, nbdevup=self.std_deviations, nbdevdn=self.std_deviations, matype=0)
         upperband_value = upperband.iloc[-1]
         lowerband_value = lowerband.iloc[-1]
 
+        self.logger.info('FOR BOLLINGER BANDS')
+        self.logger.info(f'UPPERBAND VALUE - \n {upperband_value}')
+        self.logger.info(f'LOWERBAND VALUE - \n {lowerband_value}')
+
         action = self.MktAction.NO_ACTION
-        latest_candle_close = hist_data['close'].iloc[-1]
-        openn, high, low, close = hist_data['open'].iloc[-2], hist_data['high'].iloc[-2], hist_data['low'].iloc[-2], hist_data['close'].iloc[-2]
-        if (openn <= lowerband_value or high <= lowerband_value or low <= lowerband_value or close <= lowerband_value) and \
-                (latest_candle_close > close):
+
+        if (previous_candle['open'] <= lowerband_value or previous_candle['high'] <= lowerband_value or previous_candle['low'] <= lowerband_value or previous_candle['close'] <= lowerband_value) and \
+                (latest_candle['close'] > previous_candle['close']):
             action = self.MktAction.ENTRY_BUY_EXIT_SELL
-        elif (openn >= upperband_value or high >= upperband_value or low >= upperband_value or close >= upperband_value) and \
-                (latest_candle_close < close):
+        elif (previous_candle['open'] >= upperband_value or previous_candle['high'] >= upperband_value or previous_candle['low'] >= upperband_value or previous_candle['close'] >= upperband_value) and \
+                (latest_candle['close'] < previous_candle['close']):
             action = self.MktAction.ENTRY_SELL_EXIT_BUY
         else:
             action = self.MktAction.NO_ACTION
+
+        self.logger.info(f'POSSIBLE ACTION TO BE TAKEN IS - {action}')
         return action
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
@@ -67,7 +78,7 @@ class StrategyBollingerBandsBracketOrder(StrategyBase):
 
         for instrument in instruments_bucket:
             action = self.get_market_action(instrument)
-            if self.main_order.get(instrument) is not None:
+            if self.main_order.get(instrument) is None:
                 if action is self.MktAction.ENTRY_BUY_EXIT_SELL:
                     selected_instruments_bucket.append(instrument)
                     sideband_info_bucket.append({'action': 'BUY'})
