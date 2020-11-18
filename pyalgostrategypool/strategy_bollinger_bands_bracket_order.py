@@ -46,16 +46,9 @@ class StrategyBollingerBandsBracketOrder(StrategyBase):
         latest_candle = hist_data.iloc[-1]
         previous_candle = hist_data.iloc[-2]
 
-        self.logger.info(f'LATEST CANDLE - \n {latest_candle}')
-        self.logger.info(f'PREVIOUS CANDLE - \n {previous_candle}')
-
         upperband, _, lowerband = talib.BBANDS(hist_data['close'], timeperiod=self.time_period, nbdevup=self.std_deviations, nbdevdn=self.std_deviations, matype=0)
         upperband_value = upperband.iloc[-1]
         lowerband_value = lowerband.iloc[-1]
-
-        self.logger.info('FOR BOLLINGER BANDS')
-        self.logger.info(f'UPPERBAND VALUE - \n {upperband_value}')
-        self.logger.info(f'LOWERBAND VALUE - \n {lowerband_value}')
 
         action = self.MktAction.NO_ACTION
 
@@ -68,7 +61,6 @@ class StrategyBollingerBandsBracketOrder(StrategyBase):
         else:
             action = self.MktAction.NO_ACTION
 
-        self.logger.info(f'POSSIBLE ACTION TO BE TAKEN IS - {action}')
         return action
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
