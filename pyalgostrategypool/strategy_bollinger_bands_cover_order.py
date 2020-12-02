@@ -1,28 +1,26 @@
 import talib
 
-from constants import *
-from strategy.core.strategy_base import StrategyBase
+from pyalgotrading.constants import *
+from pyalgotrading.strategy.strategy_base import StrategyBase
 
 
 class StrategyBollingerBandsCoverOrder(StrategyBase):
-    class MktAction(Enum):
+    class ActionConstants:
         NO_ACTION = 0
-        ENTRY_BUY_EXIT_SELL = 1
-        ENTRY_SELL_EXIT_BUY = 2
+        ENTRY_BUY_OR_EXIT_SELL = 1
+        ENTRY_SELL_OR_EXIT_BUY = 2
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.time_period = self.strategy_parameters['TIME_PERIOD']
         self.std_deviations = self.strategy_parameters['STANDARD_DEVIATIONS']
-
         self.stoploss = self.strategy_parameters['STOPLOSS_TRIGGER']
         self.target = self.strategy_parameters['TARGET_TRIGGER']
         self.trailing_stoploss = self.strategy_parameters['TRAILING_STOPLOSS_TRIGGER']
 
         assert (0 < self.time_period == int(self.time_period)), f"Strategy parameter TIME_PERIOD should be a positive integer. Received: {self.time_period}"
         assert (0 < self.std_deviations == int(self.std_deviations)), f"Strategy parameter STANDARD_DEVIATIONS should be a positive integer. Received: {self.std_deviations}"
-
         assert (0 < self.stoploss < 1), f"Strategy parameter STOPLOSS_TRIGGER should be a positive fraction between 0 and 1. Received: {self.stoploss}"
         assert (0 < self.target < 1), f"Strategy parameter TARGET_TRIGGER should be a positive fraction between 0 and 1. Received: {self.target}"
         assert (0 < self.trailing_stoploss), f"Strategy parameter TRAILING_STOPLOSS_TRIGGER should be a positive number. Received: {self.trailing_stoploss}"
@@ -40,7 +38,7 @@ class StrategyBollingerBandsCoverOrder(StrategyBase):
     def versions_supported():
         return AlgoBullsEngineVersion.VERSION_3_2_0
 
-    def get_market_action(self, instrument):
+    def get_decision(self, instrument):
         hist_data = self.get_historical_data(instrument)
 
         latest_candle = hist_data.iloc[-1]
@@ -50,16 +48,14 @@ class StrategyBollingerBandsCoverOrder(StrategyBase):
         upperband_value = upperband.iloc[-1]
         lowerband_value = lowerband.iloc[-1]
 
-        action = self.MktAction.NO_ACTION
-
         if (previous_candle['open'] <= lowerband_value or previous_candle['high'] <= lowerband_value or previous_candle['low'] <= lowerband_value or previous_candle['close'] <= lowerband_value) and \
                 (latest_candle['close'] > previous_candle['close']):
-            action = self.MktAction.ENTRY_BUY_EXIT_SELL
+            action = self.ActionConstants.ENTRY_BUY_OR_EXIT_SELL
         elif (previous_candle['open'] >= upperband_value or previous_candle['high'] >= upperband_value or previous_candle['low'] >= upperband_value or previous_candle['close'] >= upperband_value) and \
                 (latest_candle['close'] < previous_candle['close']):
-            action = self.MktAction.ENTRY_SELL_EXIT_BUY
+            action = self.ActionConstants.ENTRY_SELL_OR_EXIT_BUY
         else:
-            action = self.MktAction.NO_ACTION
+            action = self.ActionConstants.NO_ACTION
 
         return action
 
@@ -69,12 +65,12 @@ class StrategyBollingerBandsCoverOrder(StrategyBase):
         sideband_info_bucket = []
 
         for instrument in instruments_bucket:
-            action = self.get_market_action(instrument)
+            action = self.get_decision(instrument)
             if self.main_order.get(instrument) is None:
-                if action is self.MktAction.ENTRY_BUY_EXIT_SELL:
+                if action is self.ActionConstants.ENTRY_BUY_OR_EXIT_SELL:
                     selected_instruments_bucket.append(instrument)
                     sideband_info_bucket.append({'action': 'BUY'})
-                elif action is self.MktAction.ENTRY_SELL_EXIT_BUY:
+                elif action is self.ActionConstants.ENTRY_SELL_OR_EXIT_BUY:
                     if self.strategy_mode is StrategyMode.INTRADAY:
                         selected_instruments_bucket.append(instrument)
                         sideband_info_bucket.append({'action': 'SELL'})
@@ -111,9 +107,11 @@ class StrategyBollingerBandsCoverOrder(StrategyBase):
 
         for instrument in instruments_bucket:
             if self.main_order.get(instrument) is not None:
-                action = self.get_market_action(instrument)
-                if (self.main_order[instrument].order_transaction_type is BrokerOrderTransactionTypeConstants.BUY and action is self.MktAction.ENTRY_SELL_EXIT_BUY) or \
-                        (self.main_order[instrument].order_transaction_type is BrokerOrderTransactionTypeConstants.SELL and action is self.MktAction.ENTRY_BUY_EXIT_SELL):
+                action = self.get_decision(instrument)
+                if ((self.main_order[instrument].order_transaction_type is BrokerOrderTransactionTypeConstants.BUY and
+                     action is self.ActionConstants.ENTRY_SELL_OR_EXIT_BUY) or
+                        (self.main_order[instrument].order_transaction_type is BrokerOrderTransactionTypeConstants.SELL and
+                         action is self.ActionConstants.ENTRY_BUY_OR_EXIT_SELL)):
                     selected_instruments_bucket.append(instrument)
                     sideband_info_bucket.append({'action': 'EXIT'})
         return selected_instruments_bucket, sideband_info_bucket
@@ -123,5 +121,4 @@ class StrategyBollingerBandsCoverOrder(StrategyBase):
             self.main_order[instrument].exit_position()
             self.main_order[instrument] = None
             return True
-
         return False

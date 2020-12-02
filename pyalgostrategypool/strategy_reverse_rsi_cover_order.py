@@ -1,14 +1,14 @@
 import talib
 
-from constants import *
-from strategy.core.strategy_base import StrategyBase
+from pyalgotrading.constants import *
+from pyalgotrading.strategy.strategy_base import StrategyBase
 
 
 class StrategyReverseRSICoverOrder(StrategyBase):
-    class MktAction(Enum):
+    class ActionConstants:
         NO_ACTION = 0
-        ENTRY_BUY_EXIT_SELL = 1
-        ENTRY_SELL_EXIT_BUY = 2
+        ENTRY_BUY_OR_EXIT_SELL = 1
+        ENTRY_SELL_OR_EXIT_BUY = 2
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -42,7 +42,7 @@ class StrategyReverseRSICoverOrder(StrategyBase):
     def versions_supported():
         return AlgoBullsEngineVersion.VERSION_3_2_0
 
-    def get_market_action(self, instrument):
+    def get_decision(self, instrument):
         hist_data = self.get_historical_data(instrument)
 
         rsi_value = talib.RSI(hist_data['close'], timeperiod=self.time_period)
@@ -52,14 +52,12 @@ class StrategyReverseRSICoverOrder(StrategyBase):
         oversold_crossover_value = self.utils.crossover(rsi_value, oversold_list)
         overbought_crossover_value = self.utils.crossover(rsi_value, overbought_list)
 
-        action = self.MktAction.NO_ACTION
-
         if oversold_crossover_value == 1:
-            action = self.MktAction.ENTRY_BUY_EXIT_SELL
+            action = self.ActionConstants.ENTRY_BUY_OR_EXIT_SELL
         elif overbought_crossover_value == -1:
-            action = self.MktAction.ENTRY_SELL_EXIT_BUY
+            action = self.ActionConstants.ENTRY_SELL_OR_EXIT_BUY
         else:
-            action = self.MktAction.NO_ACTION
+            action = self.ActionConstants.NO_ACTION
 
         return action
 
@@ -69,12 +67,12 @@ class StrategyReverseRSICoverOrder(StrategyBase):
         sideband_info_bucket = []
 
         for instrument in instruments_bucket:
-            action = self.get_market_action(instrument)
+            action = self.get_decision(instrument)
             if self.main_order.get(instrument) is None:
-                if action is self.MktAction.ENTRY_BUY_EXIT_SELL:
+                if action is self.ActionConstants.ENTRY_BUY_OR_EXIT_SELL:
                     selected_instruments_bucket.append(instrument)
                     sideband_info_bucket.append({'action': 'BUY'})
-                elif action is self.MktAction.ENTRY_SELL_EXIT_BUY:
+                elif action is self.ActionConstants.ENTRY_SELL_OR_EXIT_BUY:
                     if self.strategy_mode is StrategyMode.INTRADAY:
                         selected_instruments_bucket.append(instrument)
                         sideband_info_bucket.append({'action': 'SELL'})
@@ -111,9 +109,11 @@ class StrategyReverseRSICoverOrder(StrategyBase):
 
         for instrument in instruments_bucket:
             if self.main_order.get(instrument) is not None:
-                action = self.get_market_action(instrument)
-                if (self.main_order[instrument].order_transaction_type is BrokerOrderTransactionTypeConstants.BUY and action is self.MktAction.ENTRY_SELL_EXIT_BUY) or \
-                        (self.main_order[instrument].order_transaction_type is BrokerOrderTransactionTypeConstants.SELL and action is self.MktAction.ENTRY_BUY_EXIT_SELL):
+                action = self.get_decision(instrument)
+                if ((self.main_order[instrument].order_transaction_type is BrokerOrderTransactionTypeConstants.BUY and
+                     action is self.ActionConstants.ENTRY_SELL_OR_EXIT_BUY) or
+                        (self.main_order[instrument].order_transaction_type is BrokerOrderTransactionTypeConstants.SELL and
+                         action is self.ActionConstants.ENTRY_BUY_OR_EXIT_SELL)):
                     selected_instruments_bucket.append(instrument)
                     sideband_info_bucket.append({'action': 'EXIT'})
         return selected_instruments_bucket, sideband_info_bucket
@@ -123,5 +123,4 @@ class StrategyReverseRSICoverOrder(StrategyBase):
             self.main_order[instrument].exit_position()
             self.main_order[instrument] = None
             return True
-
         return False

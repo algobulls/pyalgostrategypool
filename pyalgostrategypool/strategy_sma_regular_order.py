@@ -1,7 +1,7 @@
 import talib
 
-from constants import *
-from strategy.core.strategy_base import StrategyBase
+from pyalgotrading.constants import *
+from pyalgotrading.strategy.strategy_base import StrategyBase
 
 
 class StrategySMARegularOrder(StrategyBase):
@@ -89,5 +89,4 @@ class StrategySMARegularOrder(StrategyBase):
             self.main_order[instrument].exit_position()
             self.main_order[instrument] = None
             return True
-
         return False

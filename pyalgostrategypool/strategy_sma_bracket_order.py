@@ -1,7 +1,7 @@
 import talib
 
-from constants import *
-from strategy.core.strategy_base import StrategyBase
+from pyalgotrading.constants import *
+from pyalgotrading.strategy.strategy_base import StrategyBase
 
 
 class StrategySMABracketOrder(StrategyBase):
@@ -107,5 +107,4 @@ class StrategySMABracketOrder(StrategyBase):
             self.main_order[instrument].exit_position()
             self.main_order[instrument] = None
             return True
-
         return False
