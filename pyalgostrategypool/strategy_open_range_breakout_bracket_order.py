@@ -35,10 +35,12 @@ class OpenRangeBreakoutBracketOrder(StrategyBase):
 
         self.main_order = None
         self.udc_high = None
+        self.order_placed_for_the_day = None
 
     def initialize(self):
         self.main_order = {}
         self.udc_high = {}
+        self.order_placed_for_the_day = {}
 
     @staticmethod
     def name():
@@ -83,15 +85,18 @@ class OpenRangeBreakoutBracketOrder(StrategyBase):
             pass
         else:
             for instrument in instruments_bucket:
-                action = self.get_decision(instrument)
-                if self.main_order.get(instrument) is None:
-                    if action is self.ActionConstants.ENTRY_BUY_OR_EXIT_SELL:
-                        selected_instruments_bucket.append(instrument)
-                        sideband_info_bucket.append({'action': 'BUY'})
-                    elif action is self.ActionConstants.ENTRY_SELL_OR_EXIT_BUY:
-                        if self.strategy_mode is StrategyMode.INTRADAY:
+                if self.order_placed_for_the_day.get(instrument) is None:
+                    action = self.get_decision(instrument)
+                    if self.main_order.get(instrument) is None:
+                        if action is self.ActionConstants.ENTRY_BUY_OR_EXIT_SELL:
                             selected_instruments_bucket.append(instrument)
-                            sideband_info_bucket.append({'action': 'SELL'})
+                            sideband_info_bucket.append({'action': 'BUY'})
+                        elif action is self.ActionConstants.ENTRY_SELL_OR_EXIT_BUY:
+                            if self.strategy_mode is StrategyMode.INTRADAY:
+                                selected_instruments_bucket.append(instrument)
+                                sideband_info_bucket.append({'action': 'SELL'})
+                elif self.order_placed_for_the_day.get(instrument) is True:
+                    self.logger.info('ORDER PLACED FOR THE DAY, NO MORE ORDERS WILL BE PLACED FOR THE REMAINING DAY')
 
         return selected_instruments_bucket, sideband_info_bucket
 
@@ -108,7 +113,7 @@ class OpenRangeBreakoutBracketOrder(StrategyBase):
                                             stoploss_trigger=ltp - (ltp * self.stoploss),
                                             target_trigger=ltp + (ltp * self.target),
                                             trailing_stoploss_trigger=ltp * self.trailing_stoploss)
-
+            self.order_placed_for_the_day[instrument] = True
         elif sideband_info['action'] == 'SELL':
             qty = self.number_of_lots * instrument.lot_size
             ltp = self.broker.get_ltp(instrument)
@@ -121,6 +126,7 @@ class OpenRangeBreakoutBracketOrder(StrategyBase):
                                              stoploss_trigger=ltp + (ltp * self.stoploss),
                                              target_trigger=ltp - (ltp * self.target),
                                              trailing_stoploss_trigger=ltp * self.trailing_stoploss)
+            self.order_placed_for_the_day[instrument] = True
         else:
             raise SystemExit(f'Got invalid sideband_info value: {sideband_info}')
 

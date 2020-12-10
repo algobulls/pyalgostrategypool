@@ -5,6 +5,7 @@ from pyalgotrading.constants import *
 from pyalgotrading.strategy.strategy_base import StrategyBase
 
 
+
 class OpenRangeBreakoutCoverOrder(StrategyBase):
     class ActionConstants:
         NO_ACTION = 0
@@ -18,8 +19,6 @@ class OpenRangeBreakoutCoverOrder(StrategyBase):
         self.user_defined_candle_start_time_minutes = self.strategy_parameters['USER_DEFINED_CANDLE_START_TIME_MINUTES']
 
         self.stoploss = self.strategy_parameters['STOPLOSS_TRIGGER']
-        self.target = self.strategy_parameters['TARGET_TRIGGER']
-        self.trailing_stoploss = self.strategy_parameters['TRAILING_STOPLOSS_TRIGGER']
 
         try:
             str_time = str(self.user_defined_candle_start_time_hours) + ':' + str(self.user_defined_candle_start_time_minutes)
@@ -31,15 +30,15 @@ class OpenRangeBreakoutCoverOrder(StrategyBase):
             raise SystemExit
 
         assert (0 < self.stoploss < 1), f"Strategy parameter STOPLOSS_TRIGGER should be a positive fraction between 0 and 1. Received: {self.stoploss}"
-        assert (0 < self.target < 1), f"Strategy parameter TARGET_TRIGGER should be a positive fraction between 0 and 1. Received: {self.target}"
-        assert (0 < self.trailing_stoploss), f"Strategy parameter TRAILING_STOPLOSS_TRIGGER should be a positive number. Received: {self.trailing_stoploss}"
 
         self.main_order = None
         self.udc_high = None
+        self.order_placed_for_the_day = None
 
     def initialize(self):
         self.main_order = {}
         self.udc_high = {}
+        self.order_placed_for_the_day = {}
 
     @staticmethod
     def name():
@@ -84,16 +83,18 @@ class OpenRangeBreakoutCoverOrder(StrategyBase):
             pass
         else:
             for instrument in instruments_bucket:
-                action = self.get_decision(instrument)
-                if self.main_order.get(instrument) is None:
-                    if action is self.ActionConstants.ENTRY_BUY_OR_EXIT_SELL:
-                        selected_instruments_bucket.append(instrument)
-                        sideband_info_bucket.append({'action': 'BUY'})
-                    elif action is self.ActionConstants.ENTRY_SELL_OR_EXIT_BUY:
-                        if self.strategy_mode is StrategyMode.INTRADAY:
+                if self.order_placed_for_the_day.get(instrument) is None:
+                    action = self.get_decision(instrument)
+                    if self.main_order.get(instrument) is None:
+                        if action is self.ActionConstants.ENTRY_BUY_OR_EXIT_SELL:
                             selected_instruments_bucket.append(instrument)
-                            sideband_info_bucket.append({'action': 'SELL'})
-
+                            sideband_info_bucket.append({'action': 'BUY'})
+                        elif action is self.ActionConstants.ENTRY_SELL_OR_EXIT_BUY:
+                            if self.strategy_mode is StrategyMode.INTRADAY:
+                                selected_instruments_bucket.append(instrument)
+                                sideband_info_bucket.append({'action': 'SELL'})
+                elif self.order_placed_for_the_day.get(instrument) is True:
+                    self.logger.info('ORDER PLACED FOR THE DAY, NO MORE ORDERS WILL BE PLACED FOR THE REMAINING DAY')
         return selected_instruments_bucket, sideband_info_bucket
 
     def strategy_enter_position(self, candle, instrument, sideband_info):
@@ -106,6 +107,7 @@ class OpenRangeBreakoutCoverOrder(StrategyBase):
                                                                     quantity=qty,
                                                                     price=ltp,
                                                                     trigger_price=ltp - (ltp * self.stoploss))
+            self.order_placed_for_the_day[instrument] = True
         elif sideband_info['action'] == 'SELL':
             qty = self.number_of_lots * instrument.lot_size
             ltp = self.broker.get_ltp(instrument)
@@ -115,6 +117,7 @@ class OpenRangeBreakoutCoverOrder(StrategyBase):
                                                                      quantity=qty,
                                                                      price=ltp,
                                                                      trigger_price=ltp + (ltp * self.stoploss))
+            self.order_placed_for_the_day[instrument] = True
         else:
             raise SystemExit(f'Invalid sideband info value {sideband_info}')
 

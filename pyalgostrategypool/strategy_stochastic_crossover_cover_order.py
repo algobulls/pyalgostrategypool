@@ -17,15 +17,11 @@ class StrategyStochasticCrossoverCoverOrder(StrategyBase):
         self.slowk_period = self.strategy_parameters['SLOWK_PERIOD']
         self.slowd_period = self.strategy_parameters['SLOWD_PERIOD']
         self.stoploss = self.strategy_parameters['STOPLOSS_TRIGGER']
-        self.target = self.strategy_parameters['TARGET_TRIGGER']
-        self.trailing_stoploss = self.strategy_parameters['TRAILING_STOPLOSS_TRIGGER']
 
         assert (0 < self.fastk_period == int(self.fastk_period)), f"Strategy parameter FASTK_PERIOD should be a positive integer. Received: {self.fastk_period}"
         assert (0 < self.slowk_period == int(self.slowk_period)), f"Strategy parameter SLOWK_PERIOD should be a positive integer. Received: {self.slowk_period}"
         assert (0 < self.slowd_period == int(self.slowd_period)), f"Strategy parameter SLOWD_PERIOD should be a positive integer. Received: {self.slowd_period}"
         assert (0 < self.stoploss < 1), f"Strategy parameter STOPLOSS_TRIGGER should be a positive fraction between 0 and 1. Received: {self.stoploss}"
-        assert (0 < self.target < 1), f"Strategy parameter TARGET_TRIGGER should be a positive fraction between 0 and 1. Received: {self.target}"
-        assert (0 < self.trailing_stoploss), f"Strategy parameter TRAILING_STOPLOSS_TRIGGER should be a positive number. Received: {self.trailing_stoploss}"
 
         self.main_order = None
 
