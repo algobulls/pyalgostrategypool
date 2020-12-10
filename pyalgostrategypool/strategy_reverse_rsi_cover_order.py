@@ -81,7 +81,7 @@ class StrategyReverseRSICoverOrder(StrategyBase):
             ltp = self.broker.get_ltp(instrument)
             self.main_order[instrument] = self.broker.BuyOrderCover(instrument=instrument,
                                                                     order_code=BrokerOrderCodeConstants.INTRADAY,
-                                                                    order_variety=BrokerOrderVarietyConstants.LIMIT,
+                                                                    order_variety=BrokerOrderVarietyConstants.MARKET,
                                                                     quantity=qty,
                                                                     price=ltp,
                                                                     trigger_price=ltp - (ltp * self.stoploss))
@@ -90,7 +90,7 @@ class StrategyReverseRSICoverOrder(StrategyBase):
             ltp = self.broker.get_ltp(instrument)
             self.main_order[instrument] = self.broker.SellOrderCover(instrument=instrument,
                                                                      order_code=BrokerOrderCodeConstants.INTRADAY,
-                                                                     order_variety=BrokerOrderVarietyConstants.LIMIT,
+                                                                     order_variety=BrokerOrderVarietyConstants.MARKET,
                                                                      quantity=qty,
                                                                      price=ltp,
                                                                      trigger_price=ltp + (ltp * self.stoploss))
