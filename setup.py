@@ -149,7 +149,7 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['pyalgotrading>=2020.5.dev1', 'TA-Lib>=0.4.17'],  # Optional
+    install_requires=['pyalgotrading>=2021.1.1', 'TA-Lib>=0.4.17'],  # Optional
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"
