@@ -10,7 +10,7 @@
 ########################################
  INITIALIZING ALGOBULLS CORE (v3.2.0)... 
 ########################################
-[2020-07-09 09:13:05] Welcome PUSHPAK MAHAVIR DAGADE!
+[2020-07-09 09:13:05] Welcome PUSHPAK DAGADE!
 [2020-07-09 09:13:05] Reading strategy...
 [2020-07-09 09:13:05] STARTING ALGOBULLS CORE...
 [2020-07-09 09:13:05] 
@@ -40,7 +40,7 @@
   #####  ####### #     # ####### 
 
 [2020-07-09 09:13:05] [INFO] [tls] --------------------Master Cfg Parameters:--------------------
-[2020-07-09 09:13:05] [INFO] [tls] User: PUSHPAK MAHAVIR DAGADE
+[2020-07-09 09:13:05] [INFO] [tls] User: PUSHPAK DAGADE
 [2020-07-09 09:13:05] [INFO] [tls] Broker: ALICEBLUE
 [2020-07-09 09:13:05] [INFO] [tls] AUTO_ADD_INSTRUMENTS_BUCKET_FROM_POSITIONS: False
 [2020-07-09 09:13:05] [INFO] [tls] AUTO_ADD_INSTRUMENTS_BUCKET_FROM_HOLDINGS_TPLUS1: False
@@ -166,4 +166,4 @@ Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING -
 [2020-07-09 15:30:00] [INFO] [clock] Candle generation has been stopped...
 [2020-07-09 15:30:00] [INFO] [tls] Received event END OF MARKET. Stopping Trading Core Engine...
 [2020-07-09 15:30:00] [INFO] [tls] Exiting all open positions with order code: ORDER_CODE_INTRADAY (if any)...
-[2020-07-09 15:30:00] [CRITICAL] [tls] [User: PUSHPAK MAHAVIR DAGADE] Trading session completed
+[2020-07-09 15:30:00] [CRITICAL] [tls] [User: PUSHPAK DAGADE] Trading session completed
