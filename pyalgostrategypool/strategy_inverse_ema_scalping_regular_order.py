@@ -26,7 +26,7 @@ class StrategyInverseEMAScalpingRegularOrder(StrategyBase):
 
     @staticmethod
     def versions_supported():
-        return [AlgoBullsEngineVersion.VERSION_3_2_0, AlgoBullsEngineVersion.VERSION_3_3_0]
+        return [AlgoBullsEngineVersion.VERSION_3_3_0]
 
     def get_crossover_value(self, instrument):
         hist_data = self.get_historical_data(instrument)
