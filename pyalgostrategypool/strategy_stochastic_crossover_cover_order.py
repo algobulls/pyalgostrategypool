@@ -55,8 +55,8 @@ class StrategyStochasticCrossoverCoverOrder(StrategyBase):
         sideband_info_bucket = []
 
         for instrument in instruments_bucket:
-            action = self.get_decision(instrument)
             if self.main_order.get(instrument) is None:
+                action = self.get_decision(instrument)
                 if action is self.ActionConstants.ENTRY_BUY_OR_EXIT_SELL:
                     selected_instruments_bucket.append(instrument)
                     sideband_info_bucket.append({'action': 'BUY'})
