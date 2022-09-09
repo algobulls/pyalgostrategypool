@@ -1,9 +1,8 @@
-import logging
-
 import talib
 from pyalgotrading.constants import *
 from pyalgotrading.strategy.strategy_base import StrategyBase
 
+import logging
 logger = logging.getLogger('strategy')
 
 
@@ -12,7 +11,7 @@ class StochasticCrossover(StrategyBase):
     def __init__(self, *args, **kwargs):
         """
         Accept and sanitize all your parameters here
-        setup the variables ou will need here
+        setup the variables you will need here
         if you are running the strategy for multiple days, then this method will be called only once at the start of the strategy
         """
         super().__init__(*args, **kwargs)
@@ -27,7 +26,7 @@ class StochasticCrossover(StrategyBase):
         assert (0 < self.slowk_period == int(self.slowk_period)), f"Strategy parameter SLOWK_PERIOD should be a positive integer. Received: {self.slowk_period}"
         assert (0 < self.slowd_period == int(self.slowd_period)), f"Strategy parameter SLOWD_PERIOD should be a positive integer. Received: {self.slowd_period}"
 
-        # variables
+        # Variables
         self.main_order = None
 
     def initialize(self):
@@ -52,6 +51,29 @@ class StochasticCrossover(StrategyBase):
         """
         return AlgoBullsEngineVersion.VERSION_3_3_0
 
+    def get_decision(self, instrument):
+        """
+        This method calculates the crossover using the hist data of the instrument along with the required indicator
+        """
+
+        # Get OHLC historical data for the instrument
+        hist_data = self.get_historical_data(instrument)
+
+        # Calculate the Stochastic values
+        slowk, slowd = talib.STOCH(hist_data['high'], hist_data['low'], hist_data['close'], fastk_period=self.fastk_period,
+                                   slowk_period=self.slowk_period, slowk_matype=0, slowd_period=self.slowd_period, slowd_matype=0)
+
+        # Get the crossover value
+        stochastic_crossover_value = self.utils.crossover(slowk, slowd)
+
+        if stochastic_crossover_value == 1:
+            action = 'BUY'
+        elif stochastic_crossover_value == -1:
+            action = 'SELL'
+        else:
+            action = None
+        return action
+
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
         """
         This method is called once every candle time
@@ -74,25 +96,16 @@ class StochasticCrossover(StrategyBase):
             # Compute various things and get the decision to place an order only if no current order is going on (main order is empty / none)
             if self.main_order.get(instrument) is None:
 
-                # Check for crossover (decision making process)
-                crossover_value = self.get_crossover_value(instrument)
+                # Get entry decision
+                action = self.get_decision(instrument)
 
-                # For this strategy, we take the decision as:
-                # If crossover is upwards place a buy order, if crossover is downwards place a sell order
-                if crossover_value == 1:
+                if action == 'BUY' or (action == 'SELL' and self.strategy_mode is StrategyMode.INTRADAY):
 
                     # Add instrument to the bucket
                     selected_instruments_bucket.append(instrument)
 
                     # Add additional info for the instrument
-                    sideband_info_bucket.append({'action': 'BUY'})
-                elif crossover_value == -1 and self.strategy_mode is StrategyMode.INTRADAY:
-
-                    # Add instrument to the bucket
-                    selected_instruments_bucket.append(instrument)
-
-                    # Add additional info for the instrument
-                    sideband_info_bucket.append({'action': 'SELL'})
+                    sideband_info_bucket.append({'action': action})
 
         # Return the buckets to the core engine
         # Engine will now call strategy_enter_position with each instrument and its additional info one by one
@@ -145,10 +158,10 @@ class StochasticCrossover(StrategyBase):
             if main_order is not None and main_order.get_order_status().value == 'COMPLETE':
 
                 # Check for crossover (decision making process)
-                crossover_value = self.get_crossover_value(instrument)
+                crossover_value = self.get_decision(instrument)
 
                 # For this strategy, we take the decision as:
-                # If order transaction type is buy and crossover is downwards or order transaction type is sell and crossover is upwards, then exit the order
+                # If order transaction type is buy and current action is sell or order transaction type is sell and current action is buy, then exit the order
                 if (crossover_value == 1 and main_order.order_transaction_type is BrokerOrderTransactionTypeConstants.SELL) or \
                         (crossover_value == -1 and main_order.order_transaction_type is BrokerOrderTransactionTypeConstants.BUY):
 
@@ -180,21 +193,3 @@ class StochasticCrossover(StrategyBase):
 
         # Return false in all other cases
         return False
-
-    def get_crossover_value(self, instrument):
-        """
-        This method calculates the crossover using the hist data of the instrument along with the required indicator
-        """
-
-        # Get OHLC historical data for the instrument
-        hist_data = self.get_historical_data(instrument)
-
-        # Calculate the Stochastic values
-        slowk, slowd = talib.STOCH(hist_data['high'], hist_data['low'], hist_data['close'], fastk_period=self.fastk_period,
-                                   slowk_period=self.slowk_period, slowk_matype=0, slowd_period=self.slowd_period, slowd_matype=0)
-
-        # Get the crossover value
-        stochastic_crossover_value = self.utils.crossover(slowk, slowd)
-
-        # Return the crossover value
-        return stochastic_crossover_value
