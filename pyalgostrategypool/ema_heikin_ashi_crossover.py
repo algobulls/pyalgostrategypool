@@ -1,9 +1,9 @@
-import logging
 from utils.candlesticks.heikinashi import HeikinAshi
 import talib
 from pyalgotrading.constants import *
 from pyalgotrading.strategy.strategy_base import StrategyBase
 
+import logging
 logger = logging.getLogger('strategy')
 
 
@@ -15,6 +15,7 @@ class EMAHeikinAshiCrossover(StrategyBase):
         setup the variables ou will need here
         if you are running the strategy for multiple days, then this method will be called only once at the start of the strategy
         """
+
         super().__init__(*args, **kwargs)
 
         # SMA Heikin Ashi parameters
@@ -36,6 +37,7 @@ class EMAHeikinAshiCrossover(StrategyBase):
         If you are running the strategy for multiple days, then this method will be called once at the start of every day
         use this to initialize and re-initialize your variables
         """
+
         self.main_order = {}
         self.profit_order = {}
 
@@ -44,6 +46,7 @@ class EMAHeikinAshiCrossover(StrategyBase):
         """
         Name of your strategy
         """
+
         return 'EMA Heikin Ashi Crossover'
 
     @staticmethod
@@ -52,6 +55,7 @@ class EMAHeikinAshiCrossover(StrategyBase):
         Strategy should always support the latest engine version
         Current version is 3.3.0
         """
+
         return AlgoBullsEngineVersion.VERSION_3_3_0
 
     def get_decision(self, instrument):
