@@ -50,7 +50,6 @@ class VWAPCrossover(StrategyBase):
         hist_data = self.get_historical_data(instrument)
 
         # Calculate the VWAP values
-        hist_data = self.get_historical_data(instrument)
         vwap = VWAP(hist_data)
         candleclose = hist_data['close']
 
@@ -91,6 +90,7 @@ class VWAPCrossover(StrategyBase):
                 action = self.get_decision(instrument)
 
                 if action == 'BUY' or (action == 'SELL' and self.strategy_mode is StrategyMode.INTRADAY):
+
                     # Add instrument to the bucket
                     selected_instruments_bucket.append(instrument)
 
