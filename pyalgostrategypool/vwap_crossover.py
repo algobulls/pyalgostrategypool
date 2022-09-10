@@ -14,6 +14,7 @@ class VWAPCrossover(StrategyBase):
         setup the variables ou will need here
         if you are running the strategy for multiple days, then this method will be called only once at the start of the strategy
         """
+
         super().__init__(*args, **kwargs)
 
         # Variables
@@ -24,6 +25,7 @@ class VWAPCrossover(StrategyBase):
         If you are running the strategy for multiple days, then this method will be called once at the start of every day
         use this to initialize and re-initialize your variables
         """
+
         self.main_order = {}
 
     @staticmethod
@@ -31,6 +33,7 @@ class VWAPCrossover(StrategyBase):
         """
         Name of your strategy
         """
+
         return 'VWAP Crossover'
 
     @staticmethod
@@ -39,6 +42,7 @@ class VWAPCrossover(StrategyBase):
         Strategy should always support the latest engine version
         Current version is 3.3.0
         """
+        
         return AlgoBullsEngineVersion.VERSION_3_3_0
 
     def get_decision(self, instrument):
