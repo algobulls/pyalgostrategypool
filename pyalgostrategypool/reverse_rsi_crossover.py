@@ -36,6 +36,7 @@ class ReverseRSICrossover(StrategyBase):
         If you are running the strategy for multiple days, then this method will be called once at the start of every day
         use this to initialize and re-initialize your variables
         """
+
         self.main_order = {}
 
     @staticmethod
@@ -43,6 +44,7 @@ class ReverseRSICrossover(StrategyBase):
         """
         Name of your strategy
         """
+
         return 'Reverse RSI Crossover'
 
     @staticmethod
@@ -51,6 +53,7 @@ class ReverseRSICrossover(StrategyBase):
         Strategy should always support the latest engine version
         Current version is 3.3.0
         """
+
         return AlgoBullsEngineVersion.VERSION_3_3_0
 
     def get_decision(self, instrument):
@@ -169,6 +172,7 @@ class ReverseRSICrossover(StrategyBase):
                 # If order transaction type is buy and current action is sell or order transaction type is sell and current action is buy, then exit the order
                 if (action == 'BUY' and main_order.order_transaction_type is BrokerOrderTransactionTypeConstants.SELL) or \
                         (action == 'SELL' and main_order.order_transaction_type is BrokerOrderTransactionTypeConstants.BUY):
+
                     # Add instrument to the bucket
                     selected_instruments_bucket.append(instrument)
 
@@ -184,8 +188,9 @@ class ReverseRSICrossover(StrategyBase):
         This method is called once for each instrument from the bucket in this candle
         exit an order here and return the instrument status to the core
         """
-
+        
         if sideband_info['action'] == 'EXIT':
+
             # Exit the main order
             self.main_order[instrument].exit_position()
 
