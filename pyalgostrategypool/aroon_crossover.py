@@ -31,6 +31,7 @@ class AroonCrossover(StrategyBase):
         If you are running the strategy for multiple days, then this method will be called once at the start of every day
         use this to initialize and re-initialize your variables
         """
+
         self.main_order = {}
 
     @staticmethod
@@ -38,6 +39,7 @@ class AroonCrossover(StrategyBase):
         """
         Name of your strategy
         """
+
         return 'Aroon Crossover'
 
     @staticmethod
@@ -46,7 +48,8 @@ class AroonCrossover(StrategyBase):
         Strategy should always support the latest engine version
         Current version is 3.3.0
         """
-        return [AlgoBullsEngineVersion.VERSION_3_3_0]
+
+        return AlgoBullsEngineVersion.VERSION_3_3_0
 
     def get_decision(self, instrument):
         """
