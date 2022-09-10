@@ -1,7 +1,7 @@
 import talib
-
 from pyalgotrading.constants import *
 from pyalgotrading.strategy.strategy_base import StrategyBase
+
 import logging
 logger = logging.getLogger('strategy')
 
@@ -33,6 +33,7 @@ class BollingerBands(StrategyBase):
         If you are running the strategy for multiple days, then this method will be called once at the start of every day
         use this to initialize and re-initialize your variables
         """
+
         self.main_order = {}
 
     @staticmethod
@@ -40,6 +41,7 @@ class BollingerBands(StrategyBase):
         """
         Name of your strategy
         """
+
         return 'Bollinger Bands'
 
     @staticmethod
@@ -48,6 +50,7 @@ class BollingerBands(StrategyBase):
         Strategy should always support the latest engine version
         Current version is 3.3.0
         """
+
         return [AlgoBullsEngineVersion.VERSION_3_3_0]
 
     def get_decision(self, instrument):
@@ -78,11 +81,6 @@ class BollingerBands(StrategyBase):
             action = 'SELL'
         else:
             action = None
-        logger.info(f'Previous candle: {[previous_candle]}\n'
-                    f'Latest candle: {latest_candle}\n'
-                    f'Latest upperband value: {upperband_value}\n'
-                    f'Latest lowerband value: {lowerband_value}\n'
-                    f'Action: {action}')
         return action
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
