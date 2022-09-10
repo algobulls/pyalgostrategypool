@@ -116,7 +116,7 @@ class StochasticCrossover(StrategyBase):
         This method is called once for each instrument from the bucket in this candle
         place an order here and return it to the core
         """
-        
+
         # Quantity formula (number of lots comes from the config)
         qty = self.number_of_lots * instrument.lot_size
 
