@@ -8,10 +8,6 @@ logger = logging.getLogger('strategy')
 
 
 class OpenRangeBreakoutCrossover(StrategyBase):
-    class ActionConstants:
-        NO_ACTION = 0
-        ENTRY_BUY_OR_EXIT_SELL = 1
-        ENTRY_SELL_OR_EXIT_BUY = 2
 
     def __init__(self, *args, **kwargs):
         """
@@ -42,6 +38,7 @@ class OpenRangeBreakoutCrossover(StrategyBase):
         If you are running the strategy for multiple days, then this method will be called once at the start of every day
         use this to initialize and re-initialize your variables
         """
+
         self.main_order = {}
         self.order_placed_for_the_day = {}
 
@@ -50,6 +47,7 @@ class OpenRangeBreakoutCrossover(StrategyBase):
         """
         Name of your strategy
         """
+
         return 'Open Range Breakout Crossover'
 
     @staticmethod
@@ -58,6 +56,7 @@ class OpenRangeBreakoutCrossover(StrategyBase):
         Strategy should always support the latest engine version
         Current version is 3.3.0
         """
+
         return AlgoBullsEngineVersion.VERSION_3_3_0
 
     def get_decision(self, instrument):
@@ -221,6 +220,7 @@ class OpenRangeBreakoutCrossover(StrategyBase):
         """
 
         if sideband_info['action'] == 'EXIT':
+
             # Exit the main order
             self.main_order[instrument].exit_position()
 
