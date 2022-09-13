@@ -116,7 +116,7 @@ class BollingerBands(StrategyBase):
 
                 # Get entry decision
                 action = self.get_decision(instrument, DecisionContants.ENTRY)
-                if action == 'BUY' or (action == 'SELL' and self.strategy_mode is StrategyMode.INTRADAY):
+                if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
                     # Add instrument to the bucket
                     selected_instruments_bucket.append(instrument)
 

@@ -129,7 +129,6 @@ class SMAHeikinAshiCrossover(StrategyBase):
         # Quantity formula (number of lots comes from the config)
         qty = self.number_of_lots * instrument.lot_size
 
-        # TODO: How to set position constants
         # Place buy order
         if sideband_info['action'] is ActionConstants.ENTRY_BUY:
             self.main_order[instrument] = self.broker.BuyOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=qty)
