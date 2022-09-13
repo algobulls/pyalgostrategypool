@@ -1,22 +1,32 @@
 import logging
 
-from indicator.vwap import VWAP
+import talib
 from pyalgotrading.constants import *
 from pyalgotrading.strategy.strategy_base import StrategyBase
 
 logger = logging.getLogger('strategy')
 
 
-class VWAPCrossover(StrategyBase):
+class ReverseRSICrossover(StrategyBase):
 
     def __init__(self, *args, **kwargs):
         """
         Accept and sanitize all your parameters here
-        setup the variables ou will need here
+        setup the variables you will need here
         if you are running the strategy for multiple days, then this method will be called only once at the start of the strategy
         """
 
         super().__init__(*args, **kwargs)
+
+        # Reverse RSI parameters
+        self.time_period = self.strategy_parameters['TIME_PERIOD']
+        self.overbought_value = self.strategy_parameters['OVERBOUGHT_VALUE']
+        self.oversold_value = self.strategy_parameters['OVERSOLD_VALUE']
+
+        # Sanity
+        assert (0 < self.time_period == int(self.time_period)), f"Strategy parameter TIME_PERIOD should be a positive integer. Received: {self.time_period}"
+        assert (0 < self.overbought_value == int(self.overbought_value)), f"Strategy parameter OVERBOUGHT_VALUE should be a positive integer. Received: {self.overbought_value}"
+        assert (0 < self.oversold_value == int(self.oversold_value)), f"Strategy parameter OVERSOLD_VALUE should be a positive integer. Received: {self.oversold_value}"
 
         # Variables
         self.main_order = None
@@ -35,7 +45,7 @@ class VWAPCrossover(StrategyBase):
         Name of your strategy
         """
 
-        return 'VWAP Crossover'
+        return 'Reverse RSI Crossover'
 
     @staticmethod
     def versions_supported():
@@ -48,24 +58,35 @@ class VWAPCrossover(StrategyBase):
 
     def get_decision(self, instrument, decision):
         """
-        This method calculates the crossover using the hist data of the instrument along with the required indicator
+        This method calculates the crossover using the hist data of the instrument along with the required indicator and returns the entry/exit action
         """
+
+        action = None
 
         # Get OHLC historical data for the instrument
         hist_data = self.get_historical_data(instrument)
 
-        # Calculate the VWAP values
-        vwap = VWAP(hist_data)
-        candleclose = hist_data['close']
+        # Calculate the Reverse RSI values
+        rsi_value = talib.RSI(hist_data['close'], timeperiod=self.time_period)
+        overbought_list = [self.overbought_value] * rsi_value.size
+        oversold_list = [self.oversold_value] * rsi_value.size
 
-        # Get the crossover value
-        crossover_value = self.utils.crossover(candleclose, vwap)
+        # Get the crossover values
+        oversold_crossover_value = self.utils.crossover(rsi_value, oversold_list)
+        overbought_crossover_value = self.utils.crossover(rsi_value, overbought_list)
 
-        # Get entry decision
-        if crossover_value == 1:
-            action = ActionConstants.ENTRY_BUY if decision is DecisionContants.ENTRY else ActionConstants.EXIT_SELL
-        elif crossover_value == -1:
-            action = ActionConstants.ENTRY_SELL if decision is DecisionContants.ENTRY else ActionConstants.EXIT_BUY
+        if decision is DecisionContants.ENTRY:
+            if oversold_crossover_value == 1:
+                action = ActionConstants.ENTRY_BUY
+            elif overbought_crossover_value == -1:
+                action = ActionConstants.ENTRY_SELL
+
+        elif decision is DecisionContants.EXIT:
+            if oversold_crossover_value == -1:
+                action = ActionConstants.EXIT_BUY
+            elif overbought_crossover_value == 1:
+                action = ActionConstants.EXIT_SELL
+
         else:
             action = ActionConstants.NO_ACTION
 
@@ -93,9 +114,8 @@ class VWAPCrossover(StrategyBase):
             # Compute various things and get the decision to place an order only if no current order is going on (main order is empty / none)
             if self.main_order.get(instrument) is None:
 
-                # Check for crossover (decision making process)
-                action = self.get_decision(instrument, ENTRY)
-
+                # Get entry decision
+                action = self.get_decision(instrument, DecisionContants.ENTRY)
                 if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
                     # Add instrument to the bucket
                     selected_instruments_bucket.append(instrument)
@@ -154,11 +174,11 @@ class VWAPCrossover(StrategyBase):
             # Also check if order status is complete
             if main_order is not None and main_order.get_order_status().value is BrokerOrderStatusConstants.COMPLETE:
 
-                # Check for crossover (decision making process)
+                # Check for action (decision making process)
                 action = self.get_decision(instrument, DecisionContants.EXIT)
 
                 # For this strategy, we take the decision as:
-                # If order transaction type is buy and crossover is downwards or order transaction type is sell and crossover is upwards, then exit the order
+                # If order transaction type is buy and current action is sell or order transaction type is sell and current action is buy, then exit the order
                 if (action is ActionConstants.EXIT_SELL and main_order.order_transaction_type is BrokerOrderTransactionTypeConstants.SELL) or \
                         (action is ActionConstants.EXIT_BUY and main_order.order_transaction_type is BrokerOrderTransactionTypeConstants.BUY):
                     # Add instrument to the bucket

@@ -1,13 +1,14 @@
 import logging
 
-from indicator.vwap import VWAP
+import talib
 from pyalgotrading.constants import *
 from pyalgotrading.strategy.strategy_base import StrategyBase
+from utils.candlesticks.heikinashi import HeikinAshi
 
 logger = logging.getLogger('strategy')
 
 
-class VWAPCrossover(StrategyBase):
+class EMAHeikinAshiCrossover(StrategyBase):
 
     def __init__(self, *args, **kwargs):
         """
@@ -18,8 +19,19 @@ class VWAPCrossover(StrategyBase):
 
         super().__init__(*args, **kwargs)
 
+        # SMA Heikin Ashi parameters
+        self.profit_booking_buy_points = self.strategy_parameters['PROFIT_BOOKING_BUY_POINTS']
+        self.profit_booking_sell_points = self.strategy_parameters['PROFIT_BOOKING_SELL_POINTS']
+        self.ema_period = self.strategy_parameters['SMA_PERIOD']
+
+        # Sanity
+        assert (0 < self.profit_booking_buy_points == int(self.profit_booking_buy_points)), f"Strategy parameter PROFIT_BOOKING_BUY_POINTS should be a positive integer. Received: {self.profit_booking_buy_points}"
+        assert (0 < self.profit_booking_sell_points == int(self.profit_booking_sell_points)), f"Strategy parameter PROFIT_BOOKING_SELL_POINTS should be a positive integer. Received: {self.profit_booking_sell_points}"
+        assert (0 < self.ema_period == int(self.ema_period)), f"Strategy parameter SMA_PERIOD should be a positive integer. Received: {self.ema_period}"
+
         # Variables
         self.main_order = None
+        self.profit_order = None
 
     def initialize(self):
         """
@@ -28,6 +40,7 @@ class VWAPCrossover(StrategyBase):
         """
 
         self.main_order = {}
+        self.profit_order = {}
 
     @staticmethod
     def name():
@@ -35,7 +48,7 @@ class VWAPCrossover(StrategyBase):
         Name of your strategy
         """
 
-        return 'VWAP Crossover'
+        return 'EMA Heikin Ashi Crossover'
 
     @staticmethod
     def versions_supported():
@@ -51,24 +64,18 @@ class VWAPCrossover(StrategyBase):
         This method calculates the crossover using the hist data of the instrument along with the required indicator
         """
 
-        # Get OHLC historical data for the instrument
+        # Calculate the Heikin Ashi and SMA values
         hist_data = self.get_historical_data(instrument)
+        hist_data_heikinashi = HeikinAshi(hist_data)
+        ema_value = talib.EMA(hist_data_heikinashi['close'], timeperiod=self.ema_period)
+        crossover_value = self.utils.crossover(hist_data_heikinashi['close'], ema_value)
 
-        # Calculate the VWAP values
-        vwap = VWAP(hist_data)
-        candleclose = hist_data['close']
-
-        # Get the crossover value
-        crossover_value = self.utils.crossover(candleclose, vwap)
-
-        # Get entry decision
         if crossover_value == 1:
             action = ActionConstants.ENTRY_BUY if decision is DecisionContants.ENTRY else ActionConstants.EXIT_SELL
         elif crossover_value == -1:
             action = ActionConstants.ENTRY_SELL if decision is DecisionContants.ENTRY else ActionConstants.EXIT_BUY
         else:
             action = ActionConstants.NO_ACTION
-
         return action
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
@@ -93,15 +100,16 @@ class VWAPCrossover(StrategyBase):
             # Compute various things and get the decision to place an order only if no current order is going on (main order is empty / none)
             if self.main_order.get(instrument) is None:
 
-                # Check for crossover (decision making process)
-                action = self.get_decision(instrument, ENTRY)
+                # Get entry decision
+                action = self.get_decision(instrument, DecisionContants.ENTRY)
 
-                if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
-                    # Add instrument to the bucket
-                    selected_instruments_bucket.append(instrument)
+                if self.main_order.get(instrument) is None:
+                    if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
+                        # Add instrument to the bucket
+                        selected_instruments_bucket.append(instrument)
 
-                    # Add additional info for the instrument
-                    sideband_info_bucket.append({'action': action})
+                        # Add additional info for the instrument
+                        sideband_info_bucket.append({'action': action})
 
         # Return the buckets to the core engine
         # Engine will now call strategy_enter_position with each instrument and its additional info one by one
@@ -116,13 +124,19 @@ class VWAPCrossover(StrategyBase):
         # Quantity formula (number of lots comes from the config)
         qty = self.number_of_lots * instrument.lot_size
 
+        # TODO: How to set position constants
         # Place buy order
         if sideband_info['action'] is ActionConstants.ENTRY_BUY:
             self.main_order[instrument] = self.broker.BuyOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=qty)
-
+            self.profit_order[instrument] = self.broker.SellOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.LIMIT, quantity=qty,
+                                                                         price=self.main_order[instrument].entry_price + self.profit_booking_buy_points,
+                                                                         position=BrokerExistingOrderPositionConstants.EXIT, related_order=self.main_order[instrument])
         # Place sell order
         elif sideband_info['action'] is ActionConstants.ENTRY_SELL:
             self.main_order[instrument] = self.broker.SellOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=qty)
+            self.profit_order[instrument] = self.broker.BuyOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.LIMIT, quantity=qty,
+                                                                        price=self.main_order[instrument].entry_price - self.profit_booking_sell_points,
+                                                                        position=BrokerExistingOrderPositionConstants.EXIT, related_order=self.main_order[instrument])
 
         # Sanity
         else:
@@ -154,11 +168,11 @@ class VWAPCrossover(StrategyBase):
             # Also check if order status is complete
             if main_order is not None and main_order.get_order_status().value is BrokerOrderStatusConstants.COMPLETE:
 
-                # Check for crossover (decision making process)
+                # Check for action (decision making process)
                 action = self.get_decision(instrument, DecisionContants.EXIT)
 
                 # For this strategy, we take the decision as:
-                # If order transaction type is buy and crossover is downwards or order transaction type is sell and crossover is upwards, then exit the order
+                # If order transaction type is buy and current action is sell or order transaction type is sell and current action is buy, then exit the order
                 if (action is ActionConstants.EXIT_SELL and main_order.order_transaction_type is BrokerOrderTransactionTypeConstants.SELL) or \
                         (action is ActionConstants.EXIT_BUY and main_order.order_transaction_type is BrokerOrderTransactionTypeConstants.BUY):
                     # Add instrument to the bucket
@@ -178,14 +192,21 @@ class VWAPCrossover(StrategyBase):
         """
 
         if sideband_info['action'] in [ActionConstants.EXIT_BUY, ActionConstants.EXIT_SELL]:
-            # Exit the main order
-            self.main_order[instrument].exit_position()
 
-            # Set it to none so that entry decision can be taken properly
+            # Cancel the profit order
+            if self.profit_order.get(instrument) is not None:
+                self.profit_order[instrument].cancel_order()
+
+            # Exit the main order
+            if self.main_order.get(instrument) is not None:
+                self.main_order[instrument].exit_position()
+
+            # Set the variables to none so that entry decision can be taken properly
             self.main_order[instrument] = None
+            self.profit_order[instrument] = None
 
             # Return true so that the core engine knows that this instrument has exited completely
             return True
 
-        # Return false in all other cases
+            # Return false in all other cases
         return False

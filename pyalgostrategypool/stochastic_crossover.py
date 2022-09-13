@@ -1,22 +1,31 @@
 import logging
 
-from indicator.vwap import VWAP
+import talib
 from pyalgotrading.constants import *
 from pyalgotrading.strategy.strategy_base import StrategyBase
 
 logger = logging.getLogger('strategy')
 
 
-class VWAPCrossover(StrategyBase):
+class StochasticCrossover(StrategyBase):
 
     def __init__(self, *args, **kwargs):
         """
         Accept and sanitize all your parameters here
-        setup the variables ou will need here
+        setup the variables you will need here
         if you are running the strategy for multiple days, then this method will be called only once at the start of the strategy
         """
-
         super().__init__(*args, **kwargs)
+
+        # Stochastic parameters
+        self.fastk_period = self.strategy_parameters['FASTK_PERIOD']
+        self.slowk_period = self.strategy_parameters['SLOWK_PERIOD']
+        self.slowd_period = self.strategy_parameters['SLOWD_PERIOD']
+
+        # Sanity
+        assert (0 < self.fastk_period == int(self.fastk_period)), f"Strategy parameter FASTK_PERIOD should be a positive integer. Received: {self.fastk_period}"
+        assert (0 < self.slowk_period == int(self.slowk_period)), f"Strategy parameter SLOWK_PERIOD should be a positive integer. Received: {self.slowk_period}"
+        assert (0 < self.slowd_period == int(self.slowd_period)), f"Strategy parameter SLOWD_PERIOD should be a positive integer. Received: {self.slowd_period}"
 
         # Variables
         self.main_order = None
@@ -26,7 +35,6 @@ class VWAPCrossover(StrategyBase):
         If you are running the strategy for multiple days, then this method will be called once at the start of every day
         use this to initialize and re-initialize your variables
         """
-
         self.main_order = {}
 
     @staticmethod
@@ -34,8 +42,7 @@ class VWAPCrossover(StrategyBase):
         """
         Name of your strategy
         """
-
-        return 'VWAP Crossover'
+        return 'Stochastic Crossover'
 
     @staticmethod
     def versions_supported():
@@ -43,7 +50,6 @@ class VWAPCrossover(StrategyBase):
         Strategy should always support the latest engine version
         Current version is 3.3.0
         """
-
         return AlgoBullsEngineVersion.VERSION_3_3_0
 
     def get_decision(self, instrument, decision):
@@ -54,21 +60,19 @@ class VWAPCrossover(StrategyBase):
         # Get OHLC historical data for the instrument
         hist_data = self.get_historical_data(instrument)
 
-        # Calculate the VWAP values
-        vwap = VWAP(hist_data)
-        candleclose = hist_data['close']
+        # Calculate the Stochastic values
+        slowk, slowd = talib.STOCH(hist_data['high'], hist_data['low'], hist_data['close'], fastk_period=self.fastk_period,
+                                   slowk_period=self.slowk_period, slowk_matype=0, slowd_period=self.slowd_period, slowd_matype=0)
 
         # Get the crossover value
-        crossover_value = self.utils.crossover(candleclose, vwap)
+        crossover_value = self.utils.crossover(slowk, slowd)
 
-        # Get entry decision
         if crossover_value == 1:
-            action = ActionConstants.ENTRY_BUY if decision is DecisionContants.ENTRY else ActionConstants.EXIT_SELL
+            action = ActionConstants.ENTRY_BUY if decision is DecisionContants.ENTRY else ActionConstants.ENTRY_SELL
         elif crossover_value == -1:
-            action = ActionConstants.ENTRY_SELL if decision is DecisionContants.ENTRY else ActionConstants.EXIT_BUY
+            action = ActionConstants.EXIT_SELL if decision is DecisionContants.ENTRY else ActionConstants.EXIT_BUY
         else:
             action = ActionConstants.NO_ACTION
-
         return action
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
@@ -93,10 +97,11 @@ class VWAPCrossover(StrategyBase):
             # Compute various things and get the decision to place an order only if no current order is going on (main order is empty / none)
             if self.main_order.get(instrument) is None:
 
-                # Check for crossover (decision making process)
-                action = self.get_decision(instrument, ENTRY)
+                # Get entry decision
+                action = self.get_decision(instrument, DecisionContants.ENTRY)
 
-                if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
+                if action == 'BUY' or (action == 'SELL' and self.strategy_mode is StrategyMode.INTRADAY):
+
                     # Add instrument to the bucket
                     selected_instruments_bucket.append(instrument)
 
@@ -158,9 +163,10 @@ class VWAPCrossover(StrategyBase):
                 action = self.get_decision(instrument, DecisionContants.EXIT)
 
                 # For this strategy, we take the decision as:
-                # If order transaction type is buy and crossover is downwards or order transaction type is sell and crossover is upwards, then exit the order
+                # If order transaction type is buy and current action is sell or order transaction type is sell and current action is buy, then exit the order
                 if (action is ActionConstants.EXIT_SELL and main_order.order_transaction_type is BrokerOrderTransactionTypeConstants.SELL) or \
                         (action is ActionConstants.EXIT_BUY and main_order.order_transaction_type is BrokerOrderTransactionTypeConstants.BUY):
+
                     # Add instrument to the bucket
                     selected_instruments_bucket.append(instrument)
 
@@ -176,8 +182,8 @@ class VWAPCrossover(StrategyBase):
         This method is called once for each instrument from the bucket in this candle
         exit an order here and return the instrument status to the core
         """
-
         if sideband_info['action'] in [ActionConstants.EXIT_BUY, ActionConstants.EXIT_SELL]:
+
             # Exit the main order
             self.main_order[instrument].exit_position()
 

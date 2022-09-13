@@ -1,22 +1,30 @@
 import logging
 
-from indicator.vwap import VWAP
+import talib
 from pyalgotrading.constants import *
 from pyalgotrading.strategy.strategy_base import StrategyBase
 
 logger = logging.getLogger('strategy')
 
 
-class VWAPCrossover(StrategyBase):
+class BollingerBands(StrategyBase):
 
     def __init__(self, *args, **kwargs):
         """
         Accept and sanitize all your parameters here
-        setup the variables ou will need here
+        setup the variables you will need here
         if you are running the strategy for multiple days, then this method will be called only once at the start of the strategy
         """
 
         super().__init__(*args, **kwargs)
+
+        # Bollinger Bands parameters
+        self.time_period = self.strategy_parameters['TIME_PERIOD']
+        self.std_deviations = self.strategy_parameters['STANDARD_DEVIATIONS']
+
+        # Sanity
+        assert (0 < self.time_period == int(self.time_period)), f"Strategy parameter TIME_PERIOD should be a positive integer. Received: {self.time_period}"
+        assert (0 < self.std_deviations == int(self.std_deviations)), f"Strategy parameter STANDARD_DEVIATIONS should be a positive integer. Received: {self.std_deviations}"
 
         # Variables
         self.main_order = None
@@ -35,7 +43,7 @@ class VWAPCrossover(StrategyBase):
         Name of your strategy
         """
 
-        return 'VWAP Crossover'
+        return 'Bollinger Bands'
 
     @staticmethod
     def versions_supported():
@@ -44,31 +52,44 @@ class VWAPCrossover(StrategyBase):
         Current version is 3.3.0
         """
 
-        return AlgoBullsEngineVersion.VERSION_3_3_0
+        return [AlgoBullsEngineVersion.VERSION_3_3_0]
 
     def get_decision(self, instrument, decision):
         """
-        This method calculates the crossover using the hist data of the instrument along with the required indicator
+        This method calculates the crossover using the hist data of the instrument along with the required indicator and returns the entry/exit action
         """
 
         # Get OHLC historical data for the instrument
         hist_data = self.get_historical_data(instrument)
 
-        # Calculate the VWAP values
-        vwap = VWAP(hist_data)
-        candleclose = hist_data['close']
+        # Get last OHLC row of the historical data
+        latest_candle = hist_data.iloc[-1]
 
-        # Get the crossover value
-        crossover_value = self.utils.crossover(candleclose, vwap)
+        # Get second last OHLC row of the historical data
+        previous_candle = hist_data.iloc[-2]
 
-        # Get entry decision
-        if crossover_value == 1:
+        # Calculate the Bollinger Bands values
+        upperband, _, lowerband = talib.BBANDS(hist_data['close'], timeperiod=self.time_period, nbdevup=self.std_deviations, nbdevdn=self.std_deviations, matype=0)
+        upperband_value = upperband.iloc[-1]
+        lowerband_value = lowerband.iloc[-1]
+
+        logger.info(f"Latest candle close {latest_candle['close']} \n"
+                    f"Previous candle close {previous_candle['close']} \n"
+                    f"Previous candle open {previous_candle['open']} \n"
+                    f"Previous candle high {previous_candle['high']} \n"
+                    f"Previous candle low {previous_candle['low']} \n"
+                    f"Bollinger lower band {lowerband_value} \n"
+                    f"Bollinger upper band {upperband_value} \n")
+
+        # Check entry/exit conditions
+        if (previous_candle['open'] <= lowerband_value or previous_candle['high'] <= lowerband_value or previous_candle['low'] <= lowerband_value or previous_candle['close'] <= lowerband_value) and \
+                (latest_candle['close'] > previous_candle['close']):
             action = ActionConstants.ENTRY_BUY if decision is DecisionContants.ENTRY else ActionConstants.EXIT_SELL
-        elif crossover_value == -1:
+        elif (previous_candle['open'] >= upperband_value or previous_candle['high'] >= upperband_value or previous_candle['low'] >= upperband_value or previous_candle['close'] >= upperband_value) and \
+                (latest_candle['close'] < previous_candle['close']):
             action = ActionConstants.ENTRY_SELL if decision is DecisionContants.ENTRY else ActionConstants.EXIT_BUY
         else:
-            action = ActionConstants.NO_ACTION
-
+            action = None
         return action
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
@@ -93,10 +114,9 @@ class VWAPCrossover(StrategyBase):
             # Compute various things and get the decision to place an order only if no current order is going on (main order is empty / none)
             if self.main_order.get(instrument) is None:
 
-                # Check for crossover (decision making process)
-                action = self.get_decision(instrument, ENTRY)
-
-                if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
+                # Get entry decision
+                action = self.get_decision(instrument, DecisionContants.ENTRY)
+                if action == 'BUY' or (action == 'SELL' and self.strategy_mode is StrategyMode.INTRADAY):
                     # Add instrument to the bucket
                     selected_instruments_bucket.append(instrument)
 
@@ -117,11 +137,11 @@ class VWAPCrossover(StrategyBase):
         qty = self.number_of_lots * instrument.lot_size
 
         # Place buy order
-        if sideband_info['action'] is ActionConstants.ENTRY_BUY:
+        if sideband_info['action'] is ActionConstants.EXIT_BUY:
             self.main_order[instrument] = self.broker.BuyOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=qty)
 
         # Place sell order
-        elif sideband_info['action'] is ActionConstants.ENTRY_SELL:
+        elif sideband_info['action'] is ActionConstants.EXIT_SELL:
             self.main_order[instrument] = self.broker.SellOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=qty)
 
         # Sanity
@@ -154,11 +174,11 @@ class VWAPCrossover(StrategyBase):
             # Also check if order status is complete
             if main_order is not None and main_order.get_order_status().value is BrokerOrderStatusConstants.COMPLETE:
 
-                # Check for crossover (decision making process)
+                # Check for action (decision making process)
                 action = self.get_decision(instrument, DecisionContants.EXIT)
 
                 # For this strategy, we take the decision as:
-                # If order transaction type is buy and crossover is downwards or order transaction type is sell and crossover is upwards, then exit the order
+                # If order transaction type is buy and current action is sell or order transaction type is sell and current action is buy, then exit the order
                 if (action is ActionConstants.EXIT_SELL and main_order.order_transaction_type is BrokerOrderTransactionTypeConstants.SELL) or \
                         (action is ActionConstants.EXIT_BUY and main_order.order_transaction_type is BrokerOrderTransactionTypeConstants.BUY):
                     # Add instrument to the bucket
