@@ -92,7 +92,7 @@ class OpenRangeBreakoutCrossover(StrategyBase):
 
     def get_crossover_value(self, hist_data, latest_high):
         """
-        This method calculates the crossover using the hist data of the instrument along with the required indicator. and returns the crossover value
+        This method calculates the crossover using the hist data of the instrument along with the required indicator and returns the crossover value.
         """
 
         crossover = 0
