@@ -168,7 +168,7 @@ class AroonCrossover(StrategyBase):
                     selected_instruments_bucket.append(instrument)
 
                     # Add additional info for the instrument
-                    sideband_info_bucket.append({'action': 'EXIT'})
+                    sideband_info_bucket.append({'action': action})
 
         # Return the buckets to the core engine
         # Engine will now call strategy_exit_position with each instrument and its additional info one by one

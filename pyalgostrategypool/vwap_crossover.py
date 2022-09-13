@@ -94,7 +94,7 @@ class VWAPCrossover(StrategyBase):
             if self.main_order.get(instrument) is None:
 
                 # Check for crossover (decision making process)
-                action = self.get_decision(instrument, ENTRY)
+                action = self.get_decision(instrument, DecisionContants.ENTRY)
 
                 if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
                     # Add instrument to the bucket
