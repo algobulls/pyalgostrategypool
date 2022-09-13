@@ -152,7 +152,7 @@ class VWAPCrossover(StrategyBase):
 
             # Compute various things and get the decision to place an (exit) order only if there is a current order is going on (main order is not empty / none)
             # Also check if order status is complete
-            if main_order is not None and main_order.get_order_status().value is BrokerOrderStatusConstants.COMPLETE:
+            if main_order is not None and main_order.get_order_status() is BrokerOrderStatusConstants.COMPLETE:
 
                 # Check for crossover (decision making process)
                 action = self.get_decision(instrument, DecisionContants.EXIT)

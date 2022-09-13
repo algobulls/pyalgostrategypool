@@ -101,7 +101,6 @@ class StochasticCrossover(StrategyBase):
                 action = self.get_decision(instrument, DecisionContants.ENTRY)
 
                 if action == 'BUY' or (action == 'SELL' and self.strategy_mode is StrategyMode.INTRADAY):
-
                     # Add instrument to the bucket
                     selected_instruments_bucket.append(instrument)
 
@@ -157,7 +156,7 @@ class StochasticCrossover(StrategyBase):
 
             # Compute various things and get the decision to place an (exit) order only if there is a current order is going on (main order is not empty / none)
             # Also check if order status is complete
-            if main_order is not None and main_order.get_order_status().value is BrokerOrderStatusConstants.COMPLETE:
+            if main_order is not None and main_order.get_order_status() is BrokerOrderStatusConstants.COMPLETE:
 
                 # Check for crossover (decision making process)
                 action = self.get_decision(instrument, DecisionContants.EXIT)
@@ -166,7 +165,6 @@ class StochasticCrossover(StrategyBase):
                 # If order transaction type is buy and current action is sell or order transaction type is sell and current action is buy, then exit the order
                 if (action is ActionConstants.EXIT_SELL and main_order.order_transaction_type is BrokerOrderTransactionTypeConstants.SELL) or \
                         (action is ActionConstants.EXIT_BUY and main_order.order_transaction_type is BrokerOrderTransactionTypeConstants.BUY):
-
                     # Add instrument to the bucket
                     selected_instruments_bucket.append(instrument)
 
@@ -183,7 +181,6 @@ class StochasticCrossover(StrategyBase):
         exit an order here and return the instrument status to the core
         """
         if sideband_info['action'] in [ActionConstants.EXIT_BUY, ActionConstants.EXIT_SELL]:
-
             # Exit the main order
             self.main_order[instrument].exit_position()
 

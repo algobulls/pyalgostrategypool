@@ -124,7 +124,7 @@ class OpenRangeBreakoutCrossover(StrategyBase):
             # Looping over all instruments given by you in the bucket (we can give multiple instruments in the configuration)
             for instrument in instruments_bucket:
 
-                # Insrument is appended once the main order is exited, this ensures that only one order is placed for the day
+                # Instrument is appended once the main order is exited, this ensures that only one order is placed for the day
                 if instrument not in self.order_placed_for_the_day:
 
                     # Compute various things and get the decision to place an order only if no current order is going on (main order is empty / none)
@@ -195,7 +195,7 @@ class OpenRangeBreakoutCrossover(StrategyBase):
 
             # Compute various things and get the decision to place an (exit) order only if there is a current order is going on (main order is not empty / none)
             # Also check if order status is complete
-            if main_order is not None and main_order.get_order_status().value is BrokerOrderStatusConstants.COMPLETE:
+            if main_order is not None and main_order.get_order_status() is BrokerOrderStatusConstants.COMPLETE:
 
                 # Check for action (decision making process)
                 action = self.get_decision(instrument, DecisionContants.EXIT)
