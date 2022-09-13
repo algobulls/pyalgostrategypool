@@ -12,9 +12,9 @@ class OpenRangeBreakoutCrossover(StrategyBase):
 
     def __init__(self, *args, **kwargs):
         """
-        Accept and sanitize all your parameters here
+        Accept and sanitize all your parameters here.
         setup the variables you will need here
-        if you are running the strategy for multiple days, then this method will be called only once at the start of the strategy
+        If you are running the strategy for multiple days, then this method will be called only once at the start of the strategy.
         """
 
         super().__init__(*args, **kwargs)
@@ -36,8 +36,8 @@ class OpenRangeBreakoutCrossover(StrategyBase):
 
     def initialize(self):
         """
-        If you are running the strategy for multiple days, then this method will be called once at the start of every day
-        use this to initialize and re-initialize your variables
+        If you are running the strategy for multiple days, then this method will be called only once at the start of the strategy.
+        Use this to initialize and re-initialize your variables.
         """
 
         self.main_order = {}
@@ -46,7 +46,7 @@ class OpenRangeBreakoutCrossover(StrategyBase):
     @staticmethod
     def name():
         """
-        Name of your strategy
+        Name of your strategy.
         """
 
         return 'Open Range Breakout Crossover'
@@ -54,7 +54,7 @@ class OpenRangeBreakoutCrossover(StrategyBase):
     @staticmethod
     def versions_supported():
         """
-        Strategy should always support the latest engine version
+        Strategy should always support the latest engine version.
         Current version is 3.3.0
         """
 
@@ -92,7 +92,7 @@ class OpenRangeBreakoutCrossover(StrategyBase):
 
     def get_crossover_value(self, hist_data, latest_high):
         """
-        This method calculates the crossover using the hist data of the instrument along with the required indicator and returns the crossover value
+        This method calculates the crossover using the hist data of the instrument along with the required indicator. and returns the crossover value
         """
 
         crossover = 0
@@ -112,11 +112,11 @@ class OpenRangeBreakoutCrossover(StrategyBase):
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
         """
-        This method is called once every candle time
-        if you set the candle at 5 minutes, then this method will be called every 5 minutes (09:15, 09:20, 09:25 and so on)
-        in a candle, the exit method is called first, then the entry method is called
+        This method is called once every candle time.
+        If you set the candle at 5 minutes, then this method will be called every 5 minutes (09:15, 09:20, 09:25 and so on).
+        In a candle, the exit method is called first, then the entry method is called.
         so once a candle starts, strategy_select_instruments_for_exit gets called first
-        and then this method - strategy_select_instruments_for_entry gets called
+        and then this method strategy_select_instruments_for_entry gets called.
         """
 
         # Add instrument in this bucket if you want to place an order for it
@@ -158,8 +158,8 @@ class OpenRangeBreakoutCrossover(StrategyBase):
 
     def strategy_enter_position(self, candle, instrument, sideband_info):
         """
-        This method is called once for each instrument from the bucket in this candle
-        place an order here and return it to the core
+        This method is called once for each instrument from the bucket in this candle.
+        Place an order here and return it to the core.
         """
 
         # Quantity formula (number of lots comes from the config)
@@ -184,11 +184,11 @@ class OpenRangeBreakoutCrossover(StrategyBase):
 
     def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
         """
-        This method is called once every candle time
-        if you set the candle at 5 minutes, then this method will be called every 5 minutes (09:15, 09:20, 09:25 and so on)
-        in a candle, the exit method is called first, then the entry method is called
-        so once a candle starts, this method - strategy_select_instruments_for_exit gets called first
-        and then strategy_select_instruments_for_entry gets called
+        This method is called once every candle time.
+        If you set the candle at 5 minutes, then this method will be called every 5 minutes (09:15, 09:20, 09:25 and so on).
+        In a candle, the exit method is called first, then the entry method is called
+        so once a candle starts, this method strategy_select_instruments_for_exit gets called first
+        and then strategy_select_instruments_for_entry gets called.
         """
 
         # Add instrument in this bucket if you want to place an (exit) order for it
@@ -224,8 +224,8 @@ class OpenRangeBreakoutCrossover(StrategyBase):
 
     def strategy_exit_position(self, candle, instrument, sideband_info):
         """
-        This method is called once for each instrument from the bucket in this candle
-        exit an order here and return the instrument status to the core
+        This method is called once for each instrument from the bucket in this candle.
+        Exit an order here and return the instrument status to the core.
         """
 
         if sideband_info['action'] in [ActionConstants.EXIT_BUY, ActionConstants.EXIT_SELL]:
