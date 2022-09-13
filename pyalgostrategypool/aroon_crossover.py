@@ -54,7 +54,7 @@ class AroonCrossover(StrategyBase):
 
     def get_decision(self, instrument, decision):
         """
-        This method calculates the crossover using the hist data of the instrument along with the required indicator. and returns the entry/exit action.
+        This method calculates the crossover using the hist data of the instrument along with the required indicator and returns the entry/exit action.
         """
 
         # Get OHLC historical data for the instrument
