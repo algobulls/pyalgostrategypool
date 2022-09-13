@@ -75,15 +75,25 @@ class ReverseRSICrossover(StrategyBase):
         oversold_crossover_value = self.utils.crossover(rsi_value, oversold_list)
         overbought_crossover_value = self.utils.crossover(rsi_value, overbought_list)
 
-        if decision is DecisionContants.ENTRY:
+        # If decision is Entry
+        if decision is DecisionContants.ENTRY_POSITION:
             if oversold_crossover_value == 1:
+
+                # If crossover is upwards, return Buy
                 action = ActionConstants.ENTRY_BUY
+
+            # If crossover is downwards, return Sell
             elif overbought_crossover_value == -1:
                 action = ActionConstants.ENTRY_SELL
 
-        elif decision is DecisionContants.EXIT:
+        # If decision is Exit
+        elif decision is DecisionContants.EXIT_POSITION:
+
+            # If crossover is downwards, return Buy
             if oversold_crossover_value == -1:
                 action = ActionConstants.EXIT_BUY
+
+            # If crossover is upwards, return Sell
             elif overbought_crossover_value == 1:
                 action = ActionConstants.EXIT_SELL
 
@@ -115,7 +125,7 @@ class ReverseRSICrossover(StrategyBase):
             if self.main_order.get(instrument) is None:
 
                 # Get entry decision
-                action = self.get_decision(instrument, DecisionContants.ENTRY)
+                action = self.get_decision(instrument, DecisionContants.ENTRY_POSITION)
                 if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
                     # Add instrument to the bucket
                     selected_instruments_bucket.append(instrument)
@@ -175,7 +185,7 @@ class ReverseRSICrossover(StrategyBase):
             if main_order is not None and main_order.get_order_status() is BrokerOrderStatusConstants.COMPLETE:
 
                 # Check for action (decision making process)
-                action = self.get_decision(instrument, DecisionContants.EXIT)
+                action = self.get_decision(instrument, DecisionContants.EXIT_POSITION)
 
                 # For this strategy, we take the decision as:
                 # If order transaction type is buy and current action is sell or order transaction type is sell and current action is buy, then exit the order

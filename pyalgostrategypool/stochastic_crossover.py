@@ -67,10 +67,13 @@ class StochasticCrossover(StrategyBase):
         # Get the crossover value
         crossover_value = self.utils.crossover(slowk, slowd)
 
+        # Return action as BUY if crossover is Upwards and decision is Entry, else SELL if decision is EXIT
         if crossover_value == 1:
-            action = ActionConstants.ENTRY_BUY if decision is DecisionContants.ENTRY else ActionConstants.ENTRY_SELL
+            action = ActionConstants.ENTRY_BUY if decision is DecisionContants.ENTRY_POSITION else ActionConstants.EXIT_SELL
+
+        # Return action as SELL if crossover is Downwards and decision is Entry, else BUY if decision is EXIT
         elif crossover_value == -1:
-            action = ActionConstants.EXIT_SELL if decision is DecisionContants.ENTRY else ActionConstants.EXIT_BUY
+            action = ActionConstants.ENTRY_SELL if decision is DecisionContants.ENTRY_POSITION else ActionConstants.EXIT_BUY
         else:
             action = ActionConstants.NO_ACTION
         return action
@@ -98,7 +101,7 @@ class StochasticCrossover(StrategyBase):
             if self.main_order.get(instrument) is None:
 
                 # Get entry decision
-                action = self.get_decision(instrument, DecisionContants.ENTRY)
+                action = self.get_decision(instrument, DecisionContants.ENTRY_POSITION)
 
                 if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
                     # Add instrument to the bucket
@@ -159,7 +162,7 @@ class StochasticCrossover(StrategyBase):
             if main_order is not None and main_order.get_order_status() is BrokerOrderStatusConstants.COMPLETE:
 
                 # Check for crossover (decision making process)
-                action = self.get_decision(instrument, DecisionContants.EXIT)
+                action = self.get_decision(instrument, DecisionContants.EXIT_POSITION)
 
                 # For this strategy, we take the decision as:
                 # If order transaction type is buy and current action is sell or order transaction type is sell and current action is buy, then exit the order

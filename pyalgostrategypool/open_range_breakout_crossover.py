@@ -79,11 +79,13 @@ class OpenRangeBreakoutCrossover(StrategyBase):
         if timestamp_str == udc_candle_str:
             latest_high = hist_data['high'].iloc[-1]
 
-            if decision is DecisionContants.ENTRY:
-                if self.get_crossover_value(hist_data, latest_high) == 1:
-                    action = ActionConstants.ENTRY_BUY if decision is DecisionContants.ENTRY else ActionConstants.EXIT_SELL
-                elif self.get_crossover_value(hist_data, latest_high) == -1:
-                    action = ActionConstants.ENTRY_SELL if decision is DecisionContants.ENTRY else ActionConstants.EXIT_BUY
+            # Return action as BUY if crossover is Upwards and decision is Entry, else SELL if decision is EXIT
+            if self.get_crossover_value(hist_data, latest_high) == 1:
+                action = ActionConstants.ENTRY_BUY if decision is DecisionContants.ENTRY_POSITION else ActionConstants.EXIT_SELL
+
+            # Return action as SELL if crossover is Downwards and decision is Entry, else BUY if decision is EXIT
+            elif self.get_crossover_value(hist_data, latest_high) == -1:
+                action = ActionConstants.ENTRY_SELL if decision is DecisionContants.ENTRY_POSITION else ActionConstants.EXIT_BUY
             else:
                 action = ActionConstants.NO_ACTION
         return action
@@ -94,12 +96,18 @@ class OpenRangeBreakoutCrossover(StrategyBase):
         """
 
         crossover = 0
+
+        # Calculate crossover for the OHLC columns with
         columns = ['open', 'high', 'low', 'close']
         val_data = [latest_high] * len(hist_data)
         for column in columns:
             crossover = self.utils.crossover(hist_data[column], val_data)
             if crossover in [1, -1]:
+
+                # If crossover is upwards or downwards, stop computing the crossovers
                 break
+
+        # Return the crossover values
         return crossover
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
@@ -131,7 +139,7 @@ class OpenRangeBreakoutCrossover(StrategyBase):
                     if self.main_order.get(instrument) is None:
 
                         # Get entry decision
-                        action = self.get_decision(instrument, DecisionContants.ENTRY)
+                        action = self.get_decision(instrument, DecisionContants.ENTRY_POSITION)
 
                         if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
                             # Add instrument to the bucket
@@ -198,7 +206,7 @@ class OpenRangeBreakoutCrossover(StrategyBase):
             if main_order is not None and main_order.get_order_status() is BrokerOrderStatusConstants.COMPLETE:
 
                 # Check for action (decision making process)
-                action = self.get_decision(instrument, DecisionContants.EXIT)
+                action = self.get_decision(instrument, DecisionContants.EXIT_POSITION)
 
                 # For this strategy, we take the decision as:
                 # If order transaction type is buy and current action is sell or order transaction type is sell and current action is buy, then exit the order
