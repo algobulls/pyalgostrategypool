@@ -12,7 +12,7 @@ class BollingerBands(StrategyBase):
     def __init__(self, *args, **kwargs):
         """
         Accept and sanitize all your parameters here.
-        setup the variables you will need here
+        Setup the variables you will need here.
         If you are running the strategy for multiple days, then this method will be called only once at the start of the strategy.
         """
 
@@ -100,7 +100,7 @@ class BollingerBands(StrategyBase):
         This method is called once every candle time.
         If you set the candle at 5 minutes, then this method will be called every 5 minutes (09:15, 09:20, 09:25 and so on).
         In a candle, the exit method is called first, then the entry method is called.
-        so once a candle starts, strategy_select_instruments_for_exit gets called first
+        So once a candle starts, strategy_select_instruments_for_exit gets called first
         and then this method strategy_select_instruments_for_entry gets called.
         """
 
@@ -159,7 +159,7 @@ class BollingerBands(StrategyBase):
         This method is called once every candle time.
         If you set the candle at 5 minutes, then this method will be called every 5 minutes (09:15, 09:20, 09:25 and so on).
         In a candle, the exit method is called first, then the entry method is called
-        so once a candle starts, this method strategy_select_instruments_for_exit gets called first
+        So once a candle starts, this method strategy_select_instruments_for_exit gets called first
         and then strategy_select_instruments_for_entry gets called.
         """
 
