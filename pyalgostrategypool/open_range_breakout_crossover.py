@@ -186,7 +186,7 @@ class OpenRangeBreakoutCrossover(StrategyBase):
         """
         This method is called once every candle time.
         If you set the candle at 5 minutes, then this method will be called every 5 minutes (09:15, 09:20, 09:25 and so on).
-        In a candle, the exit method is called first, then the entry method is called
+        In a candle, the exit method is called first, then the entry method is called.
         So once a candle starts, this method strategy_select_instruments_for_exit gets called first
         and then strategy_select_instruments_for_entry gets called.
         """
