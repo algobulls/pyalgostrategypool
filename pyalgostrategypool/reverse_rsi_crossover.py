@@ -76,7 +76,7 @@ class ReverseRSICrossover(StrategyBase):
         overbought_crossover_value = self.utils.crossover(rsi_value, overbought_list)
 
         # If decision is Entry
-        if decision is DecisionContants.ENTRY_POSITION:
+        if decision is DecisionConstants.ENTRY_POSITION:
             if oversold_crossover_value == 1:
 
                 # If crossover is upwards, return Buy
@@ -87,7 +87,7 @@ class ReverseRSICrossover(StrategyBase):
                 action = ActionConstants.ENTRY_SELL
 
         # If decision is Exit
-        elif decision is DecisionContants.EXIT_POSITION:
+        elif decision is DecisionConstants.EXIT_POSITION:
 
             # If crossover is downwards, return Buy
             if oversold_crossover_value == -1:
@@ -126,7 +126,7 @@ class ReverseRSICrossover(StrategyBase):
             if self.main_order.get(instrument) is None:
 
                 # Get entry decision
-                action = self.get_decision(instrument, DecisionContants.ENTRY_POSITION)
+                action = self.get_decision(instrument, DecisionConstants.ENTRY_POSITION)
                 if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
                     # Add instrument to the bucket
                     selected_instruments_bucket.append(instrument)
@@ -186,7 +186,7 @@ class ReverseRSICrossover(StrategyBase):
             if main_order is not None and main_order.get_order_status() is BrokerOrderStatusConstants.COMPLETE:
 
                 # Check for action (decision making process)
-                action = self.get_decision(instrument, DecisionContants.EXIT_POSITION)
+                action = self.get_decision(instrument, DecisionConstants.EXIT_POSITION)
 
                 # For this strategy, we take the decision as:
                 # If order transaction type is buy and current action is sell or order transaction type is sell and current action is buy, then exit the order

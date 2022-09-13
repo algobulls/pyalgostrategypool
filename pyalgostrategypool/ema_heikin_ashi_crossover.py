@@ -72,11 +72,11 @@ class EMAHeikinAshiCrossover(StrategyBase):
 
         # Return action as BUY if crossover is Upwards and decision is Entry, else SELL if decision is EXIT
         if crossover_value == 1:
-            action = ActionConstants.ENTRY_BUY if decision is DecisionContants.ENTRY_POSITION else ActionConstants.EXIT_SELL
+            action = ActionConstants.ENTRY_BUY if decision is DecisionConstants.ENTRY_POSITION else ActionConstants.EXIT_SELL
 
         # Return action as SELL if crossover is Downwards and decision is Entry, else BUY if decision is EXIT
         elif crossover_value == -1:
-            action = ActionConstants.ENTRY_SELL if decision is DecisionContants.ENTRY_POSITION else ActionConstants.EXIT_BUY
+            action = ActionConstants.ENTRY_SELL if decision is DecisionConstants.ENTRY_POSITION else ActionConstants.EXIT_BUY
 
         # Return action as NO_ACTION if there is no crossover
         else:
@@ -106,7 +106,7 @@ class EMAHeikinAshiCrossover(StrategyBase):
             if self.main_order.get(instrument) is None:
 
                 # Get entry decision
-                action = self.get_decision(instrument, DecisionContants.ENTRY_POSITION)
+                action = self.get_decision(instrument, DecisionConstants.ENTRY_POSITION)
 
                 if self.main_order.get(instrument) is None:
                     if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
@@ -173,7 +173,7 @@ class EMAHeikinAshiCrossover(StrategyBase):
             if main_order is not None and main_order.get_order_status() is BrokerOrderStatusConstants.COMPLETE:
 
                 # Check for action (decision making process)
-                action = self.get_decision(instrument, DecisionContants.EXIT_POSITION)
+                action = self.get_decision(instrument, DecisionConstants.EXIT_POSITION)
 
                 # For this strategy, we take the decision as:
                 # If order transaction type is buy and current action is sell or order transaction type is sell and current action is buy, then exit the order

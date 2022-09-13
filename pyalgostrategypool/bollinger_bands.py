@@ -85,12 +85,12 @@ class BollingerBands(StrategyBase):
                 (latest_candle['close'] > previous_candle['close']):
 
             # If above conditions are true and decision is Entry, then return Entry Buy else return Exit Sell
-            action = ActionConstants.ENTRY_BUY if decision is DecisionContants.ENTRY_POSITION else ActionConstants.EXIT_SELL
+            action = ActionConstants.ENTRY_BUY if decision is DecisionConstants.ENTRY_POSITION else ActionConstants.EXIT_SELL
         elif (previous_candle['open'] >= upperband_value or previous_candle['high'] >= upperband_value or previous_candle['low'] >= upperband_value or previous_candle['close'] >= upperband_value) and \
                 (latest_candle['close'] < previous_candle['close']):
 
             # If above conditions are true and decision is Entry, then return Entry Sell else return Exit Buy
-            action = ActionConstants.ENTRY_SELL if decision is DecisionContants.ENTRY_POSITION else ActionConstants.EXIT_BUY
+            action = ActionConstants.ENTRY_SELL if decision is DecisionConstants.ENTRY_POSITION else ActionConstants.EXIT_BUY
 
         # Return action as NO_ACTION if there is no crossover
         else:
@@ -120,7 +120,7 @@ class BollingerBands(StrategyBase):
             if self.main_order.get(instrument) is None:
 
                 # Get entry decision
-                action = self.get_decision(instrument, DecisionContants.ENTRY_POSITION)
+                action = self.get_decision(instrument, DecisionConstants.ENTRY_POSITION)
                 if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
                     # Add instrument to the bucket
                     selected_instruments_bucket.append(instrument)
@@ -180,7 +180,7 @@ class BollingerBands(StrategyBase):
             if main_order is not None and main_order.get_order_status() is BrokerOrderStatusConstants.COMPLETE:
 
                 # Check for action (decision making process)
-                action = self.get_decision(instrument, DecisionContants.EXIT_POSITION)
+                action = self.get_decision(instrument, DecisionConstants.EXIT_POSITION)
 
                 # For this strategy, we take the decision as:
                 # If order transaction type is buy and current action is sell or order transaction type is sell and current action is buy, then exit the order
