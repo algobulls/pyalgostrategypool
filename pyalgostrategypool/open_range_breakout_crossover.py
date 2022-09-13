@@ -86,6 +86,8 @@ class OpenRangeBreakoutCrossover(StrategyBase):
             # Return action as SELL if crossover is Downwards and decision is Entry, else BUY if decision is EXIT
             elif self.get_crossover_value(hist_data, latest_high) == -1:
                 action = ActionConstants.ENTRY_SELL if decision is DecisionContants.ENTRY_POSITION else ActionConstants.EXIT_BUY
+
+            # Return action as NO_ACTION if there is no crossover
             else:
                 action = ActionConstants.NO_ACTION
         return action

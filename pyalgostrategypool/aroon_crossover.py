@@ -73,8 +73,11 @@ class AroonCrossover(StrategyBase):
         # Return action as SELL if crossover is Downwards and decision is Entry, else BUY if decision is EXIT
         elif crossover_value == -1:
             action = ActionConstants.ENTRY_SELL if decision is DecisionContants.ENTRY_POSITION else ActionConstants.EXIT_BUY
+
+        # Return action as NO_ACTION if there is no crossover
         else:
             action = ActionConstants.NO_ACTION
+
         return action
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):

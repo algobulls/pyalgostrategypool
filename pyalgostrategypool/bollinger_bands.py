@@ -91,6 +91,8 @@ class BollingerBands(StrategyBase):
 
             # If above conditions are true and decision is Entry, then return Entry Sell else return Exit Buy
             action = ActionConstants.ENTRY_SELL if decision is DecisionContants.ENTRY_POSITION else ActionConstants.EXIT_BUY
+
+        # Return action as NO_ACTION if there is no crossover
         else:
             action = None
         return action
