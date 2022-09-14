@@ -1,11 +1,8 @@
-import logging
 from datetime import time
 
 import clock
 from pyalgotrading.constants import *
 from pyalgotrading.strategy.strategy_base import StrategyBase
-
-logger = logging.getLogger('strategy')
 
 
 class OpenRangeBreakoutCrossover(StrategyBase):

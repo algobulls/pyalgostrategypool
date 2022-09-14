@@ -1,11 +1,7 @@
-import logging
-
 import talib
 from pyalgotrading.constants import *
 from pyalgotrading.strategy.strategy_base import StrategyBase
 from utils.candlesticks.heikinashi import HeikinAshi
-
-logger = logging.getLogger('strategy')
 
 
 class SMAHeikinAshiCrossover(StrategyBase):
@@ -137,14 +133,12 @@ class SMAHeikinAshiCrossover(StrategyBase):
         if sideband_info['action'] is ActionConstants.ENTRY_BUY:
             self.main_order[instrument] = self.broker.BuyOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=qty)
             self.profit_order[instrument] = self.broker.SellOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.LIMIT, quantity=qty,
-                                                                         price=self.main_order[instrument].entry_price + self.profit_booking_buy_points,
-                                                                         position=BrokerExistingOrderPositionConstants.EXIT_POSITION, related_order=self.main_order[instrument])
+                                                                         price=self.main_order[instrument].entry_price + self.profit_booking_buy_points)
         # Place sell order
         elif sideband_info['action'] is ActionConstants.ENTRY_SELL:
             self.main_order[instrument] = self.broker.SellOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=qty)
             self.profit_order[instrument] = self.broker.BuyOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.LIMIT, quantity=qty,
-                                                                        price=self.main_order[instrument].entry_price - self.profit_booking_sell_points,
-                                                                        position=BrokerExistingOrderPositionConstants.EXIT_POSITION, related_order=self.main_order[instrument])
+                                                                        price=self.main_order[instrument].entry_price - self.profit_booking_sell_points)
 
         # Sanity
         else:

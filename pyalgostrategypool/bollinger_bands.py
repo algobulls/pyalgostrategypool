@@ -1,10 +1,6 @@
-import logging
-
 import talib
 from pyalgotrading.constants import *
 from pyalgotrading.strategy.strategy_base import StrategyBase
-
-logger = logging.getLogger('strategy')
 
 
 class BollingerBands(StrategyBase):
@@ -73,13 +69,13 @@ class BollingerBands(StrategyBase):
         upperband_value = upperband.iloc[-1]
         lowerband_value = lowerband.iloc[-1]
 
-        logger.info(f"Latest candle close {latest_candle['close']} \n"
-                    f"Previous candle close {previous_candle['close']} \n"
-                    f"Previous candle open {previous_candle['open']} \n"
-                    f"Previous candle high {previous_candle['high']} \n"
-                    f"Previous candle low {previous_candle['low']} \n"
-                    f"Bollinger lower band {lowerband_value} \n"
-                    f"Bollinger upper band {upperband_value} \n")
+        self.logger.info(f"Latest candle close {latest_candle['close']} \n"
+                         f"Previous candle close {previous_candle['close']} \n"
+                         f"Previous candle open {previous_candle['open']} \n"
+                         f"Previous candle high {previous_candle['high']} \n"
+                         f"Previous candle low {previous_candle['low']} \n"
+                         f"Bollinger lower band {lowerband_value} \n"
+                         f"Bollinger upper band {upperband_value} \n")
 
         if (previous_candle['open'] <= lowerband_value or previous_candle['high'] <= lowerband_value or previous_candle['low'] <= lowerband_value or previous_candle['close'] <= lowerband_value) and \
                 (latest_candle['close'] > previous_candle['close']):

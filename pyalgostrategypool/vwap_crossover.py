@@ -1,10 +1,6 @@
-import logging
-
 from indicator.vwap import VWAP
 from pyalgotrading.constants import *
 from pyalgotrading.strategy.strategy_base import StrategyBase
-
-logger = logging.getLogger('strategy')
 
 
 class VWAPCrossover(StrategyBase):
