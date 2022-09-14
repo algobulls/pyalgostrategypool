@@ -14,14 +14,14 @@ class StochasticCrossover(StrategyBase):
         super().__init__(*args, **kwargs)
 
         # Stochastic parameters
-        self.fastk_period = self.strategy_parameters['FASTK_PERIOD']
-        self.slowk_period = self.strategy_parameters['SLOWK_PERIOD']
-        self.slowd_period = self.strategy_parameters['SLOWD_PERIOD']
+        self.fastk_period = self.strategy_parameters.get('FASTK_PERIOD') or self.strategy_parameters.get('PERIOD')
+        self.slowk_period = self.strategy_parameters.get('SLOWK_PERIOD') or self.strategy_parameters.get('SMOOTH_K_PERIOD')
+        self.slowd_period = self.strategy_parameters.get('SLOWD_PERIOD') or self.strategy_parameters.get('SMOOTH_D_PERIOD')
 
         # Sanity
-        assert (0 < self.fastk_period == int(self.fastk_period)), f"Strategy parameter FASTK_PERIOD should be a positive integer. Received: {self.fastk_period}"
-        assert (0 < self.slowk_period == int(self.slowk_period)), f"Strategy parameter SLOWK_PERIOD should be a positive integer. Received: {self.slowk_period}"
-        assert (0 < self.slowd_period == int(self.slowd_period)), f"Strategy parameter SLOWD_PERIOD should be a positive integer. Received: {self.slowd_period}"
+        assert (0 < self.fastk_period == int(self.fastk_period)), f"Strategy parameter FASTK_PERIOD/PERIOD should be a positive integer. Received: {self.fastk_period}"
+        assert (0 < self.slowk_period == int(self.slowk_period)), f"Strategy parameter SLOWK_PERIOD/SMOOTH_K_PERIOD should be a positive integer. Received: {self.slowk_period}"
+        assert (0 < self.slowd_period == int(self.slowd_period)), f"Strategy parameter SLOWD_PERIOD/SMOOTH_D_PERIOD should be a positive integer. Received: {self.slowd_period}"
 
         # Variables
         self.main_order = None
