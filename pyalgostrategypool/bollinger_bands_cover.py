@@ -4,7 +4,7 @@ from pyalgotrading.constants import *
 from pyalgotrading.strategy import StrategyBase
 
 
-class BollingerBandsBracket(StrategyBase):
+class BollingerBandsCover(StrategyBase):
 
     def __init__(self, *args, **kwargs):
         """
@@ -19,15 +19,11 @@ class BollingerBandsBracket(StrategyBase):
         self.time_period = self.strategy_parameters['TIME_PERIOD']
         self.std_deviations = self.strategy_parameters['STANDARD_DEVIATIONS']
         self.stoploss = self.strategy_parameters['STOPLOSS_TRIGGER']
-        self.target = self.strategy_parameters['TARGET_TRIGGER']
-        self.trailing_stoploss = self.strategy_parameters['TRAILING_STOPLOSS_TRIGGER']
 
         # Sanity
         assert (0 < self.time_period == int(self.time_period)), f"Strategy parameter TIME_PERIOD should be a positive integer. Received: {self.time_period}"
         assert (0 < self.std_deviations == int(self.std_deviations)), f"Strategy parameter STANDARD_DEVIATIONS should be a positive integer. Received: {self.std_deviations}"
         assert (0 < self.stoploss < 1), f"Strategy parameter STOPLOSS_TRIGGER should be a positive fraction between 0 and 1. Received: {self.stoploss}"
-        assert (0 < self.target < 1), f"Strategy parameter TARGET_TRIGGER should be a positive fraction between 0 and 1. Received: {self.target}"
-        assert (0 < self.trailing_stoploss), f"Strategy parameter TRAILING_STOPLOSS_TRIGGER should be a positive number. Received: {self.trailing_stoploss}"
 
         # Variables
         self.main_order = None
@@ -46,7 +42,7 @@ class BollingerBandsBracket(StrategyBase):
         Name of your strategy.
         """
 
-        return 'Bollinger Bands Bracket'
+        return 'Bollinger Bands Cover'
 
     @staticmethod
     def versions_supported():
@@ -98,6 +94,7 @@ class BollingerBandsBracket(StrategyBase):
         # Return action as NO_ACTION if there is no crossover
         else:
             action = None
+
         return action
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
@@ -150,17 +147,19 @@ class BollingerBandsBracket(StrategyBase):
 
         # Place buy order
         if sideband_info['action'] is ActionConstants.ENTRY_BUY:
-            self.main_order[instrument] = self.broker.BuyOrderBracket(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.LIMIT, quantity=qty, price=ltp,
-                                                                      stoploss_trigger=ltp - (ltp * self.stoploss), target_trigger=ltp + (ltp * self.target), trailing_stoploss_trigger=ltp * self.trailing_stoploss)
+            self.main_order[instrument] = self.broker.BuyOrderCover(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.MARKET,
+                                                                    quantity=qty, price=ltp, trigger_price=ltp - (ltp * self.stoploss))
 
         # Place sell order
         elif sideband_info['action'] is ActionConstants.ENTRY_SELL:
-            self.main_order[instrument] = self.broker.SellOrderBracket(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.LIMIT, quantity=qty, price=ltp,
-                                                                       stoploss_trigger=ltp + (ltp * self.stoploss), target_trigger=ltp - (ltp * self.target), trailing_stoploss_trigger=ltp * self.trailing_stoploss)
+            qty = self.number_of_lots * instrument.lot_size
+            ltp = self.broker.get_ltp(instrument)
+            self.main_order[instrument] = self.broker.SellOrderCover(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.MARKET,
+                                                                     quantity=qty, price=ltp, trigger_price=ltp + (ltp * self.stoploss))
 
         # Sanity
         else:
-            raise SystemExit(f'Got invalid sideband_info value: {sideband_info}')
+            raise SystemExit(f'Invalid sideband info value {sideband_info}')
 
         # Return the order to the core engine for management
         return self.main_order[instrument]

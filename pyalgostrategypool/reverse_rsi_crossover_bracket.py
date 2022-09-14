@@ -4,7 +4,7 @@ from pyalgotrading.constants import *
 from pyalgotrading.strategy import StrategyBase
 
 
-class BollingerBandsBracket(StrategyBase):
+class ReverseRSICrossoverBracket(StrategyBase):
 
     def __init__(self, *args, **kwargs):
         """
@@ -15,16 +15,18 @@ class BollingerBandsBracket(StrategyBase):
 
         super().__init__(*args, **kwargs)
 
-        # Bollinger Bands parameters
+        # Reverse RSI parameters
         self.time_period = self.strategy_parameters['TIME_PERIOD']
-        self.std_deviations = self.strategy_parameters['STANDARD_DEVIATIONS']
+        self.overbought_value = self.strategy_parameters['OVERBOUGHT_VALUE']
+        self.oversold_value = self.strategy_parameters['OVERSOLD_VALUE']
         self.stoploss = self.strategy_parameters['STOPLOSS_TRIGGER']
         self.target = self.strategy_parameters['TARGET_TRIGGER']
         self.trailing_stoploss = self.strategy_parameters['TRAILING_STOPLOSS_TRIGGER']
 
         # Sanity
         assert (0 < self.time_period == int(self.time_period)), f"Strategy parameter TIME_PERIOD should be a positive integer. Received: {self.time_period}"
-        assert (0 < self.std_deviations == int(self.std_deviations)), f"Strategy parameter STANDARD_DEVIATIONS should be a positive integer. Received: {self.std_deviations}"
+        assert (0 < self.overbought_value == int(self.overbought_value)), f"Strategy parameter OVERBOUGHT_VALUE should be a positive integer. Received: {self.overbought_value}"
+        assert (0 < self.oversold_value == int(self.oversold_value)), f"Strategy parameter OVERSOLD_VALUE should be a positive integer. Received: {self.oversold_value}"
         assert (0 < self.stoploss < 1), f"Strategy parameter STOPLOSS_TRIGGER should be a positive fraction between 0 and 1. Received: {self.stoploss}"
         assert (0 < self.target < 1), f"Strategy parameter TARGET_TRIGGER should be a positive fraction between 0 and 1. Received: {self.target}"
         assert (0 < self.trailing_stoploss), f"Strategy parameter TRAILING_STOPLOSS_TRIGGER should be a positive number. Received: {self.trailing_stoploss}"
@@ -46,15 +48,10 @@ class BollingerBandsBracket(StrategyBase):
         Name of your strategy.
         """
 
-        return 'Bollinger Bands Bracket'
+        return 'Reverse RSI Crossover Bracket'
 
     @staticmethod
     def versions_supported():
-        """
-        Strategy should always support the latest engine version.
-        Current version is 3.3.0
-        """
-
         return AlgoBullsEngineVersion.VERSION_3_3_0
 
     def get_decision(self, instrument, decision):
@@ -62,42 +59,46 @@ class BollingerBandsBracket(StrategyBase):
         This method calculates the crossover using the hist data of the instrument along with the required indicator and returns the entry/exit action.
         """
 
+        action = None
+
         # Get OHLC historical data for the instrument
         hist_data = self.get_historical_data(instrument)
 
-        # Get last OHLC row of the historical data
-        latest_candle = hist_data.iloc[-1]
+        # Calculate the Reverse RSI values
+        rsi_value = talib.RSI(hist_data['close'], timeperiod=self.time_period)
+        overbought_list = [self.overbought_value] * rsi_value.size
+        oversold_list = [self.oversold_value] * rsi_value.size
 
-        # Get second last OHLC row of the historical data
-        previous_candle = hist_data.iloc[-2]
+        # Get the crossover values
+        oversold_crossover_value = self.utils.crossover(rsi_value, oversold_list)
+        overbought_crossover_value = self.utils.crossover(rsi_value, overbought_list)
 
-        # Calculate the Bollinger Bands values
-        upperband, _, lowerband = talib.BBANDS(hist_data['close'], timeperiod=self.time_period, nbdevup=self.std_deviations, nbdevdn=self.std_deviations, matype=0)
-        upperband_value = upperband.iloc[-1]
-        lowerband_value = lowerband.iloc[-1]
+        # If decision is Entry
+        if decision is DecisionConstants.ENTRY_POSITION:
+            if oversold_crossover_value == 1:
 
-        self.logger.info(f"Latest candle close {latest_candle['close']} \n"
-                         f"Previous candle close {previous_candle['close']} \n"
-                         f"Previous candle open {previous_candle['open']} \n"
-                         f"Previous candle high {previous_candle['high']} \n"
-                         f"Previous candle low {previous_candle['low']} \n"
-                         f"Bollinger lower band {lowerband_value} \n"
-                         f"Bollinger upper band {upperband_value} \n")
+                # If crossover is upwards, return Buy
+                action = ActionConstants.ENTRY_BUY
 
-        if (previous_candle['open'] <= lowerband_value or previous_candle['high'] <= lowerband_value or previous_candle['low'] <= lowerband_value or previous_candle['close'] <= lowerband_value) and \
-                (latest_candle['close'] > previous_candle['close']):
+            # If crossover is downwards, return Sell
+            elif overbought_crossover_value == -1:
+                action = ActionConstants.ENTRY_SELL
 
-            # If above conditions are true and decision is Entry, then return Entry Buy else return Exit Sell
-            action = ActionConstants.ENTRY_BUY if decision is DecisionConstants.ENTRY_POSITION else ActionConstants.EXIT_SELL
-        elif (previous_candle['open'] >= upperband_value or previous_candle['high'] >= upperband_value or previous_candle['low'] >= upperband_value or previous_candle['close'] >= upperband_value) and \
-                (latest_candle['close'] < previous_candle['close']):
+        # If decision is Exit
+        elif decision is DecisionConstants.EXIT_POSITION:
 
-            # If above conditions are true and decision is Entry, then return Entry Sell else return Exit Buy
-            action = ActionConstants.ENTRY_SELL if decision is DecisionConstants.ENTRY_POSITION else ActionConstants.EXIT_BUY
+            # If crossover is downwards, return Buy
+            if oversold_crossover_value == -1:
+                action = ActionConstants.EXIT_BUY
+
+            # If crossover is upwards, return Sell
+            elif overbought_crossover_value == 1:
+                action = ActionConstants.EXIT_SELL
 
         # Return action as NO_ACTION if there is no crossover
         else:
-            action = None
+            action = ActionConstants.NO_ACTION
+
         return action
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):

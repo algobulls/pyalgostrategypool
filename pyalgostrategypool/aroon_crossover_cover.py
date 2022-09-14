@@ -48,7 +48,7 @@ class AroonCrossoverCover(StrategyBase):
         Current version is 3.3.0
         """
 
-        return [AlgoBullsEngineVersion.VERSION_3_3_0]
+        return AlgoBullsEngineVersion.VERSION_3_3_0
 
     def get_decision(self, instrument, decision):
         """

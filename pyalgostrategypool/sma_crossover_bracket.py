@@ -4,7 +4,7 @@ from pyalgotrading.constants import *
 from pyalgotrading.strategy import StrategyBase
 
 
-class BollingerBandsBracket(StrategyBase):
+class SMACrossoverBracket(StrategyBase):
 
     def __init__(self, *args, **kwargs):
         """
@@ -15,16 +15,16 @@ class BollingerBandsBracket(StrategyBase):
 
         super().__init__(*args, **kwargs)
 
-        # Bollinger Bands parameters
-        self.time_period = self.strategy_parameters['TIME_PERIOD']
-        self.std_deviations = self.strategy_parameters['STANDARD_DEVIATIONS']
+        # SMA parameters
+        self.timeperiod1 = self.strategy_parameters['TIME_PERIOD1']
+        self.timeperiod2 = self.strategy_parameters['TIME_PERIOD2']
         self.stoploss = self.strategy_parameters['STOPLOSS_TRIGGER']
         self.target = self.strategy_parameters['TARGET_TRIGGER']
         self.trailing_stoploss = self.strategy_parameters['TRAILING_STOPLOSS_TRIGGER']
 
         # Sanity
-        assert (0 < self.time_period == int(self.time_period)), f"Strategy parameter TIME_PERIOD should be a positive integer. Received: {self.time_period}"
-        assert (0 < self.std_deviations == int(self.std_deviations)), f"Strategy parameter STANDARD_DEVIATIONS should be a positive integer. Received: {self.std_deviations}"
+        assert (0 < self.timeperiod1 == int(self.timeperiod1)), f"Strategy parameter TIME_PERIOD1 should be a positive integer. Received: {self.timeperiod1}"
+        assert (0 < self.timeperiod2 == int(self.timeperiod2)), f"Strategy parameter TIME_PERIOD2 should be a positive integer. Received: {self.timeperiod2}"
         assert (0 < self.stoploss < 1), f"Strategy parameter STOPLOSS_TRIGGER should be a positive fraction between 0 and 1. Received: {self.stoploss}"
         assert (0 < self.target < 1), f"Strategy parameter TARGET_TRIGGER should be a positive fraction between 0 and 1. Received: {self.target}"
         assert (0 < self.trailing_stoploss), f"Strategy parameter TRAILING_STOPLOSS_TRIGGER should be a positive number. Received: {self.trailing_stoploss}"
@@ -46,7 +46,7 @@ class BollingerBandsBracket(StrategyBase):
         Name of your strategy.
         """
 
-        return 'Bollinger Bands Bracket'
+        return 'SMA Crossover Bracket'
 
     @staticmethod
     def versions_supported():
@@ -65,39 +65,25 @@ class BollingerBandsBracket(StrategyBase):
         # Get OHLC historical data for the instrument
         hist_data = self.get_historical_data(instrument)
 
-        # Get last OHLC row of the historical data
-        latest_candle = hist_data.iloc[-1]
+        # Calculate the SMA values
+        sma_x = talib.SMA(hist_data['close'], timeperiod=self.timeperiod1)
+        sma_y = talib.SMA(hist_data['close'], timeperiod=self.timeperiod2)
 
-        # Get second last OHLC row of the historical data
-        previous_candle = hist_data.iloc[-2]
+        # Get the crossover value
+        crossover_value = self.utils.crossover(sma_x, sma_y)
 
-        # Calculate the Bollinger Bands values
-        upperband, _, lowerband = talib.BBANDS(hist_data['close'], timeperiod=self.time_period, nbdevup=self.std_deviations, nbdevdn=self.std_deviations, matype=0)
-        upperband_value = upperband.iloc[-1]
-        lowerband_value = lowerband.iloc[-1]
-
-        self.logger.info(f"Latest candle close {latest_candle['close']} \n"
-                         f"Previous candle close {previous_candle['close']} \n"
-                         f"Previous candle open {previous_candle['open']} \n"
-                         f"Previous candle high {previous_candle['high']} \n"
-                         f"Previous candle low {previous_candle['low']} \n"
-                         f"Bollinger lower band {lowerband_value} \n"
-                         f"Bollinger upper band {upperband_value} \n")
-
-        if (previous_candle['open'] <= lowerband_value or previous_candle['high'] <= lowerband_value or previous_candle['low'] <= lowerband_value or previous_candle['close'] <= lowerband_value) and \
-                (latest_candle['close'] > previous_candle['close']):
-
-            # If above conditions are true and decision is Entry, then return Entry Buy else return Exit Sell
+        # Return action as BUY if crossover is Upwards and decision is Entry, else SELL if decision is EXIT
+        if crossover_value == 1:
             action = ActionConstants.ENTRY_BUY if decision is DecisionConstants.ENTRY_POSITION else ActionConstants.EXIT_SELL
-        elif (previous_candle['open'] >= upperband_value or previous_candle['high'] >= upperband_value or previous_candle['low'] >= upperband_value or previous_candle['close'] >= upperband_value) and \
-                (latest_candle['close'] < previous_candle['close']):
 
-            # If above conditions are true and decision is Entry, then return Entry Sell else return Exit Buy
+        # Return action as SELL if crossover is Downwards and decision is Entry, else BUY if decision is EXIT
+        elif crossover_value == -1:
             action = ActionConstants.ENTRY_SELL if decision is DecisionConstants.ENTRY_POSITION else ActionConstants.EXIT_BUY
 
         # Return action as NO_ACTION if there is no crossover
         else:
-            action = None
+            action = ActionConstants.NO_ACTION
+
         return action
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
@@ -119,7 +105,6 @@ class BollingerBandsBracket(StrategyBase):
         # Looping over all instruments given by you in the bucket (we can give multiple instruments in the configuration)
         for instrument in instruments_bucket:
 
-            # Compute various things and get the decision to place an order only if no current order is going on (main order is empty / none)
             if self.main_order.get(instrument) is None:
 
                 # Get entry decision
@@ -132,8 +117,8 @@ class BollingerBandsBracket(StrategyBase):
                     # Add additional info for the instrument
                     sideband_info_bucket.append({'action': action})
 
-        # Return the buckets to the core engine
-        # Engine will now call strategy_enter_position with each instrument and its additional info one by one
+            # Return the buckets to the core engine
+            # Engine will now call strategy_enter_position with each instrument and its additional info one by one
         return selected_instruments_bucket, sideband_info_bucket
 
     def strategy_enter_position(self, candle, instrument, sideband_info):
@@ -201,8 +186,8 @@ class BollingerBandsBracket(StrategyBase):
                     # Add additional info for the instrument
                     sideband_info_bucket.append({'action': action})
 
-        # Return the buckets to the core engine
-        # Engine will now call strategy_exit_position with each instrument and its additional info one by one
+            # Return the buckets to the core engine
+            # Engine will now call strategy_exit_position with each instrument and its additional info one by one
         return selected_instruments_bucket, sideband_info_bucket
 
     def strategy_exit_position(self, candle, instrument, sideband_info):

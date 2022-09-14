@@ -1,10 +1,11 @@
-import talib
+from datetime import time
 
+import clock
 from pyalgotrading.constants import *
 from pyalgotrading.strategy import StrategyBase
 
 
-class BollingerBandsBracket(StrategyBase):
+class OpenRangeBreakoutCrossoverCover(StrategyBase):
 
     def __init__(self, *args, **kwargs):
         """
@@ -15,22 +16,24 @@ class BollingerBandsBracket(StrategyBase):
 
         super().__init__(*args, **kwargs)
 
-        # Bollinger Bands parameters
-        self.time_period = self.strategy_parameters['TIME_PERIOD']
-        self.std_deviations = self.strategy_parameters['STANDARD_DEVIATIONS']
+        # Open Range Breakout parameters
+        self.start_time_hours = self.strategy_parameters['START_TIME_HOURS']
+        self.start_time_minutes = self.strategy_parameters['START_TIME_MINUTES']
         self.stoploss = self.strategy_parameters['STOPLOSS_TRIGGER']
-        self.target = self.strategy_parameters['TARGET_TRIGGER']
-        self.trailing_stoploss = self.strategy_parameters['TRAILING_STOPLOSS_TRIGGER']
+
+        try:
+            self.candle_start_time = time(hour=self.start_time_hours, minute=self.start_time_minutes)
+        except ValueError:
+            self.logger.fatal('Error converting hours and minutes... EXITING')
+            raise SystemExit
 
         # Sanity
-        assert (0 < self.time_period == int(self.time_period)), f"Strategy parameter TIME_PERIOD should be a positive integer. Received: {self.time_period}"
-        assert (0 < self.std_deviations == int(self.std_deviations)), f"Strategy parameter STANDARD_DEVIATIONS should be a positive integer. Received: {self.std_deviations}"
         assert (0 < self.stoploss < 1), f"Strategy parameter STOPLOSS_TRIGGER should be a positive fraction between 0 and 1. Received: {self.stoploss}"
-        assert (0 < self.target < 1), f"Strategy parameter TARGET_TRIGGER should be a positive fraction between 0 and 1. Received: {self.target}"
-        assert (0 < self.trailing_stoploss), f"Strategy parameter TRAILING_STOPLOSS_TRIGGER should be a positive number. Received: {self.trailing_stoploss}"
 
         # Variables
         self.main_order = None
+        self.udc_high = None
+        self.order_placed_for_the_day = None
 
     def initialize(self):
         """
@@ -39,6 +42,8 @@ class BollingerBandsBracket(StrategyBase):
         """
 
         self.main_order = {}
+        self.udc_high = {}
+        self.order_placed_for_the_day = {}
 
     @staticmethod
     def name():
@@ -46,7 +51,7 @@ class BollingerBandsBracket(StrategyBase):
         Name of your strategy.
         """
 
-        return 'Bollinger Bands Bracket'
+        return 'Open Range Breakout Crossover Cover'
 
     @staticmethod
     def versions_supported():
@@ -59,46 +64,56 @@ class BollingerBandsBracket(StrategyBase):
 
     def get_decision(self, instrument, decision):
         """
-        This method calculates the crossover using the hist data of the instrument along with the required indicator and returns the entry/exit action.
+        This method returns the entry/exit action based on the crossover value
         """
+
+        action = None
 
         # Get OHLC historical data for the instrument
         hist_data = self.get_historical_data(instrument)
 
-        # Get last OHLC row of the historical data
-        latest_candle = hist_data.iloc[-1]
+        # Get latest timestamp
+        timestamp_str = str(hist_data['timestamp'].iloc[-1].to_pydatetime().time())
 
-        # Get second last OHLC row of the historical data
-        previous_candle = hist_data.iloc[-2]
+        # Get string value of strategy start time
+        udc_candle_str = str(self.candle_start_time)
 
-        # Calculate the Bollinger Bands values
-        upperband, _, lowerband = talib.BBANDS(hist_data['close'], timeperiod=self.time_period, nbdevup=self.std_deviations, nbdevdn=self.std_deviations, matype=0)
-        upperband_value = upperband.iloc[-1]
-        lowerband_value = lowerband.iloc[-1]
+        # If latest timestamp is equal to strategy start time
+        if timestamp_str == udc_candle_str:
+            latest_high = hist_data['high'].iloc[-1]
 
-        self.logger.info(f"Latest candle close {latest_candle['close']} \n"
-                         f"Previous candle close {previous_candle['close']} \n"
-                         f"Previous candle open {previous_candle['open']} \n"
-                         f"Previous candle high {previous_candle['high']} \n"
-                         f"Previous candle low {previous_candle['low']} \n"
-                         f"Bollinger lower band {lowerband_value} \n"
-                         f"Bollinger upper band {upperband_value} \n")
+            # Return action as BUY if crossover is Upwards and decision is Entry, else SELL if decision is EXIT
+            if self.get_crossover_value(hist_data, latest_high) == 1:
+                action = ActionConstants.ENTRY_BUY if decision is DecisionConstants.ENTRY_POSITION else ActionConstants.EXIT_SELL
 
-        if (previous_candle['open'] <= lowerband_value or previous_candle['high'] <= lowerband_value or previous_candle['low'] <= lowerband_value or previous_candle['close'] <= lowerband_value) and \
-                (latest_candle['close'] > previous_candle['close']):
+            # Return action as SELL if crossover is Downwards and decision is Entry, else BUY if decision is EXIT
+            elif self.get_crossover_value(hist_data, latest_high) == -1:
+                action = ActionConstants.ENTRY_SELL if decision is DecisionConstants.ENTRY_POSITION else ActionConstants.EXIT_BUY
 
-            # If above conditions are true and decision is Entry, then return Entry Buy else return Exit Sell
-            action = ActionConstants.ENTRY_BUY if decision is DecisionConstants.ENTRY_POSITION else ActionConstants.EXIT_SELL
-        elif (previous_candle['open'] >= upperband_value or previous_candle['high'] >= upperband_value or previous_candle['low'] >= upperband_value or previous_candle['close'] >= upperband_value) and \
-                (latest_candle['close'] < previous_candle['close']):
-
-            # If above conditions are true and decision is Entry, then return Entry Sell else return Exit Buy
-            action = ActionConstants.ENTRY_SELL if decision is DecisionConstants.ENTRY_POSITION else ActionConstants.EXIT_BUY
-
-        # Return action as NO_ACTION if there is no crossover
-        else:
-            action = None
+            # Return action as NO_ACTION if there is no crossover
+            else:
+                action = ActionConstants.NO_ACTION
         return action
+
+    def get_crossover_value(self, hist_data, latest_high):
+        """
+        This method calculates the crossover using the hist data of the instrument along with the required indicator and returns the crossover value.
+        """
+
+        crossover = 0
+
+        # Calculate crossover for the OHLC columns with
+        columns = ['open', 'high', 'low', 'close']
+        val_data = [latest_high] * len(hist_data)
+        for column in columns:
+            crossover = self.utils.crossover(hist_data[column], val_data)
+            if crossover in [1, -1]:
+
+                # If crossover is upwards or downwards, stop computing the crossovers
+                break
+
+        # Return the crossover values
+        return crossover
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
         """
@@ -116,21 +131,31 @@ class BollingerBandsBracket(StrategyBase):
         # Add accompanying info in this bucket for that particular instrument in the bucket above
         sideband_info_bucket = []
 
-        # Looping over all instruments given by you in the bucket (we can give multiple instruments in the configuration)
-        for instrument in instruments_bucket:
+        # If current time is equal to greater than strategy start time, then take entry decision
+        if clock.CLOCK.now().time() >= self.candle_start_time:
 
-            # Compute various things and get the decision to place an order only if no current order is going on (main order is empty / none)
-            if self.main_order.get(instrument) is None:
+            # Looping over all instruments given by you in the bucket (we can give multiple instruments in the configuration)
+            for instrument in instruments_bucket:
 
-                # Get entry decision
-                action = self.get_decision(instrument, DecisionConstants.ENTRY_POSITION)
+                # Instrument is appended once the main order is exited, this ensures that only one order is placed for the day
+                if instrument not in self.order_placed_for_the_day:
 
-                if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
-                    # Add instrument to the bucket
-                    selected_instruments_bucket.append(instrument)
+                    # Compute various things and get the decision to place an order only if no current order is going on (main order is empty / none)
+                    if self.main_order.get(instrument) is None:
 
-                    # Add additional info for the instrument
-                    sideband_info_bucket.append({'action': action})
+                        # Get entry decision
+                        action = self.get_decision(instrument, DecisionConstants.ENTRY_POSITION)
+
+                        if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
+                            # Add instrument to the bucket
+                            selected_instruments_bucket.append(instrument)
+
+                            # Add additional info for the instrument
+                            sideband_info_bucket.append({'action': action})
+
+                # If one order has exited already, below message is printed
+                else:
+                    self.logger.info('Order placed for the day, no more orders will be placed for the remaining day')
 
         # Return the buckets to the core engine
         # Engine will now call strategy_enter_position with each instrument and its additional info one by one
@@ -150,17 +175,19 @@ class BollingerBandsBracket(StrategyBase):
 
         # Place buy order
         if sideband_info['action'] is ActionConstants.ENTRY_BUY:
-            self.main_order[instrument] = self.broker.BuyOrderBracket(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.LIMIT, quantity=qty, price=ltp,
-                                                                      stoploss_trigger=ltp - (ltp * self.stoploss), target_trigger=ltp + (ltp * self.target), trailing_stoploss_trigger=ltp * self.trailing_stoploss)
+            self.main_order[instrument] = self.broker.BuyOrderCover(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.MARKET,
+                                                                    quantity=qty, price=ltp, trigger_price=ltp - (ltp * self.stoploss))
 
         # Place sell order
         elif sideband_info['action'] is ActionConstants.ENTRY_SELL:
-            self.main_order[instrument] = self.broker.SellOrderBracket(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.LIMIT, quantity=qty, price=ltp,
-                                                                       stoploss_trigger=ltp + (ltp * self.stoploss), target_trigger=ltp - (ltp * self.target), trailing_stoploss_trigger=ltp * self.trailing_stoploss)
+            qty = self.number_of_lots * instrument.lot_size
+            ltp = self.broker.get_ltp(instrument)
+            self.main_order[instrument] = self.broker.SellOrderCover(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.MARKET,
+                                                                     quantity=qty, price=ltp, trigger_price=ltp + (ltp * self.stoploss))
 
         # Sanity
         else:
-            raise SystemExit(f'Got invalid sideband_info value: {sideband_info}')
+            raise SystemExit(f'Invalid sideband info value {sideband_info}')
 
         # Return the order to the core engine for management
         return self.main_order[instrument]
@@ -207,9 +234,9 @@ class BollingerBandsBracket(StrategyBase):
 
     def strategy_exit_position(self, candle, instrument, sideband_info):
         """
-        This method is called once for each instrument from the bucket in this candle.
-        Exit an order here and return the instrument status to the core.
-        """
+       This method is called once for each instrument from the bucket in this candle.
+       Exit an order here and return the instrument status to the core.
+       """
 
         if sideband_info['action'] in [ActionConstants.EXIT_BUY, ActionConstants.EXIT_SELL]:
             # Exit the main order
