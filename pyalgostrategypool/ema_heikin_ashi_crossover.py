@@ -4,9 +4,6 @@ from pyalgotrading.strategy.strategy_base import StrategyBase
 from utils.candlesticks.heikinashi import HeikinAshi
 from pyalgotrading.pyalgotrading.constants import DecisionConstants, BrokerOrderStatusConstants, BrokerExistingOrderPositionConstants
 
-import logging
-logger = logging.getLogger('strategy')
-
 
 class EMAHeikinAshiCrossover(StrategyBase):
 
