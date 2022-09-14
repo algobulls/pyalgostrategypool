@@ -1,8 +1,7 @@
 import talib
 from pyalgotrading.constants import *
-from pyalgotrading.strategy.strategy_base import StrategyBase
+from pyalgotrading.strategy import StrategyBase
 from utils.candlesticks.heikinashi import HeikinAshi
-from pyalgotrading.pyalgotrading.constants import DecisionConstants, BrokerOrderStatusConstants, BrokerExistingOrderPositionConstants
 
 
 class EMAHeikinAshiCrossover(StrategyBase):

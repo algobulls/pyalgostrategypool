@@ -4,22 +4,18 @@ from pyalgotrading.constants import *
 from pyalgotrading.strategy import StrategyBase
 
 
-class StrategyEMABracketOrder(StrategyBase):
+class StrategyMACDRegularOrder(StrategyBase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.timeperiod1 = self.strategy_parameters['TIMEPERIOD1']
-        self.timeperiod2 = self.strategy_parameters['TIMEPERIOD2']
-        self.stoploss = self.strategy_parameters['STOPLOSS_TRIGGER']
-        self.target = self.strategy_parameters['TARGET_TRIGGER']
-        self.trailing_stoploss = self.strategy_parameters['TRAILING_STOPLOSS_TRIGGER']
+        self.fastMA_period = self.strategy_parameters['FASTMA_PERIOD']
+        self.slowMA_period = self.strategy_parameters['SLOWMA_PERIOD']
+        self.signal_period = self.strategy_parameters['SIGNAL_PERIOD']
 
-        assert (0 < self.timeperiod1 == int(self.timeperiod1)), f"Strategy parameter TIMEPERIOD1 should be a positive integer. Received: {self.timeperiod1}"
-        assert (0 < self.timeperiod2 == int(self.timeperiod2)), f"Strategy parameter TIMEPERIOD2 should be a positive integer. Received: {self.timeperiod2}"
-        assert (0 < self.stoploss < 1), f"Strategy parameter STOPLOSS_TRIGGER should be a positive fraction between 0 and 1. Received: {self.stoploss}"
-        assert (0 < self.target < 1), f"Strategy parameter TARGET_TRIGGER should be a positive fraction between 0 and 1. Received: {self.target}"
-        assert (0 < self.trailing_stoploss), f"Strategy parameter TRAILING_STOPLOSS_TRIGGER should be a positive number. Received: {self.trailing_stoploss}"
+        assert (0 < self.fastMA_period == int(self.fastMA_period)), f"Strategy parameter FASTMA_PERIOD should be a positive integer. Received: {self.fastMA_period}"
+        assert (0 < self.slowMA_period == int(self.slowMA_period)), f"Strategy parameter SLOWMA_PERIOD should be a positive integer. Received: {self.slowMA_period}"
+        assert (0 < self.signal_period == int(self.signal_period)), f"Strategy parameter SIGNAL_PERIOD should be a positive integer. Received: {self.signal_period}"
 
         self.main_order = None
 
@@ -28,18 +24,19 @@ class StrategyEMABracketOrder(StrategyBase):
 
     @staticmethod
     def name():
-        return 'EMA Bracket Order Strategy'
+        return 'MACD Regular Order Strategy'
 
     @staticmethod
     def versions_supported():
         return [AlgoBullsEngineVersion.VERSION_3_3_0]
 
     def get_crossover_value(self, instrument):
-
         hist_data = self.get_historical_data(instrument)
-        ema_one = talib.EMA(hist_data['close'], timeperiod=self.timeperiod1)
-        ema_two = talib.EMA(hist_data['close'], timeperiod=self.timeperiod2)
-        crossover_value = self.utils.crossover(ema_one, ema_two)
+        macdline, macdsignal, _ = talib.MACD(hist_data['close'],
+                                             fastperiod=self.fastMA_period,
+                                             slowperiod=self.slowMA_period,
+                                             signalperiod=self.signal_period)
+        crossover_value = self.utils.crossover(macdline, macdsignal)
         return crossover_value
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
@@ -62,29 +59,18 @@ class StrategyEMABracketOrder(StrategyBase):
     def strategy_enter_position(self, candle, instrument, sideband_info):
         if sideband_info['action'] == 'BUY':
             qty = self.number_of_lots * instrument.lot_size
-            ltp = self.broker.get_ltp(instrument)
             self.main_order[instrument] = \
-                self.broker.BuyOrderBracket(instrument=instrument,
+                self.broker.BuyOrderRegular(instrument=instrument,
                                             order_code=BrokerOrderCodeConstants.INTRADAY,
-                                            order_variety=BrokerOrderVarietyConstants.LIMIT,
-                                            quantity=qty,
-                                            price=ltp,
-                                            stoploss_trigger=ltp - (ltp * self.stoploss),
-                                            target_trigger=ltp + (ltp * self.target),
-                                            trailing_stoploss_trigger=ltp * self.trailing_stoploss)
-
+                                            order_variety=BrokerOrderVarietyConstants.MARKET,
+                                            quantity=qty)
         elif sideband_info['action'] == 'SELL':
             qty = self.number_of_lots * instrument.lot_size
-            ltp = self.broker.get_ltp(instrument)
             self.main_order[instrument] = \
-                self.broker.SellOrderBracket(instrument=instrument,
+                self.broker.SellOrderRegular(instrument=instrument,
                                              order_code=BrokerOrderCodeConstants.INTRADAY,
-                                             order_variety=BrokerOrderVarietyConstants.LIMIT,
-                                             quantity=qty,
-                                             price=ltp,
-                                             stoploss_trigger=ltp + (ltp * self.stoploss),
-                                             target_trigger=ltp - (ltp * self.target),
-                                             trailing_stoploss_trigger=ltp * self.trailing_stoploss)
+                                             order_variety=BrokerOrderVarietyConstants.MARKET,
+                                             quantity=qty)
         else:
             raise SystemExit(f'Got invalid sideband_info value: {sideband_info}')
 

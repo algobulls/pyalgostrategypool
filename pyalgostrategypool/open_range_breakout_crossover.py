@@ -2,7 +2,7 @@ from datetime import time
 
 import clock
 from pyalgotrading.constants import *
-from pyalgotrading.strategy.strategy_base import StrategyBase
+from pyalgotrading.strategy import StrategyBase
 
 
 class OpenRangeBreakoutCrossover(StrategyBase):
@@ -24,7 +24,7 @@ class OpenRangeBreakoutCrossover(StrategyBase):
         try:
             self.candle_start_time = time(hour=self.start_time_hours, minute=self.start_time_minutes)
         except ValueError:
-            logger.fatal('Error converting hours and minutes... EXITING')
+            self.logger.fatal('Error converting hours and minutes... EXITING')
             raise SystemExit
 
         # Variables
@@ -149,7 +149,7 @@ class OpenRangeBreakoutCrossover(StrategyBase):
 
                 # If one order has exited already, below message is printed
                 else:
-                    logger.info('Order placed for the day, no more orders will be placed for the remaining day')
+                    self.logger.info('Order placed for the day, no more orders will be placed for the remaining day')
 
         # Return the buckets to the core engine
         # Engine will now call strategy_enter_position with each instrument and its additional info one by one
