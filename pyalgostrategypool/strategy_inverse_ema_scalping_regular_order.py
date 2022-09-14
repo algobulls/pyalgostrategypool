@@ -1,7 +1,7 @@
 import talib
 
 from pyalgotrading.constants import *
-from pyalgotrading.strategy.strategy_base import StrategyBase
+from pyalgotrading.strategy import StrategyBase
 
 
 class StrategyInverseEMAScalpingRegularOrder(StrategyBase):
