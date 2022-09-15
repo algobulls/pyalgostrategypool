@@ -133,8 +133,6 @@ class AroonCrossoverCover(StrategyBase):
 
         # Place sell order
         elif sideband_info['action'] is ActionConstants.ENTRY_SELL:
-            qty = self.number_of_lots * instrument.lot_size
-            ltp = self.broker.get_ltp(instrument)
             self.main_order[instrument] = self.broker.SellOrderCover(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.MARKET,
                                                                      quantity=qty, price=ltp, trigger_price=ltp + (ltp * self.stoploss))
 
