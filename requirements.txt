@@ -1,2 +1,2 @@
-pyalgotrading>=2020.5.dev9
+pyalgotrading>=2022.09.3
 TA-Lib==0.4.17
