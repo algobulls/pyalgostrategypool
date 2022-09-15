@@ -31,7 +31,7 @@ class AroonCrossoverBracket(StrategyBase):
 
     def initialize(self):
         """
-        If you are running the strategy for multiple days, then this method will be called only once at the start of the strategy.
+        If you are running the strategy for multiple days, then this method will be called once at the start of every day.
         Use this to initialize and re-initialize your variables.
         """
 
