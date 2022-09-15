@@ -15,7 +15,7 @@ class EMAHeikinAshiCrossover(StrategyBase):
 
         super().__init__(*args, **kwargs)
 
-        # SMA Heikin Ashi parameters
+        # EMA Heikin Ashi parameters
         self.profit_booking_buy_points = self.strategy_parameters['PROFIT_BOOKING_BUY_POINTS']
         self.profit_booking_sell_points = self.strategy_parameters['PROFIT_BOOKING_SELL_POINTS']
         self.ema_period = self.strategy_parameters['EMA_PERIOD']
@@ -23,7 +23,7 @@ class EMAHeikinAshiCrossover(StrategyBase):
         # Sanity
         assert (0 < self.profit_booking_buy_points == int(self.profit_booking_buy_points)), f"Strategy parameter PROFIT_BOOKING_BUY_POINTS should be a positive integer. Received: {self.profit_booking_buy_points}"
         assert (0 < self.profit_booking_sell_points == int(self.profit_booking_sell_points)), f"Strategy parameter PROFIT_BOOKING_SELL_POINTS should be a positive integer. Received: {self.profit_booking_sell_points}"
-        assert (0 < self.ema_period == int(self.ema_period)), f"Strategy parameter SMA_PERIOD should be a positive integer. Received: {self.ema_period}"
+        assert (0 < self.ema_period == int(self.ema_period)), f"Strategy parameter EMA_PERIOD should be a positive integer. Received: {self.ema_period}"
 
         # Variables
         self.main_order = None
@@ -31,7 +31,7 @@ class EMAHeikinAshiCrossover(StrategyBase):
 
     def initialize(self):
         """
-        If you are running the strategy for multiple days, then this method will be called only once at the start of the strategy.
+        If you are running the strategy for multiple days, then this method will be called only once at the start of every day.
         Use this to initialize and re-initialize your variables.
         """
 
@@ -60,7 +60,7 @@ class EMAHeikinAshiCrossover(StrategyBase):
         This method calculates the crossover using the hist data of the instrument along with the required indicator.
         """
 
-        # Calculate the Heikin Ashi and SMA values
+        # Calculate the Heikin Ashi and EMA values
         hist_data = self.get_historical_data(instrument)
         hist_data_heikinashi = HeikinAshi(hist_data)
         ema_value = talib.EMA(hist_data_heikinashi['close'], timeperiod=self.ema_period)
