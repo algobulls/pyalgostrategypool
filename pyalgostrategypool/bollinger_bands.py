@@ -117,7 +117,9 @@ class BollingerBands(StrategyBase):
 
                 # Get entry decision
                 action = self.get_decision(instrument, DecisionConstants.ENTRY_POSITION)
+
                 if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
+
                     # Add instrument to the bucket
                     selected_instruments_bucket.append(instrument)
 
@@ -138,11 +140,11 @@ class BollingerBands(StrategyBase):
         qty = self.number_of_lots * instrument.lot_size
 
         # Place buy order
-        if sideband_info['action'] is ActionConstants.EXIT_BUY:
+        if sideband_info['action'] is ActionConstants.ENTRY_BUY:
             self.main_order[instrument] = self.broker.BuyOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=qty)
 
         # Place sell order
-        elif sideband_info['action'] is ActionConstants.EXIT_SELL:
+        elif sideband_info['action'] is ActionConstants.ENTRY_SELL:
             self.main_order[instrument] = self.broker.SellOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=qty)
 
         # Sanity
