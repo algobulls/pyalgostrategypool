@@ -64,10 +64,10 @@ class SMAHeikinAshiCrossover(StrategyBase):
 
         # Calculate the Heikin Ashi and SMA values
         hist_data_heikinashi = HeikinAshi(hist_data)
-        sma_value = talib.SMA(hist_data_heikinashi['close'], timeperiod=self.sma_period)
+        sma_value = talib.SMA(hist_data_heikinashi['HA_close'], timeperiod=self.sma_period)
 
         # Get the crossover value
-        crossover_value = self.utils.crossover(hist_data_heikinashi['close'], sma_value)
+        crossover_value = self.utils.crossover(hist_data_heikinashi['HA_close'], sma_value)
 
         # Return action as BUY if crossover is Upwards and decision is Entry, else SELL if decision is EXIT
         if crossover_value == 1:
