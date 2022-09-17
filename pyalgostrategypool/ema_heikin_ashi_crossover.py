@@ -65,8 +65,6 @@ class EMAHeikinAshiCrossover(StrategyBase):
 
         # Calculate the Heikin Ashi and EMA values
         hist_data_heikinashi = HeikinAshi(hist_data)
-
-        # Get EMA values
         ema_value = talib.EMA(hist_data_heikinashi['HA_close'], timeperiod=self.ema_period)
 
         # Get the crossover value
