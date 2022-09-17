@@ -21,6 +21,7 @@ class OpenRangeBreakoutCrossoverCover(StrategyBase):
         self.start_time_minutes = self.strategy_parameters['START_TIME_MINUTES']
         self.stoploss = self.strategy_parameters['STOPLOSS_TRIGGER']
 
+        # Strategy start time
         try:
             self.candle_start_time = time(hour=self.start_time_hours, minute=self.start_time_minutes)
         except ValueError:
@@ -32,8 +33,8 @@ class OpenRangeBreakoutCrossoverCover(StrategyBase):
 
         # Variables
         self.main_order = None
-        self.udc_high = None
-        self.order_placed_for_the_day = None
+        self.current_order_count = None
+        self.allowed_order_count = None
 
     def initialize(self):
         """
@@ -42,8 +43,12 @@ class OpenRangeBreakoutCrossoverCover(StrategyBase):
         """
 
         self.main_order = {}
-        self.udc_high = {}
-        self.order_placed_for_the_day = {}
+
+        # To keep a count of the number of orders for each instrument
+        self.current_order_count = {}
+
+        # Count of number of orders should not exceed the below count
+        self.allowed_order_count = 4
 
     @staticmethod
     def name():
@@ -67,7 +72,7 @@ class OpenRangeBreakoutCrossoverCover(StrategyBase):
         This method returns the entry/exit action based on the crossover value
         """
 
-        action = None
+        crossover_value = 0
 
         # Get OHLC historical data for the instrument
         hist_data = self.get_historical_data(instrument)
@@ -78,24 +83,26 @@ class OpenRangeBreakoutCrossoverCover(StrategyBase):
         # Get string value of strategy start time
         udc_candle_str = str(self.candle_start_time)
 
-        # If latest timestamp is equal to strategy start time
-        if timestamp_str == udc_candle_str:
-            latest_high = hist_data['high'].iloc[-1]
+        latest_close = hist_data['close'].iloc[-1]
 
-            # Return action as BUY if crossover is Upwards and decision is Entry, else SELL if decision is EXIT
-            if self.get_crossover_value(hist_data, latest_high) == 1:
-                action = ActionConstants.ENTRY_BUY if decision is DecisionConstants.ENTRY_POSITION else ActionConstants.EXIT_SELL
+        # Get crossover value if decision is ENTRY_POSITION and latest timestamp is equal to strategy start time or decision is EXIT_POSITION
+        if (decision is DecisionConstants.ENTRY_POSITION and timestamp_str >= udc_candle_str) or decision is DecisionConstants.EXIT_POSITION:
+            crossover_value = self.get_crossover_value(hist_data, latest_close)
 
-            # Return action as SELL if crossover is Downwards and decision is Entry, else BUY if decision is EXIT
-            elif self.get_crossover_value(hist_data, latest_high) == -1:
-                action = ActionConstants.ENTRY_SELL if decision is DecisionConstants.ENTRY_POSITION else ActionConstants.EXIT_BUY
+        # Return action as BUY if crossover is Upwards and decision is Entry, else SELL if decision is EXIT
+        if crossover_value == 1:
+            action = ActionConstants.ENTRY_BUY if decision is DecisionConstants.ENTRY_POSITION else ActionConstants.EXIT_SELL
 
-            # Return action as NO_ACTION if there is no crossover
-            else:
-                action = ActionConstants.NO_ACTION
+        # Return action as SELL if crossover is Downwards and decision is Entry, else BUY if decision is EXIT
+        elif crossover_value == -1:
+            action = ActionConstants.ENTRY_SELL if decision is DecisionConstants.ENTRY_POSITION else ActionConstants.EXIT_BUY
+
+        # Return action as NO_ACTION if there is no crossover
+        else:
+            action = ActionConstants.NO_ACTION
         return action
 
-    def get_crossover_value(self, hist_data, latest_high):
+    def get_crossover_value(self, hist_data, latest_close):
         """
         This method calculates the crossover using the hist data of the instrument along with the required indicator and returns the crossover value.
         """
@@ -104,11 +111,10 @@ class OpenRangeBreakoutCrossoverCover(StrategyBase):
 
         # Calculate crossover for the OHLC columns with
         columns = ['open', 'high', 'low', 'close']
-        val_data = [latest_high] * len(hist_data)
+        val_data = [latest_close] * len(hist_data)
         for column in columns:
             crossover = self.utils.crossover(hist_data[column], val_data)
             if crossover in [1, -1]:
-
                 # If crossover is upwards or downwards, stop computing the crossovers
                 break
 
@@ -137,25 +143,22 @@ class OpenRangeBreakoutCrossoverCover(StrategyBase):
             # Looping over all instruments given by you in the bucket (we can give multiple instruments in the configuration)
             for instrument in instruments_bucket:
 
-                # Instrument is appended once the main order is exited, this ensures that only one order is placed for the day
-                if instrument not in self.order_placed_for_the_day:
+                # Initiate the count
+                if self.current_order_count.get(instrument) is None:
+                    self.current_order_count[instrument] = 0
 
-                    # Compute various things and get the decision to place an order only if no current order is going on (main order is empty / none)
-                    if self.main_order.get(instrument) is None:
+                # Compute various things and get the decision to place an order only if no current order is going on (main order is empty / none) and the number of order counts is less than the count
+                if self.main_order.get(instrument) is None and self.current_order_count.get(instrument) < self.allowed_order_count:
 
-                        # Get entry decision
-                        action = self.get_decision(instrument, DecisionConstants.ENTRY_POSITION)
+                    # Get entry decision
+                    action = self.get_decision(instrument, DecisionConstants.ENTRY_POSITION)
 
-                        if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
-                            # Add instrument to the bucket
-                            selected_instruments_bucket.append(instrument)
+                    if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
+                        # Add instrument to the bucket
+                        selected_instruments_bucket.append(instrument)
 
-                            # Add additional info for the instrument
-                            sideband_info_bucket.append({'action': action})
-
-                # If one order has exited already, below message is printed
-                else:
-                    self.logger.info('Order placed for the day, no more orders will be placed for the remaining day')
+                        # Add additional info for the instrument
+                        sideband_info_bucket.append({'action': action})
 
         # Return the buckets to the core engine
         # Engine will now call strategy_enter_position with each instrument and its additional info one by one
@@ -220,6 +223,9 @@ class OpenRangeBreakoutCrossoverCover(StrategyBase):
                 # If order transaction type is buy and current action is sell or order transaction type is sell and current action is buy, then exit the order
                 if (action is ActionConstants.EXIT_SELL and main_order.order_transaction_type is BrokerOrderTransactionTypeConstants.SELL) or \
                         (action is ActionConstants.EXIT_BUY and main_order.order_transaction_type is BrokerOrderTransactionTypeConstants.BUY):
+                    # Increment the count if the order is exited
+                    self.current_order_count[instrument] += 1
+
                     # Add instrument to the bucket
                     selected_instruments_bucket.append(instrument)
 
@@ -232,9 +238,9 @@ class OpenRangeBreakoutCrossoverCover(StrategyBase):
 
     def strategy_exit_position(self, candle, instrument, sideband_info):
         """
-       This method is called once for each instrument from the bucket in this candle.
-       Exit an order here and return the instrument status to the core.
-       """
+        This method is called once for each instrument from the bucket in this candle.
+        Exit an order here and return the instrument status to the core.
+        """
 
         if sideband_info['action'] in [ActionConstants.EXIT_BUY, ActionConstants.EXIT_SELL]:
             # Exit the main order
