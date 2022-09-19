@@ -44,7 +44,7 @@ class OpenRangeBreakoutCrossover(StrategyBase):
         self.current_order_count = {}
 
         # Count of number of orders should not exceed the below count
-        self.allowed_order_count = 4
+        self.allowed_order_count = 2
 
     @staticmethod
     def name():
