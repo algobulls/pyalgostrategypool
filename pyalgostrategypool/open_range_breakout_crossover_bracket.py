@@ -90,7 +90,7 @@ class OpenRangeBreakoutCrossoverBracket(StrategyBase):
         latest_close = hist_data['close'].iloc[-1]
 
         # Get crossover value if decision is ENTRY_POSITION and latest timestamp is equal to strategy start time or decision is EXIT_POSITION
-        if (decision is DecisionConstants.ENTRY_POSITION and timestamp_str >= udc_candle_str) or decision is DecisionConstants.EXIT_POSITION:
+        if (decision is DecisionConstants.ENTRY_POSITION and timestamp_str > udc_candle_str) or decision is DecisionConstants.EXIT_POSITION:
             crossover_value = self.get_crossover_value(hist_data, latest_close)
 
         # Return action as BUY if crossover is Upwards and decision is Entry, else SELL if decision is EXIT
