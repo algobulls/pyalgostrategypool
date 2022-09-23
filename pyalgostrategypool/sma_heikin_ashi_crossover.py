@@ -64,10 +64,10 @@ class SMAHeikinAshiCrossover(StrategyBase):
 
         # Calculate the Heikin Ashi and SMA values
         hist_data_heikinashi = HeikinAshi(hist_data)
-        sma_value = talib.SMA(hist_data_heikinashi['close'], timeperiod=self.sma_period)
+        sma_value = talib.SMA(hist_data_heikinashi['HA_close'], timeperiod=self.sma_period)
 
         # Get the crossover value
-        crossover_value = self.utils.crossover(hist_data_heikinashi['close'], sma_value)
+        crossover_value = self.utils.crossover(hist_data_heikinashi['HA_close'], sma_value)
 
         # Return action as BUY if crossover is Upwards and decision is Entry, else SELL if decision is EXIT
         if crossover_value == 1:
@@ -82,6 +82,10 @@ class SMAHeikinAshiCrossover(StrategyBase):
             action = ActionConstants.NO_ACTION
 
         return action
+
+    def get_exit_action(self, action):
+        action_map = {ActionConstants.ENTRY_BUY: ActionConstants.EXIT_BUY, ActionConstants.ENTRY_SELL: ActionConstants.EXIT_SELL}
+        return action_map[action]
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
         """
@@ -105,16 +109,17 @@ class SMAHeikinAshiCrossover(StrategyBase):
             # Compute various things and get the decision to place an order only if no current order is going on (main order is empty / none)
             if self.main_order.get(instrument) is None:
 
-                if self.main_order.get(instrument) is None:
+                # Get entry decision
+                action = self.get_decision(instrument, DecisionConstants.ENTRY_POSITION)
 
-                    # Get entry decision
-                    action = self.get_decision(instrument, DecisionConstants.ENTRY_POSITION)
-                    if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
-                        # Add instrument to the bucket
-                        selected_instruments_bucket.append(instrument)
+                if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
+                    # Add instrument to the bucket and its additional info for main order
+                    selected_instruments_bucket.append(instrument)
+                    sideband_info_bucket.append({'action': action})
 
-                        # Add additional info for the instrument
-                        sideband_info_bucket.append({'action': action})
+                    # Add instrument to the bucket and its additional info for profit order
+                    selected_instruments_bucket.append(instrument)
+                    sideband_info_bucket.append({'action': self.get_exit_action(action)})
 
         # Return the buckets to the core engine
         # Engine will now call strategy_enter_position with each instrument and its additional info one by one
@@ -129,23 +134,36 @@ class SMAHeikinAshiCrossover(StrategyBase):
         # Quantity formula (number of lots comes from the config)
         qty = self.number_of_lots * instrument.lot_size
 
-        # Place buy order
-        if sideband_info['action'] is ActionConstants.ENTRY_BUY:
-            self.main_order[instrument] = self.broker.BuyOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=qty)
-            self.profit_order[instrument] = self.broker.SellOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.LIMIT, quantity=qty,
-                                                                         price=self.main_order[instrument].entry_price + self.profit_booking_buy_points)
-        # Place sell order
-        elif sideband_info['action'] is ActionConstants.ENTRY_SELL:
-            self.main_order[instrument] = self.broker.SellOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=qty)
-            self.profit_order[instrument] = self.broker.BuyOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.LIMIT, quantity=qty,
-                                                                        price=self.main_order[instrument].entry_price - self.profit_booking_sell_points)
+        action = sideband_info['action']
 
-        # Sanity
+        # Place buy order
+        if action is ActionConstants.ENTRY_BUY:
+            _order = self.broker.BuyOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=qty)
+
+        elif action is ActionConstants.EXIT_BUY:
+            _order = self.broker.SellOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.LIMIT, quantity=qty,
+                                                  price=self.main_order[instrument].entry_price + self.profit_booking_buy_points, position=BrokerExistingOrderPositionConstants.EXIT,
+                                                  related_order=self.main_order[instrument])
+        # Place sell order
+        elif action is ActionConstants.ENTRY_SELL:
+            _order = self.broker.SellOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=qty)
+
+        elif action is ActionConstants.EXIT_SELL:
+            _order = self.broker.BuyOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.LIMIT, quantity=qty,
+                                                 price=self.main_order[instrument].entry_price - self.profit_booking_sell_points, position=BrokerExistingOrderPositionConstants.EXIT,
+                                                 related_order=self.main_order[instrument])
+        
+	# Sanity
         else:
             raise SystemExit(f'Got invalid sideband_info value: {sideband_info}')
 
+        if action in [ActionConstants.ENTRY_BUY, ActionConstants.ENTRY_SELL]:
+            self.main_order[instrument] = _order
+        else:
+            self.profit_order[instrument] = _order
+
         # Return the order to the core engine for management
-        return self.main_order[instrument]
+        return _order
 
     def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
         """
@@ -194,11 +212,35 @@ class SMAHeikinAshiCrossover(StrategyBase):
         """
 
         if sideband_info['action'] in [ActionConstants.EXIT_BUY, ActionConstants.EXIT_SELL]:
-            # Exit the main order
-            self.main_order[instrument].exit_position()
 
-            # Set it to none so that entry decision can be taken properly
+            main_order_position_closed = False
+            main_order, profit_order = self.main_order.get(instrument), self.profit_order.get(instrument)
+            if profit_order is not None:
+
+                # If complete, main order position is closed
+                if profit_order.get_order_status() is BrokerOrderStatusConstants.COMPLETE:
+                    main_order_position_closed = True
+
+                # If not complete, main order position is not closed, and cancel profit order
+                else:
+                    profit_order.cancel_order()
+
+            if main_order is not None:
+
+                # Main order is complete
+                if main_order.get_order_status() is BrokerOrderStatusConstants.COMPLETE:
+
+                    # If not squared off with target/stoploss, exit position now
+                    if not main_order_position_closed:
+                        main_order.exit_position()
+
+                # Main order is not complete, cancel it
+                else:
+                    main_order.cancel_order()
+
+            # Set the variables to none so that entry decision can be taken properly
             self.main_order[instrument] = None
+            self.profit_order[instrument] = None
 
             # Return true so that the core engine knows that this instrument has exited completely
             return True
