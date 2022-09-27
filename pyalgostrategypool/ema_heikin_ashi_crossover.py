@@ -1,7 +1,5 @@
-import talib
 from pyalgotrading.constants import *
 from pyalgotrading.strategy import StrategyBase
-from utils.candlesticks.heikinashi import HeikinAshi
 
 
 class EMAHeikinAshiCrossover(StrategyBase):

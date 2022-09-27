@@ -1,4 +1,3 @@
-import talib
 from pyalgotrading.constants import *
 from pyalgotrading.strategy import StrategyBase
 
@@ -119,7 +118,6 @@ class BollingerBands(StrategyBase):
                 action = self.get_decision(instrument, DecisionConstants.ENTRY_POSITION)
 
                 if action is ActionConstants.ENTRY_BUY or (action is ActionConstants.ENTRY_SELL and self.strategy_mode is StrategyMode.INTRADAY):
-
                     # Add instrument to the bucket
                     selected_instruments_bucket.append(instrument)
 

@@ -1,5 +1,3 @@
-import talib
-
 from pyalgotrading.constants import *
 from pyalgotrading.strategy import StrategyBase
 

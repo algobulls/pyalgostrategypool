@@ -1,6 +1,3 @@
-from datetime import time
-
-import clock
 from pyalgotrading.constants import *
 from pyalgotrading.strategy import StrategyBase
 
@@ -108,7 +105,6 @@ class OpenRangeBreakoutCrossoverCover(StrategyBase):
         for column in columns:
             crossover = self.utils.crossover(hist_data[column], val_data)
             if crossover in [1, -1]:
-
                 # If crossover is upwards or downwards, stop computing the crossovers
                 break
 
