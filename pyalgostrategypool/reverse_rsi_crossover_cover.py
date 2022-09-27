@@ -1,5 +1,3 @@
-import talib
-
 from pyalgotrading.constants import *
 from pyalgotrading.strategy import StrategyBase
 
@@ -21,7 +19,7 @@ class ReverseRSICrossverCover(StrategyBase):
         self.oversold_value = self.strategy_parameters['OVERSOLD_VALUE']
         self.stoploss = self.strategy_parameters['STOPLOSS_TRIGGER']
 
-        # Saity
+        # Sanity
         assert (0 < self.time_period == int(self.time_period)), f"Strategy parameter TIME_PERIOD should be a positive integer. Received: {self.time_period}"
         assert (0 < self.overbought_value == int(self.overbought_value)), f"Strategy parameter OVERBOUGHT_VALUE should be a positive integer. Received: {self.overbought_value}"
         assert (0 < self.oversold_value == int(self.oversold_value)), f"Strategy parameter OVERSOLD_VALUE should be a positive integer. Received: {self.oversold_value}"

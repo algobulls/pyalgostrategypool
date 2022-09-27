@@ -1,6 +1,3 @@
-from datetime import time
-
-import clock
 from pyalgotrading.constants import *
 from pyalgotrading.strategy import StrategyBase
 
