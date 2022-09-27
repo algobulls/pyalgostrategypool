@@ -1,7 +1,5 @@
-import talib
 from pyalgotrading.constants import *
 from pyalgotrading.strategy import StrategyBase
-from utils.candlesticks.heikinashi import HeikinAshi
 
 
 class SMAHeikinAshiCrossover(StrategyBase):
@@ -152,8 +150,8 @@ class SMAHeikinAshiCrossover(StrategyBase):
             _order = self.broker.BuyOrderRegular(instrument=instrument, order_code=BrokerOrderCodeConstants.INTRADAY, order_variety=BrokerOrderVarietyConstants.LIMIT, quantity=qty,
                                                  price=self.main_order[instrument].entry_price - self.profit_booking_sell_points, position=BrokerExistingOrderPositionConstants.EXIT,
                                                  related_order=self.main_order[instrument])
-        
-	# Sanity
+
+        # Sanity
         else:
             raise SystemExit(f'Got invalid sideband_info value: {sideband_info}')
 
