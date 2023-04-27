@@ -40,7 +40,7 @@ class StrategyEMARegularOrder(StrategyBase):
         return instruments, meta
 
     def strategy_enter_position(self, candle, instrument, meta):
-        self.main_order_map[instrument] = _ = self.broker.OrderRegular(meta['action'], self.number_of_lots * instrument.lot_size)
+        self.main_order_map[instrument] = _ = self.broker.OrderRegular(instrument, meta['action'], quantity=self.number_of_lots * instrument.lot_size)
         return _
 
     def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
