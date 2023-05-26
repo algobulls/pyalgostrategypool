@@ -35,14 +35,6 @@ class StochasticCrossover(StrategyBase):
         """
         self.main_order_map = {}
 
-    @staticmethod
-    def versions_supported():
-        """
-        Strategy should always support the latest engine version.
-        Current version is 3.3.0
-        """
-        return AlgoBullsEngineVersion.VERSION_3_3_0
-
     def get_decision(self, instrument, decision):
         """
         This method calculates the crossover using the hist data of the instrument along with the required indicator.
