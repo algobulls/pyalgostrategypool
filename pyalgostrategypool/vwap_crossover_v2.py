@@ -1,14 +1,13 @@
-import talib
-
+from indicator.vwap import VWAP
 from pyalgotrading.constants import *
 from pyalgotrading.strategy.strategy_base import StrategyBase
-from indicator.vwap import VWAP
+
 
 class VWAPCrossover(StrategyBase):
     name = 'VWAP Crossover v2'
-    
+
     def __init__(self, *args, **kwargs):
-        
+
         """
         Accept and sanitize all your parameters here.
         Setup the variables ou will need here.

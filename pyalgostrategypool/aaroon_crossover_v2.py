@@ -5,7 +5,7 @@ from strategy.core.strategy_base import StrategyBase
 
 class AroonCrossoverV2(StrategyBase):
     name = 'Aroon Crossover v2'
-    
+
     def __init__(self, *args, **kwargs):
         """
         Accept and sanitize all your parameters here.
@@ -45,7 +45,7 @@ class AroonCrossoverV2(StrategyBase):
 
         # Get the crossover value
         crossover_value = self.utils.crossover(aroon_up, aroon_down)
-        
+
         return crossover_value
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
@@ -72,14 +72,14 @@ class AroonCrossoverV2(StrategyBase):
 
                 # Get entry decision
                 crossover = self.get_crossover(instrument)
-                
+
                 # define key values for action
                 action_constants = {1: 'BUY', -1: 'SELL'}
-                
+
                 if crossover in [-1, 1]:
                     # Add instrument to the bucket
                     selected_instruments.append(instrument)
-                    
+
                     # Add additional info for the instrument
                     meta.append({'action': action_constants[crossover]})
 
@@ -95,7 +95,7 @@ class AroonCrossoverV2(StrategyBase):
 
         # Place buy order
         self.main_order_map[instrument] = _ = self.broker.OrderRegular(instrument, sideband_info['action'], quantity=self.number_of_lots * instrument.lot_size)
-        return _        
+        return _
 
     def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
         """

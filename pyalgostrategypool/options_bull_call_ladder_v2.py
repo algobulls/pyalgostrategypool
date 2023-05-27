@@ -1,4 +1,4 @@
-from strategy.core.strategy_options_base_v2 import StrategyOptionsBaseV2, OptionsStrikeDirection, OptionsInstrumentDirection, OptionsTradingsymbolSuffix
+from strategy.core.strategy_options_base_v2 import StrategyOptionsBaseV2, OptionsInstrumentDirection
 
 
 class StrategyOptionsBullCallLadder(StrategyOptionsBaseV2):
