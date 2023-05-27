@@ -3,7 +3,7 @@ from constants import *
 from strategy.core.strategy_base import StrategyBase
 
 
-class AroonCrossoverV2(StrategyBase):
+class AroonCrossover(StrategyBase):
     name = 'Aroon Crossover v2'
 
     def __init__(self, *args, **kwargs):

@@ -3,7 +3,7 @@ from constants import *
 from strategy.core.strategy_base import StrategyBase
 
 
-class BollingerBandsV2(StrategyBase):
+class BollingerBands(StrategyBase):
     name = 'Bollinger Bands v2'
 
     def __init__(self, *args, **kwargs):
