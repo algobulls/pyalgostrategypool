@@ -36,7 +36,7 @@ class ReverseRSICrossover(StrategyBase):
 
         self.main_order_map = {}
 
-    def get_decision(self, instrument):
+    def get_crossover_value(self, instrument):
         """
         This method calculates the crossover using the hist data of the instrument along with the required indicator and returns the entry/exit action.
         """
@@ -71,18 +71,27 @@ class ReverseRSICrossover(StrategyBase):
         # Looping over all instruments given by you in the bucket (we can give multiple instruments in the configuration)
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is None:
-                oversold_crossover_value, overbought_crossover_value = self.get_decision(instrument)
+
+                # get crossover values
+                oversold_crossover_value, overbought_crossover_value = self.get_crossover_value(instrument)
+
                 if oversold_crossover_value == 1:
+                    # add instrument to the bucket
                     selected_instruments.append(instrument)
+                    # Add additional info for the instrument
                     meta.append({'action': 'BUY'})
+
                 elif overbought_crossover_value == -1:
+                    # add instrument to the bucket
                     selected_instruments.append(instrument)
+                    # Add additional info for the instrument
                     meta.append({'action': 'SELL'})
+
         # Return the buckets to the core engine
         # Engine will now call strategy_enter_position with each instrument and its additional info one by one
         return selected_instruments, meta
 
-    def strategy_enter_position(self, candle, instrument, sideband_info):
+    def strategy_enter_position(self, candle, instrument, meta):
         """
         This method is called once for each instrument from the bucket in this candle.
         Place an order here and return it to the core.
@@ -106,23 +115,30 @@ class ReverseRSICrossover(StrategyBase):
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is not None:
-                oversold_crossover_value, overbought_crossover_value = self.get_decision(instrument)
+                # get crossover value
+                oversold_crossover_value, overbought_crossover_value = self.get_crossover_value(instrument)
+
                 if (oversold_crossover_value == 1 or overbought_crossover_value == 1) and self.main_order_map[instrument].order_transaction_type.value == 'SELL':
+                    # add instrument to the bucket
                     instruments.append(instrument)
+                    # Add additional info for the instrument
                     meta.append({'action': 'EXIT'})
+
                 elif (oversold_crossover_value == -1 or overbought_crossover_value == -1) and self.main_order_map[instrument].order_transaction_type.value == 'BUY':
+                    # add instrument to the bucket
                     instruments.append(instrument)
+                    # Add additional info for the instrument
                     meta.append({'action': 'EXIT'})
 
         return instruments, meta
 
-    def strategy_exit_position(self, candle, instrument, sideband_info):
+    def strategy_exit_position(self, candle, instrument, meta):
         """
         This method is called once for each instrument from the bucket in this candle.
         Exit an order here and return the instrument status to the core.
         """
 
-        if sideband_info['action'] in [ActionConstants.EXIT_BUY, ActionConstants.EXIT_SELL]:
+        if meta['action'] == 'EXIT':
             # Exit the main order
             self.main_order_map[instrument].exit_position()
 

@@ -27,7 +27,7 @@ class VWAPCrossover(StrategyBase):
 
         self.main_order_map = {}
 
-    def get_crossover(self, instrument):
+    def get_crossover_value(self, instrument):
         """
         This method calculates the crossover using the hist data of the instrument along with the required indicator.
         """
@@ -66,13 +66,14 @@ class VWAPCrossover(StrategyBase):
             if self.main_order_map.get(instrument) is None:
 
                 # Check for crossover (decision-making process)
-                crossover = self.get_crossover(instrument)
+                crossover = self.get_crossover_value(instrument)
 
+                # define key values for action
                 action_constants = {1: 'BUY', -1: 'SELL'}
+
                 if crossover in [-1, 1]:
                     # Add instrument to the bucket
                     selected_instruments.append(instrument)
-
                     # Add additional info for the instrument
                     meta.append({'action': action_constants[crossover]})
 
@@ -80,14 +81,14 @@ class VWAPCrossover(StrategyBase):
         # Engine will now call strategy_enter_position with each instrument and its additional info one by one
         return selected_instruments, meta
 
-    def strategy_enter_position(self, candle, instrument, sideband_info):
+    def strategy_enter_position(self, candle, instrument, meta):
         """
         This method is called once for each instrument from the bucket in this candle.
         Place an order here and return it to the core.
         """
 
         # Place buy order
-        self.main_order_map[instrument] = _ = self.broker.OrderRegular(instrument, sideband_info['action'], quantity=self.number_of_lots * instrument.lot_size)
+        self.main_order_map[instrument] = _ = self.broker.OrderRegular(instrument, meta['action'], quantity=self.number_of_lots * instrument.lot_size)
         return _
 
     def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
@@ -114,25 +115,27 @@ class VWAPCrossover(StrategyBase):
             if main_order is not None and main_order.get_order_status() is BrokerOrderStatusConstants.COMPLETE:
 
                 # Check for crossover (decision-making process)
-                crossover = self.get_crossover(instrument)
+                crossover = self.get_crossover_value(instrument)
 
                 # For this strategy, we take the decision as:
                 # If order transaction type is buy and crossover is downwards or order transaction type is sell and crossover is upwards, then exit the order
                 if (crossover == 1 and self.main_order_map[instrument].order_transaction_type.value == 'SELL') or (crossover == -1 and self.main_order_map[instrument].order_transaction_type.value == 'BUY'):
+                    # Add instrument to the bucket
                     selected_instruments.append(instrument)
+                    # Add additional info for the instrument
                     meta.append({"action": 'EXIT'})
 
         # Return the buckets to the core engine
         # Engine will now call strategy_exit_position with each instrument and its additional info one by one
         return selected_instruments, meta
 
-    def strategy_exit_position(self, candle, instrument, sideband_info):
+    def strategy_exit_position(self, candle, instrument, meta):
         """
         This method is called once for each instrument from the bucket in this candle.
         Exit an order here and return the instrument status to the core.
         """
 
-        if sideband_info['action'] in [ActionConstants.EXIT_BUY, ActionConstants.EXIT_SELL]:
+        if meta['action'] == 'EXIT':
             # Exit the main order
             self.main_order_map[instrument].exit_position()
 

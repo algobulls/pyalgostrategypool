@@ -29,10 +29,9 @@ class AroonCrossover(StrategyBase):
         If you are running the strategy for multiple days, then this method will be called only once at the start of every day.
         Use this to initialize and re-initialize your variables.
         """
-        self.logger.info(f"delete this : {self.strategy_parameters}")
         self.main_order_map = {}
 
-    def get_crossover(self, instrument):
+    def get_crossover_value(self, instrument):
         """
         This method calculates the crossover using the hist data of the instrument along with the required indicator and returns the entry/exit action.
         """
@@ -70,8 +69,8 @@ class AroonCrossover(StrategyBase):
             # Compute various things and get the decision to place an order only if no current order is going on (main order is empty / none)
             if self.main_order_map.get(instrument) is None:
 
-                # Get entry decision
-                crossover = self.get_crossover(instrument)
+                # Get crossover value
+                crossover = self.get_crossover_value(instrument)
 
                 # define key values for action
                 action_constants = {1: 'BUY', -1: 'SELL'}
@@ -87,14 +86,14 @@ class AroonCrossover(StrategyBase):
         # Engine will now call strategy_enter_position with each instrument and its additional info one by one
         return selected_instruments, meta
 
-    def strategy_enter_position(self, candle, instrument, sideband_info):
+    def strategy_enter_position(self, candle, instrument, meta):
         """
         This method is called once for each instrument from the bucket in this candle.
         Place an order here and return it to the core.
         """
 
         # Place buy order
-        self.main_order_map[instrument] = _ = self.broker.OrderRegular(instrument, sideband_info['action'], quantity=self.number_of_lots * instrument.lot_size)
+        self.main_order_map[instrument] = _ = self.broker.OrderRegular(instrument, meta['action'], quantity=self.number_of_lots * instrument.lot_size)
         return _
 
     def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
@@ -120,24 +119,26 @@ class AroonCrossover(StrategyBase):
             # Also check if order status is complete
             if main_order is not None and main_order.get_order_status() is BrokerOrderStatusConstants.COMPLETE:
 
-                # Check for action (decision-making process)
-                crossover = self.get_crossover(instrument)
+                # Get crossover value
+                crossover = self.get_crossover_value(instrument)
 
                 if (crossover == 1 and self.main_order_map[instrument].order_transaction_type.value == 'SELL') or (crossover == -1 and self.main_order_map[instrument].order_transaction_type.value == 'BUY'):
+                    # Add instrument to the bucket
                     selected_instruments.append(instrument)
+                    # Add additional info for the instrument
                     meta.append({"action": 'EXIT'})
 
         # Return the buckets to the core engine.
         # Engine will now call strategy_exit_position with each instrument and its additional info one by one.
         return selected_instruments, meta
 
-    def strategy_exit_position(self, candle, instrument, sideband_info):
+    def strategy_exit_position(self, candle, instrument, meta):
         """
         This method is called once for each instrument from the bucket in this candle.
         Exit an order here and return the instrument status to the core.
         """
 
-        if sideband_info['action'] in [ActionConstants.EXIT_BUY, ActionConstants.EXIT_SELL]:
+        if meta['action'] == 'EXIT':
             # Exit the main order
             self.main_order_map[instrument].exit_position()
 

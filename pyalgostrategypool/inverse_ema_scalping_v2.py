@@ -34,20 +34,23 @@ class StrategyInverseEMAScalpingRegularOrder(StrategyBase):
         meta = []
 
         for instrument in instruments_bucket:
-            crossover_value = self.get_crossover_value(instrument)
-            if crossover_value == -1:
+
+            # get crossover value
+            crossover = self.get_crossover_value(instrument)
+            # define key values for action
+            action_constants = {-1: 'BUY', 1: 'SELL'}
+
+            if crossover in [-1, 1]:
+                # Add instrument to the bucket
                 selected_instruments.append(instrument)
-                meta.append({'action': 'BUY'})
-            elif crossover_value == 1:
-                if self.strategy_mode is StrategyMode.INTRADAY:
-                    selected_instruments.append(instrument)
-                    meta.append({'action': 'SELL'})
+                # Add additional info for the instrument
+                meta.append({'action': action_constants[crossover]})
 
         return selected_instruments, meta
 
-    def strategy_enter_position(self, candle, instrument, sideband_info):
+    def strategy_enter_position(self, candle, instrument, meta):
         # Place buy order
-        self.main_order_map[instrument] = _ = self.broker.OrderRegular(instrument, sideband_info['action'], quantity=self.number_of_lots * instrument.lot_size)
+        self.main_order_map[instrument] = _ = self.broker.OrderRegular(instrument, meta['action'], quantity=self.number_of_lots * instrument.lot_size)
         return _
 
     def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
@@ -56,15 +59,26 @@ class StrategyInverseEMAScalpingRegularOrder(StrategyBase):
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is not None:
+                # get crossover value
                 crossover_value = self.get_crossover_value(instrument)
                 if crossover_value in [1, -1]:
+                    # Add instrument to the bucket
                     selected_instruments.append(instrument)
+                    # Add additional info for the instrument
                     meta.append({'action': 'EXIT'})
+
         return selected_instruments, meta
 
-    def strategy_exit_position(self, candle, instrument, sideband_info):
-        if sideband_info['action'] == 'EXIT':
+    def strategy_exit_position(self, candle, instrument, meta):
+        if meta['action'] == 'EXIT':
+            # Exit the main order
             self.main_order_map[instrument].exit_position()
+
+            # Set it to none so that entry decision can be taken properly
             self.main_order_map[instrument] = None
+
+            # Return true so that the core engine knows that this instrument has exited completely
             return True
+
+        # Return false in all other cases
         return False
