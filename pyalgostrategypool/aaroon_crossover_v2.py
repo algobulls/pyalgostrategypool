@@ -39,7 +39,7 @@ class AroonCrossover(StrategyBase):
         # Get OHLC historical data for the instrument
         hist_data = self.get_historical_data(instrument)
 
-        # Calculate the Stochastic values
+        # Calculate the Aaroon values
         aroon_down, aroon_up = talib.AROON(hist_data['high'], hist_data['low'], timeperiod=self.time_period)
 
         # Get the crossover value
