@@ -35,7 +35,7 @@ class StochasticCrossover(StrategyBase):
         """
         self.main_order_map = {}
 
-    def get_crossover(self, instrument):
+    def get_crossover_value(self, instrument):
         """
         This method calculates the crossover using the hist data of the instrument along with the required indicator.
         """
@@ -76,7 +76,7 @@ class StochasticCrossover(StrategyBase):
             if self.main_order_map.get(instrument) is None:
 
                 # Get entry decision
-                crossover = self.get_crossover(instrument)
+                crossover = self.get_crossover_value(instrument)
 
                 # define key values for action
                 action_constants = {1: 'BUY', -1: 'SELL'}
@@ -125,7 +125,7 @@ class StochasticCrossover(StrategyBase):
             if main_order is not None and main_order.get_order_status() is BrokerOrderStatusConstants.COMPLETE:
 
                 # Check for crossover (decision making process)
-                crossover = self.get_crossover(instrument)
+                crossover = self.get_crossover_value(instrument)
 
                 # For this strategy, we take the decision as:
                 # If order transaction type is buy and current action is sell or order transaction type is sell and current action is buy, then exit the order
