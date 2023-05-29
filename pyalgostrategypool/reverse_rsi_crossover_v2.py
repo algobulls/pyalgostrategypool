@@ -40,13 +40,17 @@ class ReverseRSICrossover(StrategyBase):
         """
         This method calculates the crossover using the hist data of the instrument along with the required indicator and returns the entry/exit action.
         """
-
+        # Get OHLC historical data for the instrument
         hist_data = self.get_historical_data(instrument)
 
+        # calculate RSI value of close values
         rsi_value = talib.RSI(hist_data['close'], timeperiod=self.time_period)
+
+        # define oversold and overbought thresholds
         oversold_list = [self.oversold_value] * rsi_value.size
         overbought_list = [self.overbought_value] * rsi_value.size
 
+        # get crossover value
         oversold_crossover_value = self.utils.crossover(rsi_value, oversold_list)
         overbought_crossover_value = self.utils.crossover(rsi_value, overbought_list)
 

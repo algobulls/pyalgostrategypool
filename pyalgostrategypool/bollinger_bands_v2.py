@@ -49,6 +49,7 @@ class BollingerBands(StrategyBase):
         latest_candle = hist_data.iloc[-1]
         previous_candle = hist_data.iloc[-2]
 
+        # get the action based on bollinger bands values
         if (previous_candle['open'] <= lower_band_value or previous_candle['low'] <= lower_band_value) and (latest_candle['close'] > previous_candle['close']):
             action = 'BUY'
         elif (previous_candle['open'] >= upper_band_value or previous_candle['close'] >= upper_band_value) and (latest_candle['close'] < previous_candle['close']):

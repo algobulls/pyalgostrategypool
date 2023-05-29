@@ -22,9 +22,14 @@ class StrategyInverseEMAScalpingRegularOrder(StrategyBase):
         self.main_order_map = {}
 
     def get_crossover_value(self, instrument):
+        # Get OHLC historical data for the instrument
         hist_data = self.get_historical_data(instrument)
+
+        # calculate the ema of both time periods
         larger_ema = talib.EMA(hist_data['close'], timeperiod=self.larger_time_period)
         smaller_ema = talib.EMA(hist_data['close'], timeperiod=self.smaller_time_period)
+
+        # get crossover value
         crossover_value = self.utils.crossover(smaller_ema, larger_ema)
         return crossover_value
 
