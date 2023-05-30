@@ -6,7 +6,7 @@
 
 
 class ReverseRSICrossover(StrategyBase):
-    name = 'Reverse RSI v2'
+    name = 'Reverse RSI'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

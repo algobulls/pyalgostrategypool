@@ -1,31 +1,36 @@
 """
     checkout:
-        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/options_bull_put_ladder/
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/options_long_iron_butterfly/
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_options_strategy/
 """
 
 
-class StrategyOptionsBullPutLadder(StrategyOptionsBaseV2):
-    name = 'Options Bull Put Ladder Template v2'
+class StrategyOptionsLongIronButterfly(StrategyOptionsBaseV2):
+    name = 'Options Long Iron Butterfly Template'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # Parameters (currently set with default values, can be overridden from the Parameters Configuration Pane)
         self._leg_one_transaction_type = self.strategy_parameters.get('LEG_ONE_TRANSACTION_TYPE', 1)  # BUY: 1 | SELL: 2
-        self._leg_one_tradingsymbol_suffix = self.strategy_parameters.get('LEG_ONE_TRADING_SYMBOL_SUFFIX', 2)  # CE: 1 | PE: 2
+        self._leg_one_tradingsymbol_suffix = self.strategy_parameters.get('LEG_ONE_TRADING_SYMBOL_SUFFIX', 1)  # CE: 1 | PE: 2
         self._leg_one_strike_direction = self.strategy_parameters.get('LEG_ONE_STRIKE_DIRECTION', 1)  # ITM: 0| ATM: 1| OTM: 2
         self._leg_one_number_of_strikes = self.strategy_parameters.get('LEG_ONE_NUMBER_OF_STRIKES', 0)
 
         self._leg_two_transaction_type = self.strategy_parameters.get('LEG_TWO_TRANSACTION_TYPE', 1)  # BUY: 1 | SELL: 2
         self._leg_two_tradingsymbol_suffix = self.strategy_parameters.get('LEG_TWO_TRADING_SYMBOL_SUFFIX', 2)  # CE: 1 | PE: 2
-        self._leg_two_strike_direction = self.strategy_parameters.get('LEG_TWO_STRIKE_DIRECTION', 2)  # ITM: 0| ATM: 1| OTM: 2
-        self._leg_two_number_of_strikes = self.strategy_parameters.get('LEG_TWO_NUMBER_OF_STRIKES', 2)
+        self._leg_two_strike_direction = self.strategy_parameters.get('LEG_TWO_STRIKE_DIRECTION', 1)  # ITM: 0| ATM: 1| OTM: 2
+        self._leg_two_number_of_strikes = self.strategy_parameters.get('LEG_TWO_NUMBER_OF_STRIKES', 0)
 
         self._leg_three_transaction_type = self.strategy_parameters.get('LEG_THREE_TRANSACTION_TYPE', 2)  # BUY: 1 | SELL: 2
-        self._leg_three_tradingsymbol_suffix = self.strategy_parameters.get('LEG_THREE_TRADING_SYMBOL_SUFFIX', 2)  # CE: 1 | PE: 2
+        self._leg_three_tradingsymbol_suffix = self.strategy_parameters.get('LEG_THREE_TRADING_SYMBOL_SUFFIX', 1)  # CE: 1 | PE: 2
         self._leg_three_strike_direction = self.strategy_parameters.get('LEG_THREE_STRIKE_DIRECTION', 2)  # ITM: 0| ATM: 1| OTM: 2
-        self._leg_three_number_of_strikes = self.strategy_parameters.get('LEG_THREE_NUMBER_OF_STRIKES', 4)
+        self._leg_three_number_of_strikes = self.strategy_parameters.get('LEG_THREE_NUMBER_OF_STRIKES', 2)
+
+        self._leg_four_transaction_type = self.strategy_parameters.get('LEG_FOUR_TRANSACTION_TYPE', 2)  # BUY: 1 | SELL: 2
+        self._leg_four_tradingsymbol_suffix = self.strategy_parameters.get('LEG_FOUR_TRADING_SYMBOL_SUFFIX', 2)  # CE: 1 | PE: 2
+        self._leg_four_strike_direction = self.strategy_parameters.get('LEG_FOUR_STRIKE_DIRECTION', 2)  # ITM: 0| ATM: 1| OTM: 2
+        self._leg_four_number_of_strikes = self.strategy_parameters.get('LEG_FOUR_NUMBER_OF_STRIKES', 2)
 
         # Maps
         self.transaction_type_map = {1: "BUY", 2: "SELL"}
@@ -65,7 +70,8 @@ class StrategyOptionsBullPutLadder(StrategyOptionsBaseV2):
 
                 leg_wise_list = [('LEG_ONE', self._leg_one_tradingsymbol_suffix, self._leg_one_strike_direction, self._leg_one_number_of_strikes, self._leg_one_transaction_type),
                                  ('LEG_TWO', self._leg_two_tradingsymbol_suffix, self._leg_two_strike_direction, self._leg_two_number_of_strikes, self._leg_two_transaction_type),
-                                 ('LEG_THREE', self._leg_three_tradingsymbol_suffix, self._leg_three_strike_direction, self._leg_three_number_of_strikes, self._leg_three_transaction_type)]
+                                 ('LEG_THREE', self._leg_three_tradingsymbol_suffix, self._leg_three_strike_direction, self._leg_three_number_of_strikes, self._leg_three_transaction_type),
+                                 ('LEG_FOUR', self._leg_four_tradingsymbol_suffix, self._leg_four_strike_direction, self._leg_four_number_of_strikes, self._leg_four_transaction_type)]
 
                 for leg_number, tradingingsymbol_suffix, strike_direction, number_of_strikes, transaction_type in leg_wise_list:
                     self.logger.info(f'Processing {leg_number}...')

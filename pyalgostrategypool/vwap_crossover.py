@@ -6,7 +6,7 @@
 
 
 class VWAPCrossover(StrategyBase):
-    name = 'VWAP Crossover v2'
+    name = 'VWAP Crossover'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

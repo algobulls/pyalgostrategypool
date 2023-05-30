@@ -1,54 +1,38 @@
 """
     checkout:
-        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/bollinger_bands/
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/aroon_crossover/
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_regular_strategy/
 """
 
 
-class BollingerBands(StrategyBase):
-    name = 'Bollinger Bands v2'
+class AroonCrossover(StrategyBase):
+    name = 'Aroon Crossover'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         self.time_period = self.strategy_parameters['TIME_PERIOD']
-        self.std_deviations = self.strategy_parameters['STANDARD_DEVIATIONS']
-
         self.main_order_map = None
 
     def initialize(self):
         self.main_order_map = {}
 
-    def get_decision(self, instrument):
+    def get_crossover_value(self, instrument):
         hist_data = self.get_historical_data(instrument)
-
-        upper_band, _, lower_band = talib.BBANDS(hist_data['close'], timeperiod=self.time_period, nbdevup=self.std_deviations, nbdevdn=self.std_deviations, matype=0)
-        upper_band_value = upper_band.iloc[-1]
-        lower_band_value = lower_band.iloc[-1]
-
-        latest_candle = hist_data.iloc[-1]
-        previous_candle = hist_data.iloc[-2]
-
-        if (previous_candle['open'] <= lower_band_value or previous_candle['low'] <= lower_band_value) and (latest_candle['close'] > previous_candle['close']):
-            action = 'BUY'
-        elif (previous_candle['open'] >= upper_band_value or previous_candle['close'] >= upper_band_value) and (latest_candle['close'] < previous_candle['close']):
-            action = 'SELL'
-        else:
-            action = None
-
-        return action
+        aroon_down, aroon_up = talib.AROON(hist_data['high'], hist_data['low'], timeperiod=self.time_period)
+        crossover_value = self.utils.crossover(aroon_up, aroon_down)
+        return crossover_value
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
         selected_instruments, meta = [], []
 
         for instrument in instruments_bucket:
-
             if self.main_order_map.get(instrument) is None:
-                action = self.get_decision(instrument)
+                crossover = self.get_crossover_value(instrument)
+                action_constants = {1: 'BUY', -1: 'SELL'}
 
-                if action is not None:
+                if crossover in [-1, 1]:
                     selected_instruments.append(instrument)
-                    meta.append({'action': action})
+                    meta.append({'action': action_constants[crossover]})
 
         return selected_instruments, meta
 
@@ -63,11 +47,11 @@ class BollingerBands(StrategyBase):
             main_order = self.main_order_map.get(instrument)
 
             if main_order is not None and main_order.get_order_status() is BrokerOrderStatusConstants.COMPLETE:
-                action = self.get_decision(instrument)
+                crossover = self.get_crossover_value(instrument)
 
-                if action is not None:
+                if crossover in [1, -1]:
                     selected_instruments.append(instrument)
-                    meta.append({'action': 'EXIT'})
+                    meta.append({"action": 'EXIT'})
 
         return selected_instruments, meta
 
@@ -76,4 +60,5 @@ class BollingerBands(StrategyBase):
             self.main_order_map[instrument].exit_position()
             self.main_order_map[instrument] = None
             return True
+
         return False

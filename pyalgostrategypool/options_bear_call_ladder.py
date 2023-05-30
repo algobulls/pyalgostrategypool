@@ -1,12 +1,12 @@
 """
     checkout:
-        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/options_bull_call_ladder/
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/options_bear_call_ladder/
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_options_strategy/
 """
 
 
-class StrategyOptionsBullCallLadder(StrategyOptionsBaseV2):
-    name = 'Options Bull Call Ladder Template v2'
+class StrategyOptionsBearCallLadder(StrategyOptionsBaseV2):
+    name = 'Options Bear Call Ladder Template'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -24,8 +24,8 @@ class StrategyOptionsBullCallLadder(StrategyOptionsBaseV2):
 
         self._leg_three_transaction_type = self.strategy_parameters.get('LEG_THREE_TRANSACTION_TYPE', 2)  # BUY: 1 | SELL: 2
         self._leg_three_tradingsymbol_suffix = self.strategy_parameters.get('LEG_THREE_TRADING_SYMBOL_SUFFIX', 1)  # CE: 1 | PE: 2
-        self._leg_three_strike_direction = self.strategy_parameters.get('LEG_THREE_STRIKE_DIRECTION', 2)  # ITM: 0| ATM: 1| OTM: 2
-        self._leg_three_number_of_strikes = self.strategy_parameters.get('LEG_THREE_NUMBER_OF_STRIKES', 4)
+        self._leg_three_strike_direction = self.strategy_parameters.get('LEG_THREE_STRIKE_DIRECTION', 0)  # ITM: 0| ATM: 1| OTM: 2
+        self._leg_three_number_of_strikes = self.strategy_parameters.get('LEG_THREE_NUMBER_OF_STRIKES', 2)
 
         # Maps
         self.transaction_type_map = {1: "BUY", 2: "SELL"}
@@ -45,7 +45,7 @@ class StrategyOptionsBullCallLadder(StrategyOptionsBaseV2):
         child_instrument = self.get_options_instrument_with_strike_direction(base_instrument, expiry_date, tradingsymbol_suffix, strike_direction, no_of_strikes)
         return child_instrument
 
-    def options_instruments_set_up_local(self, base_instrument, tradingsymbol_suffix, current_close, direction=OptionsInstrumentDirection.EXACT):
+    def options_instruments_set_up_local(self, base_instrument, tradingsymbol_suffix, current_close, direction=None):
         expiry_dates = self.get_allowed_expiry_dates()
         for expiry_date in expiry_dates:
             self.options_instruments_set_up(base_instrument, direction, expiry_date, tradingsymbol_suffix, current_close)

@@ -1,29 +1,29 @@
 """
     checkout:
-        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/options_bear_call_ladder/
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/options_bear_put_ladder/
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_options_strategy/
 """
 
 
-class StrategyOptionsBearCallLadder(StrategyOptionsBaseV2):
-    name = 'Options Bear Call Ladder Template v2'
+class StrategyOptionsBearPutLadder(StrategyOptionsBaseV2):
+    name = 'Options Bear Put Ladder Template'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # Parameters (currently set with default values, can be overridden from the Parameters Configuration Pane)
         self._leg_one_transaction_type = self.strategy_parameters.get('LEG_ONE_TRANSACTION_TYPE', 1)  # BUY: 1 | SELL: 2
-        self._leg_one_tradingsymbol_suffix = self.strategy_parameters.get('LEG_ONE_TRADING_SYMBOL_SUFFIX', 1)  # CE: 1 | PE: 2
+        self._leg_one_tradingsymbol_suffix = self.strategy_parameters.get('LEG_ONE_TRADING_SYMBOL_SUFFIX', 2)  # CE: 1 | PE: 2
         self._leg_one_strike_direction = self.strategy_parameters.get('LEG_ONE_STRIKE_DIRECTION', 1)  # ITM: 0| ATM: 1| OTM: 2
         self._leg_one_number_of_strikes = self.strategy_parameters.get('LEG_ONE_NUMBER_OF_STRIKES', 0)
 
         self._leg_two_transaction_type = self.strategy_parameters.get('LEG_TWO_TRANSACTION_TYPE', 1)  # BUY: 1 | SELL: 2
-        self._leg_two_tradingsymbol_suffix = self.strategy_parameters.get('LEG_TWO_TRADING_SYMBOL_SUFFIX', 1)  # CE: 1 | PE: 2
+        self._leg_two_tradingsymbol_suffix = self.strategy_parameters.get('LEG_TWO_TRADING_SYMBOL_SUFFIX', 2)  # CE: 1 | PE: 2
         self._leg_two_strike_direction = self.strategy_parameters.get('LEG_TWO_STRIKE_DIRECTION', 2)  # ITM: 0| ATM: 1| OTM: 2
         self._leg_two_number_of_strikes = self.strategy_parameters.get('LEG_TWO_NUMBER_OF_STRIKES', 2)
 
         self._leg_three_transaction_type = self.strategy_parameters.get('LEG_THREE_TRANSACTION_TYPE', 2)  # BUY: 1 | SELL: 2
-        self._leg_three_tradingsymbol_suffix = self.strategy_parameters.get('LEG_THREE_TRADING_SYMBOL_SUFFIX', 1)  # CE: 1 | PE: 2
+        self._leg_three_tradingsymbol_suffix = self.strategy_parameters.get('LEG_THREE_TRADING_SYMBOL_SUFFIX', 2)  # CE: 1 | PE: 2
         self._leg_three_strike_direction = self.strategy_parameters.get('LEG_THREE_STRIKE_DIRECTION', 0)  # ITM: 0| ATM: 1| OTM: 2
         self._leg_three_number_of_strikes = self.strategy_parameters.get('LEG_THREE_NUMBER_OF_STRIKES', 2)
 
@@ -45,7 +45,7 @@ class StrategyOptionsBearCallLadder(StrategyOptionsBaseV2):
         child_instrument = self.get_options_instrument_with_strike_direction(base_instrument, expiry_date, tradingsymbol_suffix, strike_direction, no_of_strikes)
         return child_instrument
 
-    def options_instruments_set_up_local(self, base_instrument, tradingsymbol_suffix, current_close, direction=None):
+    def options_instruments_set_up_local(self, base_instrument, tradingsymbol_suffix, current_close, direction=OptionsInstrumentDirection.EXACT):
         expiry_dates = self.get_allowed_expiry_dates()
         for expiry_date in expiry_dates:
             self.options_instruments_set_up(base_instrument, direction, expiry_date, tradingsymbol_suffix, current_close)
