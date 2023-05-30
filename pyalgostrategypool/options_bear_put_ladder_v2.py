@@ -54,11 +54,9 @@ class StrategyOptionsBearPutLadder(StrategyOptionsBaseV2):
         selected_instruments, meta = [], []
 
         for instrument in instruments_bucket:
-
-            # Process entry signal(s) only if instrument is not processed already
             if instrument not in self.instruments_done_for_the_day:
                 self.instruments_done_for_the_day.append(instrument)
-                # get ltp of base instrument
+
                 ltp = self.broker.get_ltp(instrument)
 
                 # setup child instruments
@@ -78,7 +76,6 @@ class StrategyOptionsBearPutLadder(StrategyOptionsBaseV2):
         return selected_instruments, meta
 
     def strategy_enter_position(self, candle, instrument, sideband_info):
-        # Place buy order
         _ = self.broker.OrderRegular(instrument, sideband_info['action'], quantity=self.number_of_lots * instrument.lot_size)
         return _
 

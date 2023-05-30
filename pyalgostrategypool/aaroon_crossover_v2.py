@@ -23,7 +23,6 @@ class AroonCrossover(StrategyBase):
         return crossover_value
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
-
         selected_instruments, meta = [], []
 
         for instrument in instruments_bucket:
@@ -38,12 +37,10 @@ class AroonCrossover(StrategyBase):
         return selected_instruments, meta
 
     def strategy_enter_position(self, candle, instrument, meta):
-        # Place buy order
         self.main_order_map[instrument] = _ = self.broker.OrderRegular(instrument, meta['action'], quantity=self.number_of_lots * instrument.lot_size)
         return _
 
     def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
-
         selected_instruments, meta = [], []
 
         for instrument in instruments_bucket:
@@ -59,7 +56,6 @@ class AroonCrossover(StrategyBase):
         return selected_instruments, meta
 
     def strategy_exit_position(self, candle, instrument, meta):
-
         if meta['action'] == 'EXIT':
             self.main_order_map[instrument].exit_position()
             self.main_order_map[instrument] = None

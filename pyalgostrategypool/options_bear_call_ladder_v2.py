@@ -46,7 +46,6 @@ class StrategyOptionsBearCallLadder(StrategyOptionsBaseV2):
         return child_instrument
 
     def options_instruments_set_up_local(self, base_instrument, tradingsymbol_suffix, current_close, direction=None):
-        self.logger.info(f"delete this : {base_instrument} {tradingsymbol_suffix} {current_close} {direction}")
         expiry_dates = self.get_allowed_expiry_dates()
         for expiry_date in expiry_dates:
             self.options_instruments_set_up(base_instrument, direction, expiry_date, tradingsymbol_suffix, current_close)
@@ -55,11 +54,9 @@ class StrategyOptionsBearCallLadder(StrategyOptionsBaseV2):
         selected_instruments, meta = [], []
 
         for instrument in instruments_bucket:
-
-            # Process entry signal(s) only if instrument is not processed already
             if instrument not in self.instruments_done_for_the_day:
                 self.instruments_done_for_the_day.append(instrument)
-                # get ltp of base instrument
+
                 ltp = self.broker.get_ltp(instrument)
 
                 # setup child instruments
@@ -79,8 +76,6 @@ class StrategyOptionsBearCallLadder(StrategyOptionsBaseV2):
         return selected_instruments, meta
 
     def strategy_enter_position(self, candle, instrument, sideband_info):
-        # Place buy order
-        self.logger.info(f"delete this : {sideband_info}")
         _ = self.broker.OrderRegular(instrument, sideband_info['action'], quantity=self.number_of_lots * instrument.lot_size)
         return _
 

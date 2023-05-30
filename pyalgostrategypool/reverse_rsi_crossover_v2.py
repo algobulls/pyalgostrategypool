@@ -55,21 +55,21 @@ class ReverseRSICrossover(StrategyBase):
         return _
 
     def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
-        instruments, meta = [], []
+        selected_instruments, meta = [], []
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is not None:
                 oversold_crossover_value, overbought_crossover_value = self.get_crossover_value(instrument)
 
                 if (oversold_crossover_value == 1 or overbought_crossover_value == 1) and self.main_order_map[instrument].order_transaction_type.value == 'SELL':
-                    instruments.append(instrument)
+                    selected_instruments.append(instrument)
                     meta.append({'action': 'EXIT'})
 
                 elif (oversold_crossover_value == -1 or overbought_crossover_value == -1) and self.main_order_map[instrument].order_transaction_type.value == 'BUY':
-                    instruments.append(instrument)
+                    selected_instruments.append(instrument)
                     meta.append({'action': 'EXIT'})
 
-        return instruments, meta
+        return selected_instruments, meta
 
     def strategy_exit_position(self, candle, instrument, meta):
         if meta['action'] == 'EXIT':

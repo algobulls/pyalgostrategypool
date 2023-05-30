@@ -72,7 +72,6 @@ class BollingerBands(StrategyBase):
         return selected_instruments, meta
 
     def strategy_exit_position(self, candle, instrument, meta):
-
         if meta['action'] == 'EXIT':
             self.main_order_map[instrument].exit_position()
             self.main_order_map[instrument] = None
