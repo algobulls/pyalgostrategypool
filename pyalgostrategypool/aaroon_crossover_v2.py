@@ -52,7 +52,7 @@ class AroonCrossover(StrategyBase):
             if main_order is not None and main_order.get_order_status() is BrokerOrderStatusConstants.COMPLETE:
                 crossover = self.get_crossover_value(instrument)
 
-                if (crossover == 1 and self.main_order_map[instrument].order_transaction_type.value == 'SELL') or (crossover == -1 and self.main_order_map[instrument].order_transaction_type.value == 'BUY'):
+                if crossover in [1, -1]:
                     selected_instruments.append(instrument)
                     meta.append({"action": 'EXIT'})
 
