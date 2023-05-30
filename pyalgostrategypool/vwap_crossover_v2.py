@@ -1,3 +1,10 @@
+"""
+    checkout:
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/vwap_crossover/
+        - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_regular_strategy/
+"""
+
+
 class VWAPCrossover(StrategyBase):
     name = 'VWAP Crossover v2'
 

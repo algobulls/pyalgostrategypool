@@ -1,3 +1,10 @@
+"""
+    checkout:
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/aroon_crossover/
+        - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_regular_strategy/
+"""
+
+
 class AroonCrossover(StrategyBase):
     name = 'Aroon Crossover v2'
 

@@ -1,3 +1,10 @@
+"""
+    checkout:
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/stochastic_crossover/
+        - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_regular_strategy/
+"""
+
+
 class StochasticCrossover(StrategyBase):
     name = 'Stochastic Crossover v2'
 

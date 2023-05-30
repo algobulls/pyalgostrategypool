@@ -1,6 +1,8 @@
-import talib
-from constants import *
-from strategy.core.strategy_base import StrategyBase
+"""
+    checkout:
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/bollinger_bands/
+        - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_regular_strategy/
+"""
 
 
 class BollingerBands(StrategyBase):

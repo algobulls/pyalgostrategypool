@@ -1,3 +1,10 @@
+"""
+    checkout:
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/reverse_rsi/
+        - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_regular_strategy/
+"""
+
+
 class ReverseRSICrossover(StrategyBase):
     name = 'Reverse RSI v2'
 

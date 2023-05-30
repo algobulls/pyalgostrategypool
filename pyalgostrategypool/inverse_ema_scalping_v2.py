@@ -1,3 +1,10 @@
+"""
+    checkout:
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/inverse_ema_scalping/
+        - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_regular_strategy/
+"""
+
+
 class StrategyInverseEMAScalpingRegularOrder(StrategyBase):
     name = 'Inverse EMA Scalping Regular Order Strategy v2'
 
