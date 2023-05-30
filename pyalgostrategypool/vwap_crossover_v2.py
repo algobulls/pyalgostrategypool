@@ -24,6 +24,7 @@ class VWAPCrossover(StrategyBase):
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
         selected_instruments, meta = [], []
+
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is None:
                 crossover = self.get_crossover_value(instrument)
