@@ -54,7 +54,7 @@ class StochasticCrossover(StrategyBase):
             if main_order is not None and main_order.get_order_status() is BrokerOrderStatusConstants.COMPLETE:
                 crossover = self.get_crossover_value(instrument)
 
-                if (crossover == 1 and main_order.order_transaction_type == "SELL") or (crossover == -1 and main_order.order_transaction_type == "BUY"):
+                if crossover in [1, -1]:
                     selected_instruments.append(instrument)
                     meta.append({'action': "EXIT"})
 
