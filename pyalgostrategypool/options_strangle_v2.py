@@ -38,36 +38,17 @@ class StrategyOptionsStrangle(StrategyOptionsBaseV2):
         self.instruments_done_for_the_day = []
 
     def get_child_instrument_details(self, base_instrument, tradingsymbol_suffix, strike_direction, no_of_strikes):
-        """
-        Fetches a child instrument based on the criteria given.
-        You can keep this method as-is, if the number of allowed expiry dates is 1. If more than 1, you can modify accordingly.
-        """
-
         expiry_date = self.get_allowed_expiry_dates()[0]
         child_instrument = self.get_options_instrument_with_strike_direction(base_instrument, expiry_date, tradingsymbol_suffix, strike_direction, no_of_strikes)
         return child_instrument
 
     def options_instruments_set_up_local(self, base_instrument, tradingsymbol_suffix, current_close, direction=OptionsInstrumentDirection.EXACT):
-        """
-        Fetches and stores all Call and Put Options instruments (a.k.a CE/PE child instruments) and keeps them ready.
-        You can keep this method as-is.
-        """
-
         expiry_dates = self.get_allowed_expiry_dates()
         for expiry_date in expiry_dates:
             self.options_instruments_set_up(base_instrument, direction, expiry_date, tradingsymbol_suffix, current_close)
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
-        """
-        This method is called once every candle time.
-        If you set the candle at 5 minutes, then this method will be called every 5 minutes (09:15, 09:20, 09:25 and so on).
-        In a candle, the exit method is called first, then the entry method is called.
-        So once a candle starts, strategy_select_instruments_for_exit gets called first
-        and then this method strategy_select_instruments_for_entry gets called.
-        """
-
-        selected_instruments = []
-        meta = []
+        selected_instruments, meta = [], []
 
         for instrument in instruments_bucket:
 
@@ -93,30 +74,12 @@ class StrategyOptionsStrangle(StrategyOptionsBaseV2):
         return selected_instruments, meta
 
     def strategy_enter_position(self, candle, instrument, sideband_info):
-        """
-        This method is called once for each instrument from the bucket in this candle.
-        Place an order here and return it to the core.
-        """
-
         # Place buy order
         _ = self.broker.OrderRegular(instrument, sideband_info['action'], quantity=self.number_of_lots * instrument.lot_size)
         return _
 
     def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
-        """
-        This method is called once every candle time.
-        If you set the candle at 5 minutes, then this method will be called every 5 minutes (09:15, 09:20, 09:25 and so on).
-        In a candle, the exit method is called first, then the entry method is called.
-        So once a candle starts, this method strategy_select_instruments_for_exit gets called first
-        and then strategy_select_instruments_for_entry gets called.
-        """
-
         return [], []
 
     def strategy_exit_position(self, candle, instrument, sideband_info):
-        """
-        This method is called once for each instrument from the bucket in this candle.
-        Exit an order here and return the instrument status to the core.
-        """
-
         return False
