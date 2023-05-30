@@ -1,5 +1,8 @@
-from strategy.core.strategy_options_base_v2 import StrategyOptionsBaseV2, OptionsInstrumentDirection
-
+"""
+    checkout:
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/options_straddle/
+        - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_options_strategy/
+"""
 
 class StrategyOptionsStraddle(StrategyOptionsBaseV2):
     name = 'Options Straddle Template v2'

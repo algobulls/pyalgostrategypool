@@ -1,4 +1,8 @@
-from strategy.core.strategy_options_base_v2 import StrategyOptionsBaseV2, OptionsInstrumentDirection
+"""
+    checkout:
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/options_strangle/
+        - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_options_strategy/
+"""
 
 
 class StrategyOptionsStrangle(StrategyOptionsBaseV2):

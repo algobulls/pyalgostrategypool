@@ -1,5 +1,8 @@
-from constants import *
-from strategy.core.strategy_options_base_v2 import StrategyOptionsBaseV2
+"""
+    checkout:
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/options_bear_call_ladder/
+        - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_options_strategy/
+"""
 
 
 class StrategyOptionsBearCallLadder(StrategyOptionsBaseV2):
