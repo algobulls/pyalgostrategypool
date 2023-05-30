@@ -8,12 +8,6 @@ class StrategyOptionsStraddle(StrategyOptionsBaseV2):
     name = 'Options Straddle Template v2'
 
     def __init__(self, *args, **kwargs):
-        """
-        Accept and sanitize all your parameters here.
-        Setup the variables you will need here.
-        If you are running the strategy for multiple days, then this method will be called only once at the start of the strategy.
-        """
-
         super().__init__(*args, **kwargs)
 
         # Parameters (currently set with default values, can be overridden from the Parameters Configuration Pane)
