@@ -1,18 +1,18 @@
 """
     checkout:
-        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/ema_crossover/
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/inverse_ema_scalping/
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_regular_strategy/
 """
 
 
-class StrategyEMARegularOrder(StrategyBase):
-    name = 'EMA Regular Order Strategy'
+class StrategyInverseEMAScalpingRegularOrder(StrategyBase):
+    name = 'Inverse EMA Scalping Regular Order Strategy'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.timeperiod1 = self.strategy_parameters['TIMEPERIOD1']
-        self.timeperiod2 = self.strategy_parameters['TIMEPERIOD2']
+        self.larger_time_period = self.strategy_parameters['LARGER_TIME_PERIOD']
+        self.smaller_time_period = self.strategy_parameters['SMALLER_TIME_PERIOD']
 
         self.main_order_map = None
 
@@ -22,10 +22,10 @@ class StrategyEMARegularOrder(StrategyBase):
     def get_crossover_value(self, instrument):
         hist_data = self.get_historical_data(instrument)
 
-        ema_x = talib.EMA(hist_data['close'], timeperiod=self.timeperiod1)
-        ema_y = talib.EMA(hist_data['close'], timeperiod=self.timeperiod2)
+        larger_ema = talib.EMA(hist_data['close'], timeperiod=self.larger_time_period)
+        smaller_ema = talib.EMA(hist_data['close'], timeperiod=self.smaller_time_period)
 
-        crossover_value = self.utils.crossover(ema_x, ema_y)
+        crossover_value = self.utils.crossover(smaller_ema, larger_ema)
         return crossover_value
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
@@ -33,7 +33,7 @@ class StrategyEMARegularOrder(StrategyBase):
 
         for instrument in instruments_bucket:
             crossover = self.get_crossover_value(instrument)
-            action_constants = {1: 'BUY', -1: 'SELL'}
+            action_constants = {-1: 'BUY', 1: 'SELL'}
 
             if crossover in [-1, 1]:
                 selected_instruments.append(instrument)
@@ -50,9 +50,9 @@ class StrategyEMARegularOrder(StrategyBase):
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is not None:
-                crossover = self.get_crossover_value(instrument)
+                crossover_value = self.get_crossover_value(instrument)
 
-                if crossover in [1, -1]:
+                if crossover_value in [1, -1]:
                     selected_instruments.append(instrument)
                     meta.append({'action': 'EXIT'})
 
