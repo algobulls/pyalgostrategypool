@@ -61,11 +61,7 @@ class ReverseRSICrossover(StrategyBase):
             if self.main_order_map.get(instrument) is not None:
                 oversold_crossover_value, overbought_crossover_value = self.get_crossover_value(instrument)
 
-                if (oversold_crossover_value == 1 or overbought_crossover_value == 1) and self.main_order_map[instrument].order_transaction_type.value == 'SELL':
-                    selected_instruments.append(instrument)
-                    meta.append({'action': 'EXIT'})
-
-                elif (oversold_crossover_value == -1 or overbought_crossover_value == -1) and self.main_order_map[instrument].order_transaction_type.value == 'BUY':
+                if (oversold_crossover_value == -1 and self.main_order_map[instrument].order_transaction_type.value == 'BUY') or (overbought_crossover_value == 1 and self.main_order_map[instrument].order_transaction_type.value == 'SELL'):
                     selected_instruments.append(instrument)
                     meta.append({'action': 'EXIT'})
 

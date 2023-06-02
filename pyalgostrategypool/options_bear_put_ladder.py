@@ -30,7 +30,7 @@ class StrategyOptionsBearPutLadder(StrategyOptionsBaseV2):
         # Maps
         self.transaction_type_map = {1: "BUY", 2: "SELL"}
         self.tradingsymbol_suffix_map = {1: "CE", 2: "PE"}
-        self.strike_direction_map = {0: "ITM", 1: "ATM", 2: "OTM"}
+        self.strike_direction_map = {0: OptionsStrikeDirection.ITM, 1: OptionsStrikeDirection.ATM, 2: OptionsStrikeDirection.OTM}
 
         # Variables
         self.number_of_allowed_expiry_dates = 1
