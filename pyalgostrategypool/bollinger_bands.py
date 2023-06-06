@@ -29,9 +29,11 @@ class BollingerBands(StrategyBase):
         latest_candle = hist_data.iloc[-1]
         previous_candle = hist_data.iloc[-2]
 
-        if (previous_candle['open'] <= lower_band_value or previous_candle['low'] <= lower_band_value) and (latest_candle['close'] > previous_candle['close']):
+        if (previous_candle['open'] <= lower_band_value or previous_candle['high'] <= lower_band_value or previous_candle['low'] <= lower_band_value or previous_candle['close'] <= lower_band_value) and \
+                (latest_candle['close'] > previous_candle['close']):
             action = 'BUY'
-        elif (previous_candle['open'] >= upper_band_value or previous_candle['close'] >= upper_band_value) and (latest_candle['close'] < previous_candle['close']):
+        elif (previous_candle['open'] >= upper_band_value or previous_candle['high'] >= upper_band_value or previous_candle['low'] >= upper_band_value or previous_candle['close'] >= upper_band_value) and \
+                (latest_candle['close'] < previous_candle['close']):
             action = 'SELL'
         else:
             action = None
@@ -65,7 +67,7 @@ class BollingerBands(StrategyBase):
             if main_order is not None and main_order.get_order_status() is BrokerOrderStatusConstants.COMPLETE:
                 action = self.get_decision(instrument)
 
-                if action is not None:
+                if (action == 'SELL' and main_order.order_transaction_type is BrokerOrderTransactionTypeConstants.BUY) or (action == 'BUY' and main_order.order_transaction_type is BrokerOrderTransactionTypeConstants.SELL):
                     selected_instruments.append(instrument)
                     meta.append({'action': 'EXIT'})
 
