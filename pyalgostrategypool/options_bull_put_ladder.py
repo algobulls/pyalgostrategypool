@@ -32,6 +32,7 @@ class StrategyOptionsBullPutLadder(StrategyOptionsBaseV2):
         self.tradingsymbol_suffix_map = {1: "CE", 2: "PE"}
         self.strike_direction_map = {0: OptionsStrikeDirection.ITM, 1: OptionsStrikeDirection.ATM, 2: OptionsStrikeDirection.OTM}
 
+
         # Variables
         self.number_of_allowed_expiry_dates = 1
         self.instruments_done_for_the_day = None
