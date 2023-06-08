@@ -30,7 +30,7 @@ class StrategyOptionsBearCallLadder(StrategyOptionsBaseV2):
         # Maps
         self.transaction_type_map = {1: "BUY", 2: "SELL"}
         self.tradingsymbol_suffix_map = {1: "CE", 2: "PE"}
-        self.strike_direction_map = {0: "ITM", 1: "ATM", 2: "OTM"}
+        self.strike_direction_map = {0: OptionsStrikeDirection.ITM, 1: OptionsStrikeDirection.ATM, 2: OptionsStrikeDirection.OTM}
 
         # Variables
         self.number_of_allowed_expiry_dates = 1
@@ -45,7 +45,7 @@ class StrategyOptionsBearCallLadder(StrategyOptionsBaseV2):
         child_instrument = self.get_options_instrument_with_strike_direction(base_instrument, expiry_date, tradingsymbol_suffix, strike_direction, no_of_strikes)
         return child_instrument
 
-    def options_instruments_set_up_local(self, base_instrument, tradingsymbol_suffix, current_close, direction=None):
+    def options_instruments_set_up_local(self, base_instrument, tradingsymbol_suffix, current_close, direction=OptionsInstrumentDirection.EXACT):
         expiry_dates = self.get_allowed_expiry_dates()
         for expiry_date in expiry_dates:
             self.options_instruments_set_up(base_instrument, direction, expiry_date, tradingsymbol_suffix, current_close)
@@ -56,10 +56,8 @@ class StrategyOptionsBearCallLadder(StrategyOptionsBaseV2):
         for instrument in instruments_bucket:
             if instrument not in self.instruments_done_for_the_day:
                 self.instruments_done_for_the_day.append(instrument)
-
                 ltp = self.broker.get_ltp(instrument)
 
-                # setup child instruments
                 self.options_instruments_set_up_local(instrument, "CE", ltp)
                 self.options_instruments_set_up_local(instrument, "PE", ltp)
 
