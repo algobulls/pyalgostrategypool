@@ -20,9 +20,13 @@ class RSIMACDCrossoverV2(StrategyBase):
     def initialize(self):
         self.main_order_map = {}
 
+    @staticmethod
+    def get_historical_data_duration():
+        return 40
+
     def get_decision(self, instrument):
         hist_data = self.get_historical_data(instrument)
-        _ , macdsignal, _ = talib.MACD(hist_data['close'], fastperiod=self.timeperiod_fast, slowperiod=self.timeperiod_slow, signalperiod=self.timeperiod_signal)
+        macdline, macdsignal, _ = talib.MACD(hist_data['close'], fastperiod=self.timeperiod_fast, slowperiod=self.timeperiod_slow, signalperiod=self.timeperiod_signal)
         rsi_value = talib.RSI(macdsignal, timeperiod=self.timeperiod_rsi)
 
         oversold_list = [self.oversold_value] * rsi_value.size
