@@ -45,9 +45,13 @@ class RSIMACDCrossover(StrategyBase):
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is None:
                 oversold_crossover_value, overbought_crossover_value = self.get_decision(instrument)
-                if oversold_crossover_value == 1 or overbought_crossover_value == -1:
+                if oversold_crossover_value == 1:
                     selected_instruments.append(instrument)
                     meta.append({'action': 'BUY'})
+
+                elif overbought_crossover_value == -1:
+                    selected_instruments.append(instrument)
+                    meta.append({'action': 'SELL'})
 
         return selected_instruments, meta
 
