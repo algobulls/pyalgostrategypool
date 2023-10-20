@@ -1,10 +1,12 @@
-import talib
-from pyalgotrading.constants import *
-from pyalgotrading.strategy import StrategyBase
+"""
+    checkout:
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/aroon_crossover/
+        - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_regular_strategy/
+"""
 
 
-class MeanReversionBollingerBandsV2(StrategyBase):
-    name = 'Mean Reversion Bollinger Bands V2'
+class MeanReversionBollingerBands(StrategyBase):
+    name = 'Mean Reversion Bollinger Bands'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -34,32 +36,32 @@ class MeanReversionBollingerBandsV2(StrategyBase):
         return action
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
-        instruments, meta = [], []
+        selected_instruments, meta = [], []
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is None:
                 action = self.get_decision(instrument)
                 if action is not None:
-                    instruments.append(instrument)
+                    selected_instruments.append(instrument)
                     meta.append({'action': action})
 
-        return instruments, meta
+        return selected_instruments, meta
 
     def strategy_enter_position(self, candle, instrument, meta):
         self.main_order_map[instrument] = _ = self.broker.OrderRegular(instrument, meta['action'], quantity=self.number_of_lots * instrument.lot_size)
         return _
 
     def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
-        instruments, meta = [], []
+        selected_instruments, meta = [], []
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is not None:
                 action = self.get_decision(instrument)
                 if action is not None:
-                    instruments.append(instrument)
+                    selected_instruments.append(instrument)
                     meta.append({'action': 'EXIT'})
 
-        return instruments, meta
+        return selected_instruments, meta
 
     def strategy_exit_position(self, candle, instrument, meta):
         if meta['action'] == 'EXIT':

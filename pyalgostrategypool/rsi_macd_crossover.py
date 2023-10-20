@@ -1,10 +1,12 @@
-import talib
-from pyalgotrading.constants import *
-from pyalgotrading.strategy import StrategyBase
+"""
+    checkout:
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/aroon_crossover/
+        - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_regular_strategy/
+"""
 
 
-class RSIMACDCrossoverV2(StrategyBase):
-    name = 'RSI MACD Crossover V2'
+class RSIMACDCrossover(StrategyBase):
+    name = 'RSI MACD Crossover'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -38,38 +40,33 @@ class RSIMACDCrossoverV2(StrategyBase):
         return oversold_crossover_value, overbought_crossover_value
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
-        instruments, meta = [], []
+        selected_instruments, meta = [], []
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is None:
                 oversold_crossover_value, overbought_crossover_value = self.get_decision(instrument)
-                if oversold_crossover_value == 1:
-                    instruments.append(instrument)
+                if oversold_crossover_value == 1 or overbought_crossover_value == -1:
+                    selected_instruments.append(instrument)
                     meta.append({'action': 'BUY'})
-                elif overbought_crossover_value == -1:
-                    instruments.append(instrument)
-                    meta.append({'action': 'SELL'})
 
-        return instruments, meta
+        return selected_instruments, meta
 
     def strategy_enter_position(self, candle, instrument, meta):
         self.main_order_map[instrument] = _ = self.broker.OrderRegular(instrument, meta['action'], quantity=self.number_of_lots * instrument.lot_size)
         return _
 
     def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
-        instruments, meta = [], []
+        selected_instruments, meta = [], []
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is not None:
                 oversold_crossover_value, overbought_crossover_value = self.get_decision(instrument)
-                if (oversold_crossover_value == -1) and self.main_order_map[instrument].order_transaction_type.value == 'SELL':
-                    instruments.append(instrument)
-                    meta.append({'action': 'EXIT'})
-                elif (overbought_crossover_value == 1) and self.main_order_map[instrument].order_transaction_type.value == 'BUY':
-                    instruments.append(instrument)
+                if (oversold_crossover_value == -1) and self.main_order_map[instrument].order_transaction_type.value == 'SELL' or \
+                        ((overbought_crossover_value == 1) and self.main_order_map[instrument].order_transaction_type.value == 'BUY'):
+                    selected_instruments.append(instrument)
                     meta.append({'action': 'EXIT'})
 
-        return instruments, meta
+        return selected_instruments, meta
 
     def strategy_exit_position(self, candle, instrument, meta):
         if meta['action'] == 'EXIT':

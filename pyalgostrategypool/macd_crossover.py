@@ -1,10 +1,12 @@
-import talib
-from pyalgotrading.constants import *
-from pyalgotrading.strategy import StrategyBase
+"""
+    checkout:
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/aroon_crossover/
+        - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_regular_strategy/
+"""
 
 
-class MACDCrossoverV2(StrategyBase):
-    name = 'MACD Crossover V2'
+class MACDCrossover(StrategyBase):
+    name = 'MACD Crossover'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -28,35 +30,34 @@ class MACDCrossoverV2(StrategyBase):
         return crossover_value
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
-        instruments, meta = [], []
+        selected_instruments, meta = [], []
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is None:
-                crossover = self.get_crossover(instrument)
-                if crossover == 1:
-                    instruments.append(instrument)
-                    meta.append({'action': 'BUY'})
-                elif crossover == -1:
-                    instruments.append(instrument)
-                    meta.append({'action': 'SELL'})
+                crossover = self.get_crossover_value(instrument)
+                action_constants = {1: 'BUY', -1: 'SELL'}
 
-        return instruments, meta
+                if crossover in [-1, 1]:
+                    selected_instruments.append(instrument)
+                    meta.append({'action': action_constants[crossover]})
+
+        return selected_instruments, meta
 
     def strategy_enter_position(self, candle, instrument, sideband_info):
         self.main_order_map[instrument] = _ = self.broker.OrderRegular(instrument, sideband_info['action'], quantity=self.number_of_lots * instrument.lot_size)
         return _
 
     def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
-        instruments, meta = [], []
+        selected_instruments, meta = [], []
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is not None:
                 crossover = self.get_crossover(instrument)
                 if crossover in [1, -1]:
-                    instruments.append(instrument)
+                    selected_instruments.append(instrument)
                     meta.append({'action': 'EXIT'})
 
-        return instruments, meta
+        return selected_instruments, meta
 
     def strategy_exit_position(self, candle, instrument, sideband_info):
         if sideband_info['action'] == 'EXIT':

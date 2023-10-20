@@ -1,10 +1,5 @@
-import talib
-from pyalgotrading.constants import *
-from pyalgotrading.strategy import StrategyBase
-
-
-class VolatilityTrendATRV2(StrategyBase):
-    name = 'Volatility Trend ATR V2'
+class VolatilityTrendATR(StrategyBase):
+    name = 'Volatility Trend ATR'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -14,11 +9,12 @@ class VolatilityTrendATRV2(StrategyBase):
         self.main_order_map = None
         self.previous_trend = None
         self.current_trend = None
+        self.action_constants = {1: 'BUY', -1: 'SELL'}
 
     def initialize(self):
         self.main_order_map = {}
-        self.previous_trend = 0
-        self.current_trend = 0
+        self.previous_trend = {}
+        self.current_trend = {}
 
     @staticmethod
     def get_historical_data_duration():
@@ -29,31 +25,22 @@ class VolatilityTrendATRV2(StrategyBase):
         atr = talib.ATR(hist_data['high'], hist_data['low'], hist_data['close'], timeperiod=self.timeperiod_atr)
         current_atr = atr.iloc[-1]
         atr_prev_candles_num = atr.iloc[-self.atr_prev_candles_num]
-
-        if current_atr > atr_prev_candles_num:
-            trend = 1
-        elif current_atr < atr_prev_candles_num:
-            trend = -1
-        else:
-            trend = 0
-        return trend
+        return 1 if current_atr > atr_prev_candles_num else -1 if current_atr < atr_prev_candles_num else 0
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
         instruments, meta = [], []
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is None:
-                if self.current_trend == 0:
-                    self.current_trend = self.get_trend_direction(instrument)
+                if self.current_trend.get(instrument) in [None, 0]:
+                    current_trend = self.current_trend[instrument] = self.get_trend_direction(instrument)
+                else:
+                    current_trend = self.current_trend[instrument]
 
-                if self.current_trend == 1:
+                if current_trend in [1, -1]:
                     instruments.append(instrument)
-                    meta.append({'action': 'BUY'})
-                    self.previous_trend = self.current_trend
-                elif self.current_trend == -1:
-                    instruments.append(instrument)
-                    meta.append({'action': 'SELL'})
-                    self.previous_trend = self.current_trend
+                    meta.append({'action': self.action_constants[current_trend]})
+                    self.previous_trend[instrument] = self.current_trend[instrument]
 
         return instruments, meta
 
@@ -65,12 +52,13 @@ class VolatilityTrendATRV2(StrategyBase):
         instruments, meta = [], []
 
         for instrument in instruments_bucket:
-            trend = self.get_trend_direction(instrument)
-            self.current_trend = trend
-            if self.main_order_map.get(instrument) is not None and trend != 0:
-                if trend != self.previous_trend:
-                    instruments.append(instrument)
-                    meta.append({'action': 'EXIT'})
+            if self.main_order_map.get(instrument) is not None:
+                current_trend = self.current_trend[instrument] = self.get_trend_direction(instrument)
+                self.current_trend[instrument] = current_trend
+                if current_trend != 0:
+                    if current_trend != self.previous_trend.get(instrument):
+                        instruments.append(instrument)
+                        meta.append({'action': 'EXIT'})
 
         return instruments, meta
 
