@@ -1,5 +1,5 @@
 import talib
-
+from pyalgotrading.constants import *
 from pyalgotrading.strategy import StrategyBase
 
 
@@ -43,7 +43,6 @@ class MACDCrossoverV2(StrategyBase):
         return instruments, meta
 
     def strategy_enter_position(self, candle, instrument, sideband_info):
-        self.logger.info(f"delete this STRATEGY QTY: {self.number_of_lots} * {instrument.lot_size} = {self.number_of_lots * instrument.lot_size}")
         self.main_order_map[instrument] = _ = self.broker.OrderRegular(instrument, sideband_info['action'], quantity=self.number_of_lots * instrument.lot_size)
         return _
 

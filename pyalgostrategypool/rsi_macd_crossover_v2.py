@@ -1,5 +1,5 @@
 import talib
-
+from pyalgotrading.constants import *
 from pyalgotrading.strategy import StrategyBase
 
 
@@ -22,7 +22,7 @@ class RSIMACDCrossoverV2(StrategyBase):
 
     def get_decision(self, instrument):
         hist_data = self.get_historical_data(instrument)
-        macdline, macdsignal, _ = talib.MACD(hist_data['close'], fastperiod=self.timeperiod_fast, slowperiod=self.timeperiod_slow, signalperiod=self.timeperiod_signal)
+        _ , macdsignal, _ = talib.MACD(hist_data['close'], fastperiod=self.timeperiod_fast, slowperiod=self.timeperiod_slow, signalperiod=self.timeperiod_signal)
         rsi_value = talib.RSI(macdsignal, timeperiod=self.timeperiod_rsi)
 
         oversold_list = [self.oversold_value] * rsi_value.size
