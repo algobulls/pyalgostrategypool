@@ -23,7 +23,6 @@ class VolatilityTrendATRV2(StrategyBase):
         self.current_trend = {}
 
     def get_trend_direction(self, instrument):
-        self.logger.info(f'Min candle')
         hist_data = self.get_historical_data(instrument)
         atr = talib.ATR(hist_data['high'], hist_data['low'], hist_data['close'], timeperiod=self.timeperiod_atr)
         current_atr = atr.iloc[-1]
