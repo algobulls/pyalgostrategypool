@@ -54,7 +54,6 @@ class VolatilityTrendATR(StrategyBase):
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is not None:
                 current_trend = self.current_trend[instrument] = self.get_trend_direction(instrument)
-                self.current_trend[instrument] = current_trend
                 if current_trend != 0:
                     if current_trend != self.previous_trend.get(instrument):
                         instruments.append(instrument)
