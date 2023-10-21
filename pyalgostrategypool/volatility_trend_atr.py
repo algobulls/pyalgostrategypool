@@ -4,7 +4,7 @@
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_regular_strategy/
 """
 
-class VolatilityTrendATR(StrategyBase):
+class VolatilityTrendATRV2(StrategyBase):
     name = 'Volatility Trend ATR'
 
     def __init__(self, *args, **kwargs):
@@ -22,11 +22,8 @@ class VolatilityTrendATR(StrategyBase):
         self.previous_trend = {}
         self.current_trend = {}
 
-    @staticmethod
-    def get_historical_data_duration():
-        return 300
-
     def get_trend_direction(self, instrument):
+        self.logger.info(f'Min candle')
         hist_data = self.get_historical_data(instrument)
         atr = talib.ATR(hist_data['high'], hist_data['low'], hist_data['close'], timeperiod=self.timeperiod_atr)
         current_atr = atr.iloc[-1]
@@ -60,6 +57,7 @@ class VolatilityTrendATR(StrategyBase):
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is not None:
                 current_trend = self.current_trend[instrument] = self.get_trend_direction(instrument)
+                self.current_trend[instrument] = current_trend
                 if current_trend != 0:
                     if current_trend != self.previous_trend.get(instrument):
                         instruments.append(instrument)
