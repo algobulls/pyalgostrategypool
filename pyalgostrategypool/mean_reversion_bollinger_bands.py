@@ -1,52 +1,49 @@
 """
     checkout:
-        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/reverse_rsi/
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/mean_reversion_bollinger_bands/
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_strategy_guide/
 """
 
 
-class ReverseRSICrossover(StrategyBase):
-    name = 'Reverse RSI'
+class MeanReversionBollingerBands(StrategyBase):
+    name = 'Mean Reversion Bollinger Bands'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.time_period = self.strategy_parameters['TIME_PERIOD']
-        self.overbought_value = self.strategy_parameters['OVERBOUGHT_VALUE']
-        self.oversold_value = self.strategy_parameters['OVERSOLD_VALUE']
-
+        self.timeperiod = self.strategy_parameters['TIMEPERIOD']
+        self.std_deviation = self.strategy_parameters['STD_DEVIATION']
         self.main_order_map = None
 
     def initialize(self):
         self.main_order_map = {}
 
-    def get_crossover_value(self, instrument):
+    def get_decision(self, instrument):
         hist_data = self.get_historical_data(instrument)
+        upper_band, _, lower_band = talib.BBANDS(hist_data['close'], timeperiod=self.timeperiod, nbdevup=self.std_deviation, nbdevdn=self.std_deviation, matype=0)
+        upper_band_value = upper_band.iloc[-1]
+        lower_band_value = lower_band.iloc[-1]
+        latest_candle = hist_data.iloc[-1]
+        previous_candle = hist_data.iloc[-2]
 
-        rsi_value = talib.RSI(hist_data['close'], timeperiod=self.time_period)
+        if (previous_candle['open'] <= lower_band_value or previous_candle['low'] <= lower_band_value) and (latest_candle['close'] > previous_candle['close']):
+            action = 'BUY'
+        elif (previous_candle['open'] >= upper_band_value or previous_candle['close'] >= upper_band_value) and (latest_candle['close'] < previous_candle['close']):
+            action = 'SELL'
+        else:
+            action = None
 
-        oversold_list = [self.oversold_value] * rsi_value.size
-        overbought_list = [self.overbought_value] * rsi_value.size
-
-        oversold_crossover_value = self.utils.crossover(rsi_value, oversold_list)
-        overbought_crossover_value = self.utils.crossover(rsi_value, overbought_list)
-
-        return oversold_crossover_value, overbought_crossover_value
+        return action
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
         selected_instruments, meta = [], []
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is None:
-                oversold_crossover_value, overbought_crossover_value = self.get_crossover_value(instrument)
-
-                if oversold_crossover_value == 1:
+                action = self.get_decision(instrument)
+                if action is not None:
                     selected_instruments.append(instrument)
-                    meta.append({'action': 'BUY'})
-
-                elif overbought_crossover_value == -1:
-                    selected_instruments.append(instrument)
-                    meta.append({'action': 'SELL'})
+                    meta.append({'action': action})
 
         return selected_instruments, meta
 
@@ -59,9 +56,8 @@ class ReverseRSICrossover(StrategyBase):
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is not None:
-                oversold_crossover_value, overbought_crossover_value = self.get_crossover_value(instrument)
-
-                if (oversold_crossover_value == -1 and self.main_order_map[instrument].order_transaction_type.value == 'BUY') or (overbought_crossover_value == 1 and self.main_order_map[instrument].order_transaction_type.value == 'SELL'):
+                action = self.get_decision(instrument)
+                if action is not None:
                     selected_instruments.append(instrument)
                     meta.append({'action': 'EXIT'})
 
@@ -72,4 +68,5 @@ class ReverseRSICrossover(StrategyBase):
             self.main_order_map[instrument].exit_position()
             self.main_order_map[instrument] = None
             return True
+
         return False

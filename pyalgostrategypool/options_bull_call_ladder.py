@@ -1,7 +1,7 @@
 """
     checkout:
         - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/options_bull_call_ladder/
-        - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_options_strategy/
+        - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_strategy_guide/
 """
 
 

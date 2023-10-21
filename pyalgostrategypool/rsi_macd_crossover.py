@@ -1,29 +1,31 @@
 """
     checkout:
-        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/reverse_rsi/
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/rsi_macd_crossover/
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_strategy_guide/
 """
 
 
-class ReverseRSICrossover(StrategyBase):
-    name = 'Reverse RSI'
+class RSIMACDCrossover(StrategyBase):
+    name = 'RSI MACD Crossover'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.time_period = self.strategy_parameters['TIME_PERIOD']
-        self.overbought_value = self.strategy_parameters['OVERBOUGHT_VALUE']
+        self.timeperiod_fast = self.strategy_parameters['TIMEPERIOD_FAST']
+        self.timeperiod_slow = self.strategy_parameters['TIMEPERIOD_SLOW']
+        self.timeperiod_signal = self.strategy_parameters['TIMEPERIOD_SIGNAL']
+        self.timeperiod_rsi = self.strategy_parameters['TIMEPERIOD_RSI']
         self.oversold_value = self.strategy_parameters['OVERSOLD_VALUE']
-
+        self.overbought_value = self.strategy_parameters['OVERBOUGHT_VALUE']
         self.main_order_map = None
 
     def initialize(self):
         self.main_order_map = {}
 
-    def get_crossover_value(self, instrument):
+    def get_decision(self, instrument):
         hist_data = self.get_historical_data(instrument)
-
-        rsi_value = talib.RSI(hist_data['close'], timeperiod=self.time_period)
+        macdline, macdsignal, _ = talib.MACD(hist_data['close'], fastperiod=self.timeperiod_fast, slowperiod=self.timeperiod_slow, signalperiod=self.timeperiod_signal)
+        rsi_value = talib.RSI(macdsignal, timeperiod=self.timeperiod_rsi)
 
         oversold_list = [self.oversold_value] * rsi_value.size
         overbought_list = [self.overbought_value] * rsi_value.size
@@ -38,8 +40,7 @@ class ReverseRSICrossover(StrategyBase):
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is None:
-                oversold_crossover_value, overbought_crossover_value = self.get_crossover_value(instrument)
-
+                oversold_crossover_value, overbought_crossover_value = self.get_decision(instrument)
                 if oversold_crossover_value == 1:
                     selected_instruments.append(instrument)
                     meta.append({'action': 'BUY'})
@@ -59,9 +60,9 @@ class ReverseRSICrossover(StrategyBase):
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is not None:
-                oversold_crossover_value, overbought_crossover_value = self.get_crossover_value(instrument)
-
-                if (oversold_crossover_value == -1 and self.main_order_map[instrument].order_transaction_type.value == 'BUY') or (overbought_crossover_value == 1 and self.main_order_map[instrument].order_transaction_type.value == 'SELL'):
+                oversold_crossover_value, overbought_crossover_value = self.get_decision(instrument)
+                if (oversold_crossover_value == -1) and self.main_order_map[instrument].order_transaction_type.value == 'SELL' or \
+                        ((overbought_crossover_value == 1) and self.main_order_map[instrument].order_transaction_type.value == 'BUY'):
                     selected_instruments.append(instrument)
                     meta.append({'action': 'EXIT'})
 
@@ -72,4 +73,5 @@ class ReverseRSICrossover(StrategyBase):
             self.main_order_map[instrument].exit_position()
             self.main_order_map[instrument] = None
             return True
+
         return False
