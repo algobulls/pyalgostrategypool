@@ -1,7 +1,7 @@
 """
     checkout:
         - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/reverse_rsi/
-        - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/common_regular_strategy/
+        - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_strategy_guide/
 """
 
 
