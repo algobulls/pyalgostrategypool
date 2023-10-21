@@ -19,10 +19,6 @@ class MACDCrossover(StrategyBase):
     def initialize(self):
         self.main_order_map = {}
 
-    @staticmethod
-    def get_historical_data_duration():
-        return 40
-
     def get_crossover(self, instrument):
         hist_data = self.get_historical_data(instrument)
         macdline, macdsignal, _ = talib.MACD(hist_data['close'], fastperiod=self.timeperiod_fast, slowperiod=self.timeperiod_slow, signalperiod=self.timeperiod_signal)
