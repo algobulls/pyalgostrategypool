@@ -1,6 +1,6 @@
 """
     checkout:
-        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/aroon_crossover/
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/rsi_macd_crossover/
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_strategy_guide/
 """
 
