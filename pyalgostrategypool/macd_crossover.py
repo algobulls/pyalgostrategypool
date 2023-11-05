@@ -30,7 +30,7 @@ class MACDCrossover(StrategyBase):
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is None:
-                crossover = self.get_crossover_value(instrument)
+                crossover = self.get_crossover(instrument)
                 action_constants = {1: 'BUY', -1: 'SELL'}
 
                 if crossover in [-1, 1]:
