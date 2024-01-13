@@ -3,9 +3,10 @@
         - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/aroon_crossover/
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_strategy_guide/
 """
+
 import talib
-from constants import *
-from strategy import StrategyBase
+from pyalgotrading.constants import *
+from pyalgotrading.strategy import StrategyBase
 
 
 class AroonCrossover(StrategyBase):
