@@ -8,7 +8,7 @@ from pyalgotrading.strategy import StrategyOptionsBaseV2, OptionsStrikeDirection
 
 
 class OptionsStraddle(StrategyOptionsBaseV2):
-    name = 'Options Straddle '
+    name = 'Options Straddle'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
