@@ -8,7 +8,7 @@ from strategy import StrategyOptionsBaseV2, OptionsStrikeDirection, OptionsInstr
 
 
 class OptionsStrangle(StrategyOptionsBaseV2):
-    name = 'Options Strangle '
+    name = 'Options Strangle'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
