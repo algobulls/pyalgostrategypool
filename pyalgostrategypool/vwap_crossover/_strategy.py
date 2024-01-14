@@ -4,8 +4,8 @@
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_strategy_guide/
 """
 
-from indicator.vwap import VWAP
 from pyalgotrading.constants import *
+from pyalgotrading.indicator.vwap import VWAP
 from pyalgotrading.strategy import StrategyBase
 
 
