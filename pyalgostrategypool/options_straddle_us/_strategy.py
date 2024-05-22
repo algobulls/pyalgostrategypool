@@ -1,7 +1,6 @@
-from datetime import date
-
 from strategy.core.strategy_options_base_v2 import OptionsStrikeDirection, OptionsInstrumentDirection
 from strategy.core.strategy_options_base_v2_us_alpaca import StrategyOptionsBaseV2USAlpaca
+
 
 class OptionsStraddle(StrategyOptionsBaseV2USAlpaca):
     name = 'Options Straddle'
@@ -76,6 +75,7 @@ class OptionsStraddle(StrategyOptionsBaseV2USAlpaca):
 
     def strategy_exit_position(self, candle, instrument, sideband_info):
         return False
+
 
 '''
 source /eapps_ft/virtualenv/bin/activate

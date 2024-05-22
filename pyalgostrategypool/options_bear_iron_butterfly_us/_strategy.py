@@ -1,4 +1,5 @@
 from pyalgotrading.strategy.strategy_options_base_v2 import *
+
 """
     checkout:
         - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/options_long_iron_butterfly/
@@ -7,7 +8,6 @@ from pyalgotrading.strategy.strategy_options_base_v2 import *
 
 from strategy.core.strategy_options_base_v2 import OptionsStrikeDirection, OptionsInstrumentDirection
 from strategy.core.strategy_options_base_v2_us_alpaca import StrategyOptionsBaseV2USAlpaca
-
 
 
 class OptionsLongIronButterfly(StrategyOptionsBaseV2USAlpaca):
