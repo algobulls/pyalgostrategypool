@@ -75,11 +75,3 @@ class OptionsStraddle(StrategyOptionsBaseV2USAlpaca):
 
     def strategy_exit_position(self, candle, instrument, sideband_info):
         return False
-
-
-'''
-source /eapps_ft/virtualenv/bin/activate
-source /eapps_ft/abc/algobulls_backend_core/env
-export PYTHONPATH=$PYTHONPATH:/eapps_ft/abc/:/eapps_ft/abc/algobulls_backend_core:/home/pratikurkude/projects/all_repo/algobulls_common/:/home/pratikurkude/projects/all_repo/algobulls_brokers:/home/pratikurkude/projects/all_repo/algobulls_strategies/
-python /eapps_ft/abc/algobulls_backend_core/tls/tls_yaml.py --path-yaml-files ./*.yaml --strategy-dir /home/pratikurkude/projects/all_repo/algobulls_strategies/alpaca_screener_strategy/ --fresh-logs --dump-oms-reports --override-funds
-'''
