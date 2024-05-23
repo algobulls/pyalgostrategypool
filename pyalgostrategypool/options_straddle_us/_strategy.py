@@ -1,9 +1,9 @@
-from strategy.core.strategy_options_base_v2 import OptionsStrikeDirection, OptionsInstrumentDirection
+from pyalgotrading.strategy import OptionsStrikeDirection, OptionsInstrumentDirection
 from strategy.core.strategy_options_base_v2_us_alpaca import StrategyOptionsBaseV2USAlpaca
 
 
-class OptionsStraddle(StrategyOptionsBaseV2USAlpaca):
-    name = 'Options Straddle'
+class OptionsStraddleUS(StrategyOptionsBaseV2USAlpaca):
+    name = 'Options Straddle US'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

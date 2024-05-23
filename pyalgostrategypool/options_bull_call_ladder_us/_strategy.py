@@ -4,12 +4,12 @@
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_strategy_guide/
 """
 
-from strategy.core.strategy_options_base_v2 import OptionsStrikeDirection, OptionsInstrumentDirection
+from pyalgotrading.strategy import OptionsStrikeDirection, OptionsInstrumentDirection
 from strategy.core.strategy_options_base_v2_us_alpaca import StrategyOptionsBaseV2USAlpaca
 
 
-class OptionsBullCallLadder(StrategyOptionsBaseV2USAlpaca):
-    name = 'Options Bull Call Ladder'
+class OptionsBullCallLadderUS(StrategyOptionsBaseV2USAlpaca):
+    name = 'Options Bull Call Ladder US'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

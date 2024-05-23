@@ -32,7 +32,7 @@ STRATEGY:
   INSTRUMENTS_BUCKET:
     - NASDAQ:MSFT
   MODE: INTRADAY
-  NAME: Options Long Iron Butterfly
+  NAME: Options Long Iron Butterfly US
   NUMBER_OF_LOTS: 1
   PARAMETERS:
     LEG_FOUR_NUMBER_OF_STRIKES: 2.0
