@@ -1,6 +1,4 @@
-from pyalgotrading.strategy.strategy_options_base_v2 import *
-
-"""
+f"""
     checkout:
         - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/options_strangle/
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_strategy_guide/

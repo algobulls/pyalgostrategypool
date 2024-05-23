@@ -1,5 +1,3 @@
-from pyalgotrading.strategy.strategy_options_base_v2 import *
-
 """
     checkout:
         - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/options_bull_put_ladder/
