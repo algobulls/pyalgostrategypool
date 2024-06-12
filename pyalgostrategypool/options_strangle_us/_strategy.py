@@ -5,10 +5,10 @@ f"""
 """
 
 from pyalgotrading.strategy import OptionsStrikeDirection, OptionsInstrumentDirection
-from strategy.core.strategy_options_base_v2_us_alpaca import StrategyOptionsBaseV2USAlpaca
+from strategy.core.strategy_options_base_v2_us_alpaca import StrategyOptionsBaseV2US
 
 
-class OptionsStrangleUS(StrategyOptionsBaseV2USAlpaca):
+class OptionsStrangleUS(StrategyOptionsBaseV2US):
     name = 'Options Strangle US'
 
     def __init__(self, *args, **kwargs):

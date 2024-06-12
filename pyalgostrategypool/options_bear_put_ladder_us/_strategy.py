@@ -5,10 +5,10 @@
 """
 
 from pyalgotrading.strategy import OptionsStrikeDirection, OptionsInstrumentDirection
-from strategy.core.strategy_options_base_v2_us_alpaca import StrategyOptionsBaseV2USAlpaca
+from strategy.core.strategy_options_base_v2_us_alpaca import StrategyOptionsBaseV2US
 
 
-class OptionsBearPutLadderUS(StrategyOptionsBaseV2USAlpaca):
+class OptionsBearPutLadderUS(StrategyOptionsBaseV2US):
     name = 'Options Bear Put Ladder US'
 
     def __init__(self, *args, **kwargs):
