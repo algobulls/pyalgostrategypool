@@ -4,10 +4,10 @@
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_strategy_guide/
 """
 
-from pyalgotrading.strategy import StrategyOptionsBaseV2, OptionsStrikeDirection, OptionsInstrumentDirection
+from pyalgotrading.strategy import StrategyOptionsBase, OptionsStrikeDirection, OptionsInstrumentDirection
 
 
-class OptionsLongIronButterfly(StrategyOptionsBaseV2):
+class OptionsLongIronButterfly(StrategyOptionsBase):
     name = 'Options Long Iron Butterfly'
 
     def __init__(self, *args, **kwargs):

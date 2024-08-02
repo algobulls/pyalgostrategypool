@@ -4,10 +4,10 @@
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_strategy_guide/
 """
 
-from pyalgotrading.strategy import StrategyOptionsBaseV2, OptionsStrikeDirection, OptionsInstrumentDirection
+from pyalgotrading.strategy import StrategyOptionsBase, OptionsStrikeDirection, OptionsInstrumentDirection
 
 
-class OptionsStraddle(StrategyOptionsBaseV2):
+class OptionsStraddle(StrategyOptionsBase):
     name = 'Options Straddle'
 
     def __init__(self, *args, **kwargs):
