@@ -4,11 +4,10 @@
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_strategy_guide/
 """
 
-from pyalgotrading.strategy import OptionsStrikeDirection, OptionsInstrumentDirection
-from strategy.core.strategy_options_base_v2_us_alpaca import StrategyOptionsBaseV2US
+from pyalgotrading.strategy import StrategyOptionsBase, OptionsStrikeDirection, OptionsInstrumentDirection
 
 
-class OptionsBearPutLadderUS(StrategyOptionsBaseV2US):
+class OptionsBearPutLadderUS(StrategyOptionsBase):
     name = 'Options Bear Put Ladder US'
 
     def __init__(self, *args, **kwargs):
