@@ -17,7 +17,7 @@ class OptionsBoxSpread(StrategyOptionsBase):
         super().__init__(*args, **kwargs)
 
         """
-        Typically, a box spread has 4 legs (Bull Call + Bear Put).
+        A box spread has 4 legs (Bull Call + Bear Put).
         For simplicity, let's define them as:
           Leg1 = Buy Call @ strike A (near ATM)
           Leg2 = Sell Call @ strike B (slightly OTM)
