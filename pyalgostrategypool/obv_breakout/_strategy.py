@@ -20,9 +20,9 @@ class OBVBreakoutStrategy(StrategyBase):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.obv_ma_period = self.strategy_parameters.get('OBV_MA_PERIOD', 5)
-        self.lookback_period = self.strategy_parameters.get('LOOKBACK_PERIOD', 5)
-        self.trailing_stop_period = self.strategy_parameters.get('TRAILING_STOP_PERIOD', 5)
+        self.obv_ma_period = self.strategy_parameters.get('OBV_MA_PERIOD', 10)
+        self.lookback_period = self.strategy_parameters.get('LOOKBACK_PERIOD', 10)
+        self.trailing_stop_period = self.strategy_parameters.get('TRAILING_STOP_PERIOD', 10)
         self.atr_period = self.strategy_parameters.get('ATR_PERIOD', 14)
         self.atr_multiplier = self.strategy_parameters.get('ATR_MULTIPLIER', 1.5)
     
