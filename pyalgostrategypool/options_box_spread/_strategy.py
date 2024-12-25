@@ -14,13 +14,39 @@ class OptionsBoxSpread(StrategyOptionsBaseV2):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Strategy Parameters
+        # Strategy Parameters from the input 'parameters' dictionary
         self.number_of_lots = self.strategy_parameters.get('number_of_lots', 1)
         self.lot_size = self.strategy_parameters.get('lot_size', 1)
 
-        # Strike offset values
+        # Strike offset values from the input 'parameters' dictionary
         self.call_strike_offset = self.strategy_parameters.get('CALL_STRIKE_OFFSET', 50)  # OTM by 50
         self.put_strike_offset = self.strategy_parameters.get('PUT_STRIKE_OFFSET', 50)    # OTM by 50
+
+        # Leg Parameters from the input 'parameters' dictionary
+        self.leg_one_transaction_type = self.strategy_parameters.get('LEG_ONE_TRANSACTION_TYPE', 1)
+        self.leg_one_tradingsymbol_suffix = self.strategy_parameters.get('LEG_ONE_TRADING_SYMBOL_SUFFIX', 1)
+        self.leg_one_strike_direction = self.strategy_parameters.get('LEG_ONE_STRIKE_DIRECTION', 0)
+        self.leg_one_number_of_strikes = self.strategy_parameters.get('LEG_ONE_NUMBER_OF_STRIKES', 0)
+
+        self.leg_two_transaction_type = self.strategy_parameters.get('LEG_TWO_TRANSACTION_TYPE', 2)
+        self.leg_two_tradingsymbol_suffix = self.strategy_parameters.get('LEG_TWO_TRADING_SYMBOL_SUFFIX', 1)
+        self.leg_two_strike_direction = self.strategy_parameters.get('LEG_TWO_STRIKE_DIRECTION', 2)
+        self.leg_two_number_of_strikes = self.strategy_parameters.get('LEG_TWO_NUMBER_OF_STRIKES', 2)
+
+        self.leg_three_transaction_type = self.strategy_parameters.get('LEG_THREE_TRANSACTION_TYPE', 1)
+        self.leg_three_tradingsymbol_suffix = self.strategy_parameters.get('LEG_THREE_TRADING_SYMBOL_SUFFIX', 2)
+        self.leg_three_strike_direction = self.strategy_parameters.get('LEG_THREE_STRIKE_DIRECTION', 2)
+        self.leg_three_number_of_strikes = self.strategy_parameters.get('LEG_THREE_NUMBER_OF_STRIKES', 2)
+
+        self.leg_four_transaction_type = self.strategy_parameters.get('LEG_FOUR_TRANSACTION_TYPE', 2)
+        self.leg_four_tradingsymbol_suffix = self.strategy_parameters.get('LEG_FOUR_TRADING_SYMBOL_SUFFIX', 2)
+        self.leg_four_strike_direction = self.strategy_parameters.get('LEG_FOUR_STRIKE_DIRECTION', 0)
+        self.leg_four_number_of_strikes = self.strategy_parameters.get('LEG_FOUR_NUMBER_OF_STRIKES', 0)
+
+        # Arbitrage parameters from the input 'parameters' dictionary
+        self.risk_free_rate = self.strategy_parameters.get('RISK_FREE_RATE', 0.01)
+        self.exit_threshold = self.strategy_parameters.get('EXIT_THRESHOLD', 0.03)
+        self.transaction_cost_percent = self.strategy_parameters.get('TRANSACTION_COST_PERCENT', 0.001)
 
         # Tracking state
         self.instruments_done_for_the_day = []
