@@ -14,8 +14,8 @@ import talib
 from pyalgotrading.strategy import StrategyBase
 
 
-class StrategyStrategyVolatilityTrendATRIntraday(StrategyBase):
-    name = 'Strategy Strategy Volatility Trend ATR Intraday'
+class StrategyVolatilityTrendATRIntraday(StrategyBase):
+    name = 'Strategy Volatility Trend ATR Intraday'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

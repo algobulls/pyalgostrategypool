@@ -9,8 +9,8 @@ from pyalgotrading.indicator.vwap import VWAP
 from pyalgotrading.strategy import StrategyBase
 
 
-class StrategyStrategyVWAPCrossoverIntraday(StrategyBase):
-    name = 'Strategy Strategy VWAP Crossover Intraday'
+class StrategyVWAPCrossoverIntraday(StrategyBase):
+    name = 'Strategy VWAP Crossover Intraday'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -13,8 +13,8 @@
 from pyalgotrading.strategy import StrategyOptionsBase, OptionsStrikeDirection, OptionsInstrumentDirection
 
 
-class StrategyStrategyOptionsBearCallLadderIntraday(StrategyOptionsBase):
-    name = 'Strategy Strategy Options Bear Call Ladder Intraday'
+class StrategyOptionsBearCallLadderIntraday(StrategyOptionsBase):
+    name = 'Strategy Options Bear Call Ladder Intraday'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

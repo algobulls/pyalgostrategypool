@@ -14,8 +14,8 @@ import talib
 from pyalgotrading.strategy import StrategyBase
 
 
-class StrategyStrategyMACDCrossoverIntraday(StrategyBase):
-    name = 'Strategy Strategy MACD Crossover Intraday'
+class StrategyMACDCrossoverIntraday(StrategyBase):
+    name = 'Strategy MACD Crossover Intraday'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

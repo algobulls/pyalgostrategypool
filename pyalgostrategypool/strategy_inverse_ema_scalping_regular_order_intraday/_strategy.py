@@ -14,8 +14,8 @@ import talib
 from pyalgotrading.strategy import StrategyBase
 
 
-class StrategyStrategyInverseEMAScalpingRegularOrderIntraday(StrategyBase):
-    name = 'Strategy Strategy Inverse EMA Scalping Regular Order Intraday'
+class StrategyInverseEMAScalpingRegularOrderIntraday(StrategyBase):
+    name = 'Strategy Inverse EMA Scalping Regular Order Intraday'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

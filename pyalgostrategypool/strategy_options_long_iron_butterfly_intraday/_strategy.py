@@ -12,8 +12,8 @@
 from pyalgotrading.strategy import StrategyOptionsBase, OptionsStrikeDirection, OptionsInstrumentDirection
 
 
-class StrategyStrategyOptionsLongIronButterflyIntraday(StrategyOptionsBase):
-    name = 'Strategy Strategy Options Long Iron Butterfly Intraday'
+class StrategyOptionsLongIronButterflyIntraday(StrategyOptionsBase):
+    name = 'Strategy Options Long Iron Butterfly Intraday'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

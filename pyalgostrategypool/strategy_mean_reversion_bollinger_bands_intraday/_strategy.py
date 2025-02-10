@@ -14,8 +14,8 @@ import talib
 from pyalgotrading.strategy import StrategyBase
 
 
-class StrategyStrategyMeanReversionBollingerBandsIntraday(StrategyBase):
-    name = 'Strategy Strategy Mean Reversion Bollinger Bands Intraday'
+class StrategyMeanReversionBollingerBandsIntraday(StrategyBase):
+    name = 'Strategy Mean Reversion Bollinger Bands Intraday'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

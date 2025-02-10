@@ -15,8 +15,8 @@ from pyalgotrading.constants import *
 from pyalgotrading.strategy import StrategyBase
 
 
-class StrategyStrategyStochasticCrossoverIntraday(StrategyBase):
-    name = 'Strategy Strategy Stochastic Crossover Intraday'
+class StrategyStochasticCrossoverIntraday(StrategyBase):
+    name = 'Strategy Stochastic Crossover Intraday'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

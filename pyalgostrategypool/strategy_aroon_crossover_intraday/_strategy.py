@@ -15,8 +15,8 @@ from pyalgotrading.constants import *
 from pyalgotrading.strategy import StrategyBase
 
 
-class StrategyStrategyAroonCrossoverIntraday(StrategyBase):
-    name = 'Strategy Strategy Aroon Crossover Intraday'
+class StrategyAroonCrossoverIntraday(StrategyBase):
+    name = 'Strategy Aroon Crossover Intraday'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

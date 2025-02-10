@@ -13,8 +13,8 @@ from pyalgotrading.constants import *
 from pyalgotrading.strategy import StrategyBase
 
 
-class StrategyStrategyBollingerBandsIntraday(StrategyBase):
-    name = 'Strategy Strategy Bollinger Bands Intraday'
+class StrategyBollingerBandsIntraday(StrategyBase):
+    name = 'Strategy Bollinger Bands Intraday'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
