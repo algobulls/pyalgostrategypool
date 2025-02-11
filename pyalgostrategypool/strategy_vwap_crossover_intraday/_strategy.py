@@ -1,4 +1,9 @@
 """
+    Strategy Description:
+        This strategy identifies trade opportunities by analyzing price movements relative to the Volume Weighted Average Price (VWAP).
+        A buy signal is triggered when the price crosses above the VWAP, while a sell signal occurs when the price crosses below.
+        Exit signals are generated when a reverse crossover happens, indicating a potential trend shift.
+
     Strategy Resources:
         - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/vwap_crossover/
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_strategy_guide/
