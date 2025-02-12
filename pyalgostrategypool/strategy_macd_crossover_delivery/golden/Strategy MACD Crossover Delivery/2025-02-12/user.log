@@ -1,0 +1,2171 @@
+[2025-02-12 18:19:32] Performing sanity checks on cfg strategy_parameters, setting up required data structures...
+[2025-02-12 18:19:32] Sanity checks on cfg successful.
+[2025-02-12 18:19:32] Currency set to "INR"
+[2025-02-12 18:19:32] Setting up broker connection...
+[2025-02-12 18:19:33] Broker connection has been setup successfully.
+[2025-02-12 18:19:33] (NSE_EQ) Funds available in client's ABVIRTUALBROKER account is : INR '1000000000.00'
+[2025-02-12 18:19:33] 
+########################################
+ INITIALIZING ALGOBULLS CORE (v3.3.0)... 
+########################################
+[2025-02-12 18:19:33] Welcome ALGOBULLS VIRTUAL USER!
+[2025-02-12 18:19:33] Reading strategy...
+[2025-02-12 18:19:33] Entering Backtesting mode. Henceforth, all timestamps will be Backtesting timestamps...
+[BT] [2023-01-01 09:15:00,000] [INFO] [tls] STARTING ALGOBULLS CORE...
+
+          #####  #######    #    ######  ####### ### #     #  #####
+         #     #    #      # #   #     #    #     #  ##    # #     #
+         #          #     #   #  #     #    #     #  # #   # #
+          #####     #    #     # ######     #     #  #  #  # #  ####
+               #    #    ####### #   #      #     #  #   # # #     #
+         #     #    #    #     # #    #     #     #  #    ## #     #
+          #####     #    #     # #     #    #    ### #     #  #####
+
+            #    #        #####  ####### ######  #     # #       #        #####
+           # #   #       #     # #     # #     # #     # #       #       #     #
+          #   #  #       #       #     # #     # #     # #       #       #
+         #     # #       #  #### #     # ######  #     # #       #        #####
+         ####### #       #     # #     # #     # #     # #       #             #
+         #     # #       #     # #     # #     # #     # #       #       #     #
+         #     # #######  #####  ####### ######   #####  ####### #######  #####
+
+          #####  ####### ######  #######
+         #     # #     # #     # #
+         #       #     # #     # #
+         #       #     # ######  #####
+         #       #     # #   #   #
+         #     # #     # #    #  #
+          #####  ####### #     # #######
+
+        --------------------Master Cfg Parameters:--------------------
+        User: ALGOBULLS VIRTUAL USER
+        Broker: ABVIRTUALBROKER
+        Auto add instruments bucket from positions: True
+        Auto add instruments bucket from holdings tplus1: True
+        Auto add instruments bucket from holdings tplus2: True
+        Resume positions on start: True
+        Resume holdings tplus1 on start: True
+        Resume holdings tplus2 on start: True
+        Exit intraday orders on stop: True
+        Exit tplus0 delivery orders on stop: False
+        Exit tplus1 delivery orders on stop: False
+        Exit tplus2 delivery orders on stop: False
+        --------------------User Cfg Parameters: System Parameters--------------------
+        Trading type: BACKTESTING
+        User trading start time: 2023-01-01 09:15:00+05:30
+        User trading end time: 2023-02-25 15:30:00+05:30
+        Fast mode: False
+        --------------------User Cfg Parameters: Funds Parameters--------------------
+        Credit exposure: 1
+        --------------------User Cfg Parameters: Candle Parameters--------------------
+        Candle interval (sec): 3600
+        --------------------User Cfg Parameters: Strategy Parameters--------------------
+        Strategy: Strategy MACD Crossover Delivery
+        Version: v1
+        Parameters: [SEE BELOW]
+        Strategy mode: DELIVERY
+        Instruments bucket: instruments_bucket | [NSE_EQ:CDSL]
+        Number of lots: 2
+        --------------------User Cfg Parameters: Risk Management Parameters--------------------
+        Desired profit: None
+        Risk appetite: None
+        P&L scan frequency (in sec): 30
+        --------------------User Cfg Parameters: Other Parameters--------------------
+        Max orders count: 100
+        Crossover accuracy decimals: 2
+        ------------------------------------------------------------
+        
+[BT] [2023-01-01 09:15:00,000] [INFO] [utils] Instrument (NSE_EQ:CDSL) subscribed to historical data successfully
+[BT] [2023-01-01 09:15:00,000] [INFO] [utils] 1 Instruments subscribed to historical data successfully
+[BT] [2023-01-01 09:15:00,000] [INFO] [utils] Prefetching historical data for 1 instruments...
+[BT] [2023-01-01 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-01 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-01 09:15:00,000] [INFO] [strategy] 
+####################
+Strategy Parameters:
+StrategyParameters([('TIMEPERIOD_FAST', 12),
+                    ('TIMEPERIOD_SIGNAL', 9),
+                    ('TIMEPERIOD_SLOW', 26)])
+####################
+[BT] [2023-01-01 09:15:00,000] [INFO] [tls] Not launching PNL tracker...
+[BT] [2023-01-01 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-01 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-01 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-01 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-01 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.96       -2.04
+  (LATEST)       -1.08       -1.85
+[BT] [2023-01-01 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-01 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-01 10:15:00+05:30)...
+[BT] [2023-01-01 10:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-01 10:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-01 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.96       -2.04
+  (LATEST)       -1.08       -1.85
+[BT] [2023-01-01 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-01 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-01 11:15:00+05:30)...
+[BT] [2023-01-01 11:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-01 11:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-01 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.96       -2.04
+  (LATEST)       -1.08       -1.85
+[BT] [2023-01-01 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-01 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-01 12:15:00+05:30)...
+[BT] [2023-01-01 12:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-01 12:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-01 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.96       -2.04
+  (LATEST)       -1.08       -1.85
+[BT] [2023-01-01 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-01 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-01 13:15:00+05:30)...
+[BT] [2023-01-01 13:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-01 13:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-01 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.96       -2.04
+  (LATEST)       -1.08       -1.85
+[BT] [2023-01-01 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-01 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-01 14:15:00+05:30)...
+[BT] [2023-01-01 14:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-01 14:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-01 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.96       -2.04
+  (LATEST)       -1.08       -1.85
+[BT] [2023-01-01 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-01 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-01 15:15:00+05:30)...
+[BT] [2023-01-01 15:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-01 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-01 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.96       -2.04
+  (LATEST)       -1.08       -1.85
+[BT] [2023-01-01 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-01 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-01 16:15:00+05:30)...
+[BT] [2023-01-01 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-01 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-02 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-02 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-02 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-02 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-02 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.96       -2.04
+  (LATEST)       -1.08       -1.85
+[BT] [2023-01-02 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-02 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-02 10:15:00+05:30)...
+[BT] [2023-01-02 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -1.08       -1.85
+  (LATEST)        1.22       -1.24
+[BT] [2023-01-02 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-02 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-02 11:15:00+05:30)...
+[BT] [2023-01-02 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        1.22       -1.24
+  (LATEST)        2.56       -0.48
+[BT] [2023-01-02 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-02 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-02 12:15:00+05:30)...
+[BT] [2023-01-02 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        2.56       -0.48
+  (LATEST)        3.61        0.34
+[BT] [2023-01-02 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-02 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-02 13:15:00+05:30)...
+[BT] [2023-01-02 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        3.61        0.34
+  (LATEST)        4.46        1.17
+[BT] [2023-01-02 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-02 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-02 14:15:00+05:30)...
+[BT] [2023-01-02 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        4.46        1.17
+  (LATEST)        6.43        2.22
+[BT] [2023-01-02 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-02 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-02 15:15:00+05:30)...
+[BT] [2023-01-02 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        6.43        2.22
+  (LATEST)        7.55        3.28
+[BT] [2023-01-02 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-02 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-02 16:15:00+05:30)...
+[BT] [2023-01-02 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-02 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-03 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-03 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-03 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-03 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-03 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        7.55        3.28
+  (LATEST)         9.2        4.47
+[BT] [2023-01-03 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-03 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-03 10:15:00+05:30)...
+[BT] [2023-01-03 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        9.18        4.44
+  (LATEST)         9.1        5.37
+[BT] [2023-01-03 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-03 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-03 11:15:00+05:30)...
+[BT] [2023-01-03 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        9.09        5.36
+  (LATEST)        9.25        6.14
+[BT] [2023-01-03 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-03 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-03 12:15:00+05:30)...
+[BT] [2023-01-03 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        9.22         6.1
+  (LATEST)        9.15        6.71
+[BT] [2023-01-03 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-03 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-03 13:15:00+05:30)...
+[BT] [2023-01-03 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        9.13        6.67
+  (LATEST)        8.89        7.11
+[BT] [2023-01-03 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-03 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-03 14:15:00+05:30)...
+[BT] [2023-01-03 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        8.87        7.08
+  (LATEST)        9.02        7.47
+[BT] [2023-01-03 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-03 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-03 15:15:00+05:30)...
+[BT] [2023-01-03 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)         9.0        7.44
+  (LATEST)        8.76         7.7
+[BT] [2023-01-03 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-03 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-03 16:15:00+05:30)...
+[BT] [2023-01-03 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-03 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-04 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-04 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-04 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-04 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-04 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        8.74        7.68
+  (LATEST)        8.53        7.85
+[BT] [2023-01-04 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-04 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-04 10:15:00+05:30)...
+[BT] [2023-01-04 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        8.52        7.84
+  (LATEST)        7.19        7.71
+[BT] [2023-01-04 10:15:00,000] [INFO] [utils] Crossover: Cut downwards
+[BT] [2023-01-04 10:15:00,000] [INFO] [tls] Entering position for instrument: NSE_EQ:CDSL...
+[BT] [2023-01-04 10:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-01-04 10:15:00+05:30] [e442c8eda26542159bf857d1af7e523a] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1139.55] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-01-04 10:15:00,000] [ERROR] [oms] OMS Validation error reason: Short selling of Equity Delivery Order is not permitted. No matching order found in Positions/Holdings. Order: [2023-01-04 10:15:00+05:30] [e442c8eda26542159bf857d1af7e523a] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1139.55] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-01-04 10:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:e442c8eda26542159bf857d1af7e523a] [SELL] [NSE_EQ:CDSL] [Order ID: (Order: [2023-01-04 10:15:00+05:30] [e442c8eda26542159bf857d1af7e523a] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1139.55] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> REJECTED)]
+[BT] [2023-01-04 10:15:00,000] [ERROR] [order] [NEW ORDER FAILED] [2023-01-04 10:15:00+05:30] [e442c8eda26542159bf857d1af7e523a] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1139.55] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:REJECTED]
+[BT] [2023-01-04 10:15:00,000] [ERROR] [tls] Order Rejected. Did not enter position for instrument: NSE_EQ:CDSL
+[BT] [2023-01-04 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-04 11:15:00+05:30)...
+[BT] [2023-01-04 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-04 12:15:00+05:30)...
+[BT] [2023-01-04 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-04 13:15:00+05:30)...
+[BT] [2023-01-04 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-04 14:15:00+05:30)...
+[BT] [2023-01-04 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-04 15:15:00+05:30)...
+[BT] [2023-01-04 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-04 16:15:00+05:30)...
+[BT] [2023-01-04 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-04 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-05 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-05 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-05 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-05 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-05 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        2.34        5.11
+  (LATEST)        1.76        4.44
+[BT] [2023-01-05 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-05 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-05 10:15:00+05:30)...
+[BT] [2023-01-05 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        1.79        4.49
+  (LATEST)        1.23        3.84
+[BT] [2023-01-05 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-05 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-05 11:15:00+05:30)...
+[BT] [2023-01-05 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        1.27         3.9
+  (LATEST)        0.77        3.27
+[BT] [2023-01-05 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-05 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-05 12:15:00+05:30)...
+[BT] [2023-01-05 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        0.81        3.34
+  (LATEST)        0.12         2.7
+[BT] [2023-01-05 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-05 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-05 13:15:00+05:30)...
+[BT] [2023-01-05 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        0.16        2.76
+  (LATEST)       -0.41        2.12
+[BT] [2023-01-05 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-05 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-05 14:15:00+05:30)...
+[BT] [2023-01-05 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.38        2.18
+  (LATEST)       -0.99        1.55
+[BT] [2023-01-05 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-05 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-05 15:15:00+05:30)...
+[BT] [2023-01-05 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.95         1.6
+  (LATEST)       -1.47        0.99
+[BT] [2023-01-05 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-05 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-05 16:15:00+05:30)...
+[BT] [2023-01-05 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-05 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-06 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-06 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-06 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-06 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-06 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -1.43        1.04
+  (LATEST)       -1.72        0.49
+[BT] [2023-01-06 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-06 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-06 10:15:00+05:30)...
+[BT] [2023-01-06 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        -1.7        0.52
+  (LATEST)       -2.39       -0.06
+[BT] [2023-01-06 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-06 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-06 11:15:00+05:30)...
+[BT] [2023-01-06 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -2.38       -0.04
+  (LATEST)       -3.19       -0.67
+[BT] [2023-01-06 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-06 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-06 12:15:00+05:30)...
+[BT] [2023-01-06 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -3.17       -0.64
+  (LATEST)        -3.6       -1.23
+[BT] [2023-01-06 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-06 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-06 13:15:00+05:30)...
+[BT] [2023-01-06 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -3.58       -1.21
+  (LATEST)       -4.16        -1.8
+[BT] [2023-01-06 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-06 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-06 14:15:00+05:30)...
+[BT] [2023-01-06 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -4.14       -1.77
+  (LATEST)       -4.56       -2.33
+[BT] [2023-01-06 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-06 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-06 15:15:00+05:30)...
+[BT] [2023-01-06 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -4.54       -2.31
+  (LATEST)       -4.81       -2.81
+[BT] [2023-01-06 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-06 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-06 16:15:00+05:30)...
+[BT] [2023-01-06 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-06 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-09 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-09 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-09 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-09 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-09 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -4.93       -2.98
+  (LATEST)       -4.99       -3.38
+[BT] [2023-01-09 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-09 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-09 10:15:00+05:30)...
+[BT] [2023-01-09 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -4.99       -3.38
+  (LATEST)        -4.9       -3.69
+[BT] [2023-01-09 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-09 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-09 11:15:00+05:30)...
+[BT] [2023-01-09 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        -4.9       -3.69
+  (LATEST)       -4.87       -3.92
+[BT] [2023-01-09 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-09 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-09 12:15:00+05:30)...
+[BT] [2023-01-09 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -4.87       -3.92
+  (LATEST)       -4.96       -4.13
+[BT] [2023-01-09 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-09 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-09 13:15:00+05:30)...
+[BT] [2023-01-09 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -4.96       -4.13
+  (LATEST)       -5.22       -4.35
+[BT] [2023-01-09 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-09 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-09 14:15:00+05:30)...
+[BT] [2023-01-09 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -5.22       -4.35
+  (LATEST)       -5.61        -4.6
+[BT] [2023-01-09 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-09 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-09 15:15:00+05:30)...
+[BT] [2023-01-09 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -5.61        -4.6
+  (LATEST)       -6.14       -4.91
+[BT] [2023-01-09 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-09 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-09 16:15:00+05:30)...
+[BT] [2023-01-09 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-09 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-10 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-10 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-10 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-10 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-10 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.14       -4.91
+  (LATEST)        -6.4       -5.21
+[BT] [2023-01-10 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-10 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-10 10:15:00+05:30)...
+[BT] [2023-01-10 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        -6.4       -5.21
+  (LATEST)       -6.95       -5.56
+[BT] [2023-01-10 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-10 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-10 11:15:00+05:30)...
+[BT] [2023-01-10 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.96       -5.56
+  (LATEST)       -7.32       -5.91
+[BT] [2023-01-10 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-10 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-10 12:15:00+05:30)...
+[BT] [2023-01-10 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.31        -5.9
+  (LATEST)        -7.5       -6.22
+[BT] [2023-01-10 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-10 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-10 13:15:00+05:30)...
+[BT] [2023-01-10 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.49       -6.21
+  (LATEST)       -7.61       -6.49
+[BT] [2023-01-10 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-10 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-10 14:15:00+05:30)...
+[BT] [2023-01-10 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.61       -6.49
+  (LATEST)        -7.6       -6.71
+[BT] [2023-01-10 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-10 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-10 15:15:00+05:30)...
+[BT] [2023-01-10 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        -7.6       -6.71
+  (LATEST)       -7.44       -6.86
+[BT] [2023-01-10 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-10 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-10 16:15:00+05:30)...
+[BT] [2023-01-10 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-10 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-11 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-11 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-11 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-11 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-11 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.45       -6.86
+  (LATEST)       -7.18       -6.92
+[BT] [2023-01-11 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-11 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-11 10:15:00+05:30)...
+[BT] [2023-01-11 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.18       -6.92
+  (LATEST)        -7.0       -6.94
+[BT] [2023-01-11 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-11 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-11 11:15:00+05:30)...
+[BT] [2023-01-11 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        -7.0       -6.94
+  (LATEST)       -6.99       -6.95
+[BT] [2023-01-11 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-11 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-11 12:15:00+05:30)...
+[BT] [2023-01-11 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.97       -6.92
+  (LATEST)       -7.06       -6.95
+[BT] [2023-01-11 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-11 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-11 13:15:00+05:30)...
+[BT] [2023-01-11 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.05       -6.93
+  (LATEST)       -6.97       -6.94
+[BT] [2023-01-11 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-11 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-11 14:15:00+05:30)...
+[BT] [2023-01-11 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.96       -6.92
+  (LATEST)       -6.81        -6.9
+[BT] [2023-01-11 14:15:00,000] [INFO] [utils] Crossover: Cut upwards 
+[BT] [2023-01-11 14:15:00,000] [INFO] [tls] Entering position for instrument: NSE_EQ:CDSL...
+[BT] [2023-01-11 14:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-01-11 14:15:00+05:30] [35f10a9af5754cafa5f0231d0f89f488] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1098.45] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-01-11 14:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:35f10a9af5754cafa5f0231d0f89f488] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-01-11 14:15:00+05:30] [35f10a9af5754cafa5f0231d0f89f488] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1098.45] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[BT] [2023-01-11 14:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-01-11 14:15:00+05:30] [35f10a9af5754cafa5f0231d0f89f488] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1098.45] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-01-11 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-11 15:15:00+05:30)...
+[BT] [2023-01-11 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        -6.8       -6.88
+  (LATEST)       -6.73       -6.85
+[BT] [2023-01-11 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-11 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-11 16:15:00+05:30)...
+[BT] [2023-01-11 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-11 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-11 15:30:00,000] [INFO] [oms] Converting Position (Position: [ID:ba4f2bd380954ce6aed1eba3109f82e6] [BUY] [NSE:CDSL] [NET QTY:2] [ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [P&L: 0]) to Holding T1...
+[BT] [2023-01-11 15:30:00,000] [INFO] [holdings] Created new Holding: Holding: [ID:ea92a2e91d654beab330770f48e3cc59] [BUY] [NSE:CDSL] [QTY_T1:2] [QTY_T2:0] [ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1]
+[BT] [2023-01-12 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-12 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-12 09:15:00,000] [INFO] [order] [RESUME ORDER] [2023-01-12 09:15:00+05:30] [b555b7dfcee64cad8fd7173fed11296c] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1098.45] [PRICE:1098.45] [TRIGGER PRICE:1098.45] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]]
+[BT] [2023-01-12 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:b555b7dfcee64cad8fd7173fed11296c] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-01-12 09:15:00+05:30] [b555b7dfcee64cad8fd7173fed11296c] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1098.45] [PRICE:1098.45] [TRIGGER PRICE:1098.45] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE)]
+[BT] [2023-01-12 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-01-12 09:15:00+05:30] [b555b7dfcee64cad8fd7173fed11296c] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1098.45] [PRICE:1098.45] [TRIGGER PRICE:1098.45] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-01-12 09:15:00,000] [INFO] [tls] Adding instrument NSE_EQ:CDSL to instruments_launched & instruments_running
+[BT] [2023-01-12 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-12 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-12 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.71       -6.82
+  (LATEST)       -6.64       -6.78
+[BT] [2023-01-12 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-12 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-12 10:15:00+05:30)...
+[BT] [2023-01-12 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.62       -6.75
+  (LATEST)       -7.47       -6.89
+[BT] [2023-01-12 10:15:00,000] [INFO] [utils] Crossover: Cut downwards
+[BT] [2023-01-12 10:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-01-12 10:15:00+05:30] [afde764962cc4b9fb058a76a979dec37] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1083.55] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+[BT] [2023-01-12 10:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:afde764962cc4b9fb058a76a979dec37] [SELL] [NSE_EQ:CDSL] [Order ID: (Order: [2023-01-12 10:15:00+05:30] [afde764962cc4b9fb058a76a979dec37] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 1083.55] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[BT] [2023-01-12 10:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-01-12 10:15:00+05:30] [afde764962cc4b9fb058a76a979dec37] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 1083.55] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT] [STATUS:COMPLETE]
+[BT] [2023-01-12 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.62       -6.75
+  (LATEST)       -7.47       -6.89
+[BT] [2023-01-12 10:15:00,000] [INFO] [utils] Crossover: Cut downwards
+[BT] [2023-01-12 10:15:00,000] [INFO] [tls] Entering position for instrument: NSE_EQ:CDSL...
+[BT] [2023-01-12 10:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-01-12 10:15:00+05:30] [e0815e5185bb46129ba4cd7a92370d77] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1083.55] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-01-12 10:15:00,000] [ERROR] [oms] OMS Validation error reason: Short selling of Equity Delivery Order is not permitted. No matching order found in Positions/Holdings. Order: [2023-01-12 10:15:00+05:30] [e0815e5185bb46129ba4cd7a92370d77] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1083.55] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-01-12 10:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:e0815e5185bb46129ba4cd7a92370d77] [SELL] [NSE_EQ:CDSL] [Order ID: (Order: [2023-01-12 10:15:00+05:30] [e0815e5185bb46129ba4cd7a92370d77] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1083.55] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> REJECTED)]
+[BT] [2023-01-12 10:15:00,000] [ERROR] [order] [NEW ORDER FAILED] [2023-01-12 10:15:00+05:30] [e0815e5185bb46129ba4cd7a92370d77] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1083.55] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:REJECTED]
+[BT] [2023-01-12 10:15:00,000] [ERROR] [tls] Order Rejected. Did not enter position for instrument: NSE_EQ:CDSL
+[BT] [2023-01-12 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-12 11:15:00+05:30)...
+[BT] [2023-01-12 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-12 12:15:00+05:30)...
+[BT] [2023-01-12 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-12 13:15:00+05:30)...
+[BT] [2023-01-12 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-12 14:15:00+05:30)...
+[BT] [2023-01-12 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-12 15:15:00+05:30)...
+[BT] [2023-01-12 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-12 16:15:00+05:30)...
+[BT] [2023-01-12 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-12 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-13 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-13 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-13 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-13 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-13 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        -9.5       -8.34
+  (LATEST)       -9.59       -8.59
+[BT] [2023-01-13 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-13 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-13 10:15:00+05:30)...
+[BT] [2023-01-13 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -9.59       -8.59
+  (LATEST)       -9.68       -8.81
+[BT] [2023-01-13 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-13 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-13 11:15:00+05:30)...
+[BT] [2023-01-13 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -9.68       -8.81
+  (LATEST)       -9.38       -8.93
+[BT] [2023-01-13 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-13 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-13 12:15:00+05:30)...
+[BT] [2023-01-13 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -9.39       -8.95
+  (LATEST)       -9.26       -9.01
+[BT] [2023-01-13 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-13 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-13 13:15:00+05:30)...
+[BT] [2023-01-13 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -9.27       -9.03
+  (LATEST)       -8.93       -9.01
+[BT] [2023-01-13 13:15:00,000] [INFO] [utils] Crossover: Cut upwards 
+[BT] [2023-01-13 13:15:00,000] [INFO] [tls] Entering position for instrument: NSE_EQ:CDSL...
+[BT] [2023-01-13 13:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-01-13 13:15:00+05:30] [6349b44c3609414d8650e36415ddfd87] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1079.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-01-13 13:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:6349b44c3609414d8650e36415ddfd87] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-01-13 13:15:00+05:30] [6349b44c3609414d8650e36415ddfd87] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1079.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[BT] [2023-01-13 13:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-01-13 13:15:00+05:30] [6349b44c3609414d8650e36415ddfd87] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1079.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-01-13 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-13 14:15:00+05:30)...
+[BT] [2023-01-13 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -8.95       -9.04
+  (LATEST)       -8.55       -8.94
+[BT] [2023-01-13 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-13 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-13 15:15:00+05:30)...
+[BT] [2023-01-13 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -8.56       -8.96
+  (LATEST)       -8.27       -8.82
+[BT] [2023-01-13 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-13 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-13 16:15:00+05:30)...
+[BT] [2023-01-13 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-13 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-13 15:30:00,000] [INFO] [oms] Converting Position (Position: [ID:b2ccb55386c34867a0cf93f01ef15261] [BUY] [NSE:CDSL] [NET QTY:2] [ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [P&L: 0]) to Holding T1...
+[BT] [2023-01-13 15:30:00,000] [INFO] [holdings] Created new Holding: Holding: [ID:acbe54f4dc88490398858b271904a7a7] [BUY] [NSE:CDSL] [QTY_T1:2] [QTY_T2:0] [ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1]
+[BT] [2023-01-16 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-16 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-16 09:15:00,000] [INFO] [order] [RESUME ORDER] [2023-01-16 09:15:00+05:30] [d8c42e4c7d1345cc9fa7e5a1a28e3cad] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1079.0] [PRICE:1079.0] [TRIGGER PRICE:1079.0] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]]
+[BT] [2023-01-16 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:d8c42e4c7d1345cc9fa7e5a1a28e3cad] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-01-16 09:15:00+05:30] [d8c42e4c7d1345cc9fa7e5a1a28e3cad] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1079.0] [PRICE:1079.0] [TRIGGER PRICE:1079.0] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE)]
+[BT] [2023-01-16 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-01-16 09:15:00+05:30] [d8c42e4c7d1345cc9fa7e5a1a28e3cad] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1079.0] [PRICE:1079.0] [TRIGGER PRICE:1079.0] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-01-16 09:15:00,000] [INFO] [tls] Adding instrument NSE_EQ:CDSL to instruments_launched & instruments_running
+[BT] [2023-01-16 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-16 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-16 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -8.54       -9.22
+  (LATEST)       -8.16       -9.01
+[BT] [2023-01-16 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-16 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-16 10:15:00+05:30)...
+[BT] [2023-01-16 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -8.16       -9.01
+  (LATEST)       -7.61       -8.73
+[BT] [2023-01-16 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-16 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-16 11:15:00+05:30)...
+[BT] [2023-01-16 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.61       -8.73
+  (LATEST)       -7.25       -8.43
+[BT] [2023-01-16 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-16 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-16 12:15:00+05:30)...
+[BT] [2023-01-16 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.25       -8.43
+  (LATEST)       -7.28        -8.2
+[BT] [2023-01-16 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-16 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-16 13:15:00+05:30)...
+[BT] [2023-01-16 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.28        -8.2
+  (LATEST)       -7.29       -8.02
+[BT] [2023-01-16 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-16 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-16 14:15:00+05:30)...
+[BT] [2023-01-16 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.29       -8.02
+  (LATEST)       -7.44        -7.9
+[BT] [2023-01-16 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-16 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-16 15:15:00+05:30)...
+[BT] [2023-01-16 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.44        -7.9
+  (LATEST)       -7.27       -7.78
+[BT] [2023-01-16 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-16 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-16 16:15:00+05:30)...
+[BT] [2023-01-16 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-16 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-17 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-17 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-17 09:15:00,000] [INFO] [order] [RESUME ORDER] [2023-01-17 09:15:00+05:30] [94683d40a5354a0db78cdb9ee8e676ea] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1079.0] [PRICE:1079.0] [TRIGGER PRICE:1079.0] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]]
+[BT] [2023-01-17 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:94683d40a5354a0db78cdb9ee8e676ea] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-01-17 09:15:00+05:30] [94683d40a5354a0db78cdb9ee8e676ea] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1079.0] [PRICE:1079.0] [TRIGGER PRICE:1079.0] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE)]
+[BT] [2023-01-17 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-01-17 09:15:00+05:30] [94683d40a5354a0db78cdb9ee8e676ea] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1079.0] [PRICE:1079.0] [TRIGGER PRICE:1079.0] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-01-17 09:15:00,000] [INFO] [tls] Adding instrument NSE_EQ:CDSL to instruments_launched & instruments_running
+[BT] [2023-01-17 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-17 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-17 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.27       -7.78
+  (LATEST)       -7.18       -7.66
+[BT] [2023-01-17 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-17 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-17 10:15:00+05:30)...
+[BT] [2023-01-17 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.19       -7.67
+  (LATEST)       -7.63       -7.66
+[BT] [2023-01-17 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-17 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-17 11:15:00+05:30)...
+[BT] [2023-01-17 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.64       -7.68
+  (LATEST)       -8.04       -7.75
+[BT] [2023-01-17 11:15:00,000] [INFO] [utils] Crossover: Cut downwards
+[BT] [2023-01-17 11:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-01-17 11:15:00+05:30] [c32f91185b524072aff1d48bd11709e4] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.1] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+[BT] [2023-01-17 11:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:c32f91185b524072aff1d48bd11709e4] [SELL] [NSE_EQ:CDSL] [Order ID: (Order: [2023-01-17 11:15:00+05:30] [c32f91185b524072aff1d48bd11709e4] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 1061.1] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[BT] [2023-01-17 11:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-01-17 11:15:00+05:30] [c32f91185b524072aff1d48bd11709e4] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 1061.1] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT] [STATUS:COMPLETE]
+[BT] [2023-01-17 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.64       -7.68
+  (LATEST)       -8.04       -7.75
+[BT] [2023-01-17 11:15:00,000] [INFO] [utils] Crossover: Cut downwards
+[BT] [2023-01-17 11:15:00,000] [INFO] [tls] Entering position for instrument: NSE_EQ:CDSL...
+[BT] [2023-01-17 11:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-01-17 11:15:00+05:30] [3653c109447d425882d6714366892d45] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.1] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-01-17 11:15:00,000] [ERROR] [oms] OMS Validation error reason: Short selling of Equity Delivery Order is not permitted. No matching order found in Positions/Holdings. Order: [2023-01-17 11:15:00+05:30] [3653c109447d425882d6714366892d45] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.1] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-01-17 11:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:3653c109447d425882d6714366892d45] [SELL] [NSE_EQ:CDSL] [Order ID: (Order: [2023-01-17 11:15:00+05:30] [3653c109447d425882d6714366892d45] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.1] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> REJECTED)]
+[BT] [2023-01-17 11:15:00,000] [ERROR] [order] [NEW ORDER FAILED] [2023-01-17 11:15:00+05:30] [3653c109447d425882d6714366892d45] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.1] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:REJECTED]
+[BT] [2023-01-17 11:15:00,000] [ERROR] [tls] Order Rejected. Did not enter position for instrument: NSE_EQ:CDSL
+[BT] [2023-01-17 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-17 12:15:00+05:30)...
+[BT] [2023-01-17 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-17 13:15:00+05:30)...
+[BT] [2023-01-17 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-17 14:15:00+05:30)...
+[BT] [2023-01-17 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-17 15:15:00+05:30)...
+[BT] [2023-01-17 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-17 16:15:00+05:30)...
+[BT] [2023-01-17 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-17 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-18 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-18 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-18 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-18 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-18 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        -8.4       -8.18
+  (LATEST)       -8.16       -8.18
+[BT] [2023-01-18 09:15:00,000] [INFO] [utils] Crossover: Cut upwards 
+[BT] [2023-01-18 09:15:00,000] [INFO] [tls] Entering position for instrument: NSE_EQ:CDSL...
+[BT] [2023-01-18 09:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-01-18 09:15:00+05:30] [e0dc02084afa44739581a0f1e595bf2e] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.2] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-01-18 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:e0dc02084afa44739581a0f1e595bf2e] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-01-18 09:15:00+05:30] [e0dc02084afa44739581a0f1e595bf2e] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.2] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[BT] [2023-01-18 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-01-18 09:15:00+05:30] [e0dc02084afa44739581a0f1e595bf2e] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.2] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-01-18 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-18 10:15:00+05:30)...
+[BT] [2023-01-18 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -8.17       -8.18
+  (LATEST)       -7.76        -8.1
+[BT] [2023-01-18 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-18 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-18 11:15:00+05:30)...
+[BT] [2023-01-18 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.76        -8.1
+  (LATEST)       -7.67       -8.01
+[BT] [2023-01-18 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-18 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-18 12:15:00+05:30)...
+[BT] [2023-01-18 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.67       -8.01
+  (LATEST)       -7.54       -7.91
+[BT] [2023-01-18 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-18 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-18 13:15:00+05:30)...
+[BT] [2023-01-18 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.53       -7.91
+  (LATEST)       -7.23       -7.77
+[BT] [2023-01-18 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-18 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-18 14:15:00+05:30)...
+[BT] [2023-01-18 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.22       -7.76
+  (LATEST)       -7.05       -7.62
+[BT] [2023-01-18 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-18 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-18 15:15:00+05:30)...
+[BT] [2023-01-18 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.04       -7.61
+  (LATEST)       -6.95       -7.48
+[BT] [2023-01-18 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-18 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-18 16:15:00+05:30)...
+[BT] [2023-01-18 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-18 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-18 15:30:00,000] [INFO] [oms] Converting Position (Position: [ID:f8239dcfbd554b02a4f274021627d76d] [BUY] [NSE:CDSL] [NET QTY:2] [ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [P&L: 0]) to Holding T1...
+[BT] [2023-01-18 15:30:00,000] [INFO] [holdings] Created new Holding: Holding: [ID:87f2826522a8494182038ddd0541177a] [BUY] [NSE:CDSL] [QTY_T1:2] [QTY_T2:0] [ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1]
+[BT] [2023-01-19 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-19 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-19 09:15:00,000] [INFO] [order] [RESUME ORDER] [2023-01-19 09:15:00+05:30] [40a5f41f3bf54c42a1657c4b8fd57478] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.2] [PRICE:1061.2] [TRIGGER PRICE:1061.2] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]]
+[BT] [2023-01-19 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:40a5f41f3bf54c42a1657c4b8fd57478] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-01-19 09:15:00+05:30] [40a5f41f3bf54c42a1657c4b8fd57478] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.2] [PRICE:1061.2] [TRIGGER PRICE:1061.2] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE)]
+[BT] [2023-01-19 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-01-19 09:15:00+05:30] [40a5f41f3bf54c42a1657c4b8fd57478] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.2] [PRICE:1061.2] [TRIGGER PRICE:1061.2] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-01-19 09:15:00,000] [INFO] [tls] Adding instrument NSE_EQ:CDSL to instruments_launched & instruments_running
+[BT] [2023-01-19 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-19 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-19 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.95       -7.47
+  (LATEST)       -6.59       -7.29
+[BT] [2023-01-19 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-19 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-19 10:15:00+05:30)...
+[BT] [2023-01-19 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.59        -7.3
+  (LATEST)       -6.78       -7.19
+[BT] [2023-01-19 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-19 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-19 11:15:00+05:30)...
+[BT] [2023-01-19 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.78        -7.2
+  (LATEST)       -6.83       -7.12
+[BT] [2023-01-19 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-19 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-19 12:15:00+05:30)...
+[BT] [2023-01-19 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.83       -7.13
+  (LATEST)       -6.88       -7.08
+[BT] [2023-01-19 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-19 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-19 13:15:00+05:30)...
+[BT] [2023-01-19 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.89       -7.09
+  (LATEST)       -6.76       -7.02
+[BT] [2023-01-19 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-19 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-19 14:15:00+05:30)...
+[BT] [2023-01-19 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.76       -7.02
+  (LATEST)       -6.36       -6.89
+[BT] [2023-01-19 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-19 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-19 15:15:00+05:30)...
+[BT] [2023-01-19 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.36       -6.89
+  (LATEST)       -6.07       -6.73
+[BT] [2023-01-19 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-19 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-19 16:15:00+05:30)...
+[BT] [2023-01-19 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-19 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-20 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-20 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-20 09:15:00,000] [INFO] [order] [RESUME ORDER] [2023-01-20 09:15:00+05:30] [857e7ed6b79147b2963b4fba769a083c] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.2] [PRICE:1061.2] [TRIGGER PRICE:1061.2] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]]
+[BT] [2023-01-20 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:857e7ed6b79147b2963b4fba769a083c] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-01-20 09:15:00+05:30] [857e7ed6b79147b2963b4fba769a083c] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.2] [PRICE:1061.2] [TRIGGER PRICE:1061.2] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE)]
+[BT] [2023-01-20 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-01-20 09:15:00+05:30] [857e7ed6b79147b2963b4fba769a083c] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.2] [PRICE:1061.2] [TRIGGER PRICE:1061.2] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-01-20 09:15:00,000] [INFO] [tls] Adding instrument NSE_EQ:CDSL to instruments_launched & instruments_running
+[BT] [2023-01-20 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-20 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-20 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.07       -6.73
+  (LATEST)       -5.78       -6.54
+[BT] [2023-01-20 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-20 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-20 10:15:00+05:30)...
+[BT] [2023-01-20 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -5.78       -6.53
+  (LATEST)       -5.49       -6.33
+[BT] [2023-01-20 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-20 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-20 11:15:00+05:30)...
+[BT] [2023-01-20 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -5.49       -6.32
+  (LATEST)       -4.93       -6.04
+[BT] [2023-01-20 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-20 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-20 12:15:00+05:30)...
+[BT] [2023-01-20 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -4.93       -6.04
+  (LATEST)       -4.59       -5.75
+[BT] [2023-01-20 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-20 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-20 13:15:00+05:30)...
+[BT] [2023-01-20 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -4.59       -5.75
+  (LATEST)       -4.22       -5.44
+[BT] [2023-01-20 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-20 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-20 14:15:00+05:30)...
+[BT] [2023-01-20 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -4.22       -5.44
+  (LATEST)       -4.08       -5.17
+[BT] [2023-01-20 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-20 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-20 15:15:00+05:30)...
+[BT] [2023-01-20 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -4.08       -5.16
+  (LATEST)       -4.01       -4.93
+[BT] [2023-01-20 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-20 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-20 16:15:00+05:30)...
+[BT] [2023-01-20 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-20 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-23 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-23 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-23 09:15:00,000] [INFO] [order] [RESUME ORDER] [2023-01-23 09:15:00+05:30] [861bde0171874902aeeaaf798d5faf45] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.2] [PRICE:1061.2] [TRIGGER PRICE:1061.2] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]]
+[BT] [2023-01-23 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:861bde0171874902aeeaaf798d5faf45] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-01-23 09:15:00+05:30] [861bde0171874902aeeaaf798d5faf45] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.2] [PRICE:1061.2] [TRIGGER PRICE:1061.2] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE)]
+[BT] [2023-01-23 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-01-23 09:15:00+05:30] [861bde0171874902aeeaaf798d5faf45] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.2] [PRICE:1061.2] [TRIGGER PRICE:1061.2] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-01-23 09:15:00,000] [INFO] [tls] Adding instrument NSE_EQ:CDSL to instruments_launched & instruments_running
+[BT] [2023-01-23 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-23 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-23 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -4.05       -4.98
+  (LATEST)        -3.9       -4.77
+[BT] [2023-01-23 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-23 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-23 10:15:00+05:30)...
+[BT] [2023-01-23 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        -3.9       -4.77
+  (LATEST)       -2.97       -4.41
+[BT] [2023-01-23 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-23 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-23 11:15:00+05:30)...
+[BT] [2023-01-23 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -2.97       -4.41
+  (LATEST)       -2.24       -3.97
+[BT] [2023-01-23 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-23 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-23 12:15:00+05:30)...
+[BT] [2023-01-23 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -2.24       -3.97
+  (LATEST)        -1.9       -3.56
+[BT] [2023-01-23 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-23 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-23 13:15:00+05:30)...
+[BT] [2023-01-23 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        -1.9       -3.56
+  (LATEST)       -1.63       -3.17
+[BT] [2023-01-23 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-23 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-23 14:15:00+05:30)...
+[BT] [2023-01-23 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -1.63       -3.17
+  (LATEST)       -1.11       -2.76
+[BT] [2023-01-23 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-23 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-23 15:15:00+05:30)...
+[BT] [2023-01-23 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -1.11       -2.76
+  (LATEST)       -0.96        -2.4
+[BT] [2023-01-23 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-23 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-23 16:15:00+05:30)...
+[BT] [2023-01-23 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-23 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-24 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-24 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-24 09:15:00,000] [INFO] [order] [RESUME ORDER] [2023-01-24 09:15:00+05:30] [b9acdf2c2d744a5792abdd7da91079cb] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.2] [PRICE:1061.2] [TRIGGER PRICE:1061.2] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]]
+[BT] [2023-01-24 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:b9acdf2c2d744a5792abdd7da91079cb] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-01-24 09:15:00+05:30] [b9acdf2c2d744a5792abdd7da91079cb] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.2] [PRICE:1061.2] [TRIGGER PRICE:1061.2] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE)]
+[BT] [2023-01-24 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-01-24 09:15:00+05:30] [b9acdf2c2d744a5792abdd7da91079cb] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.2] [PRICE:1061.2] [TRIGGER PRICE:1061.2] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-01-24 09:15:00,000] [INFO] [tls] Adding instrument NSE_EQ:CDSL to instruments_launched & instruments_running
+[BT] [2023-01-24 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-24 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-24 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.96        -2.4
+  (LATEST)       -0.99       -2.12
+[BT] [2023-01-24 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-24 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-24 10:15:00+05:30)...
+[BT] [2023-01-24 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.99       -2.12
+  (LATEST)       -1.45       -1.99
+[BT] [2023-01-24 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-24 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-24 11:15:00+05:30)...
+[BT] [2023-01-24 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -1.45       -1.98
+  (LATEST)       -1.74       -1.93
+[BT] [2023-01-24 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-24 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-24 12:15:00+05:30)...
+[BT] [2023-01-24 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -1.74       -1.93
+  (LATEST)       -2.03       -1.95
+[BT] [2023-01-24 12:15:00,000] [INFO] [utils] Crossover: Cut downwards
+[BT] [2023-01-24 12:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-01-24 12:15:00+05:30] [638fe2add6294e1080843a6a7ece7fac] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1051.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+[BT] [2023-01-24 12:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:638fe2add6294e1080843a6a7ece7fac] [SELL] [NSE_EQ:CDSL] [Order ID: (Order: [2023-01-24 12:15:00+05:30] [638fe2add6294e1080843a6a7ece7fac] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 1051.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[BT] [2023-01-24 12:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-01-24 12:15:00+05:30] [638fe2add6294e1080843a6a7ece7fac] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 1051.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT] [STATUS:COMPLETE]
+[BT] [2023-01-24 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -1.74       -1.93
+  (LATEST)       -2.03       -1.95
+[BT] [2023-01-24 12:15:00,000] [INFO] [utils] Crossover: Cut downwards
+[BT] [2023-01-24 12:15:00,000] [INFO] [tls] Entering position for instrument: NSE_EQ:CDSL...
+[BT] [2023-01-24 12:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-01-24 12:15:00+05:30] [35b7ba023eb142499ec608eb994825a6] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1051.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-01-24 12:15:00,000] [ERROR] [oms] OMS Validation error reason: Short selling of Equity Delivery Order is not permitted. No matching order found in Positions/Holdings. Order: [2023-01-24 12:15:00+05:30] [35b7ba023eb142499ec608eb994825a6] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1051.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-01-24 12:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:35b7ba023eb142499ec608eb994825a6] [SELL] [NSE_EQ:CDSL] [Order ID: (Order: [2023-01-24 12:15:00+05:30] [35b7ba023eb142499ec608eb994825a6] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1051.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> REJECTED)]
+[BT] [2023-01-24 12:15:00,000] [ERROR] [order] [NEW ORDER FAILED] [2023-01-24 12:15:00+05:30] [35b7ba023eb142499ec608eb994825a6] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1051.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:REJECTED]
+[BT] [2023-01-24 12:15:00,000] [ERROR] [tls] Order Rejected. Did not enter position for instrument: NSE_EQ:CDSL
+[BT] [2023-01-24 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-24 13:15:00+05:30)...
+[BT] [2023-01-24 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-24 14:15:00+05:30)...
+[BT] [2023-01-24 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-24 15:15:00+05:30)...
+[BT] [2023-01-24 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-24 16:15:00+05:30)...
+[BT] [2023-01-24 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-24 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-25 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-25 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-25 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-25 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-25 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -3.02       -2.33
+  (LATEST)       -3.24       -2.51
+[BT] [2023-01-25 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-25 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-25 10:15:00+05:30)...
+[BT] [2023-01-25 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -3.24       -2.52
+  (LATEST)       -4.75       -2.96
+[BT] [2023-01-25 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-25 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-25 11:15:00+05:30)...
+[BT] [2023-01-25 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -4.75       -2.96
+  (LATEST)       -5.83       -3.53
+[BT] [2023-01-25 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-25 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-25 12:15:00+05:30)...
+[BT] [2023-01-25 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -5.82       -3.53
+  (LATEST)       -6.74       -4.17
+[BT] [2023-01-25 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-25 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-25 13:15:00+05:30)...
+[BT] [2023-01-25 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.74       -4.17
+  (LATEST)       -7.29       -4.79
+[BT] [2023-01-25 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-25 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-25 14:15:00+05:30)...
+[BT] [2023-01-25 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.29       -4.79
+  (LATEST)       -7.64       -5.36
+[BT] [2023-01-25 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-25 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-25 15:15:00+05:30)...
+[BT] [2023-01-25 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.63       -5.35
+  (LATEST)       -7.94       -5.87
+[BT] [2023-01-25 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-25 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-25 16:15:00+05:30)...
+[BT] [2023-01-25 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-25 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-27 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-27 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-27 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-27 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-27 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.91       -5.82
+  (LATEST)       -7.68       -6.19
+[BT] [2023-01-27 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-27 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-27 10:15:00+05:30)...
+[BT] [2023-01-27 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.69       -6.19
+  (LATEST)       -9.21        -6.8
+[BT] [2023-01-27 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-27 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-27 11:15:00+05:30)...
+[BT] [2023-01-27 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -9.21        -6.8
+  (LATEST)       -9.99       -7.44
+[BT] [2023-01-27 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-27 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-27 12:15:00+05:30)...
+[BT] [2023-01-27 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -10.0       -7.45
+  (LATEST)      -10.74        -8.1
+[BT] [2023-01-27 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-27 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-27 13:15:00+05:30)...
+[BT] [2023-01-27 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)      -10.74       -8.11
+  (LATEST)      -11.18       -8.73
+[BT] [2023-01-27 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-27 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-27 14:15:00+05:30)...
+[BT] [2023-01-27 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)      -11.18       -8.73
+  (LATEST)      -11.69       -9.32
+[BT] [2023-01-27 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-27 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-27 15:15:00+05:30)...
+[BT] [2023-01-27 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)      -11.69       -9.33
+  (LATEST)       -11.4       -9.74
+[BT] [2023-01-27 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-27 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-27 16:15:00+05:30)...
+[BT] [2023-01-27 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-27 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-30 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-30 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-30 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-30 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-30 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)      -11.38       -9.71
+  (LATEST)      -10.62        -9.9
+[BT] [2023-01-30 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-30 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-30 10:15:00+05:30)...
+[BT] [2023-01-30 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)      -10.62        -9.9
+  (LATEST)       -9.97       -9.91
+[BT] [2023-01-30 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-30 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-30 11:15:00+05:30)...
+[BT] [2023-01-30 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -9.97       -9.91
+  (LATEST)        -9.5       -9.83
+[BT] [2023-01-30 11:15:00,000] [INFO] [utils] Crossover: Cut upwards 
+[BT] [2023-01-30 11:15:00,000] [INFO] [tls] Entering position for instrument: NSE_EQ:CDSL...
+[BT] [2023-01-30 11:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-01-30 11:15:00+05:30] [2b82ef51c69d49a89f081405d98514ce] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1017.35] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-01-30 11:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:2b82ef51c69d49a89f081405d98514ce] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-01-30 11:15:00+05:30] [2b82ef51c69d49a89f081405d98514ce] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1017.35] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[BT] [2023-01-30 11:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-01-30 11:15:00+05:30] [2b82ef51c69d49a89f081405d98514ce] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1017.35] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-01-30 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-30 12:15:00+05:30)...
+[BT] [2023-01-30 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        -9.5       -9.83
+  (LATEST)       -8.66       -9.59
+[BT] [2023-01-30 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-30 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-30 13:15:00+05:30)...
+[BT] [2023-01-30 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -8.66       -9.59
+  (LATEST)       -8.37       -9.35
+[BT] [2023-01-30 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-30 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-30 14:15:00+05:30)...
+[BT] [2023-01-30 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -8.37       -9.35
+  (LATEST)       -8.07       -9.09
+[BT] [2023-01-30 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-30 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-30 15:15:00+05:30)...
+[BT] [2023-01-30 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -8.07       -9.09
+  (LATEST)       -7.59       -8.79
+[BT] [2023-01-30 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-30 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-30 16:15:00+05:30)...
+[BT] [2023-01-30 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-30 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-30 15:30:00,000] [INFO] [oms] Converting Position (Position: [ID:dc3694b895c84f42b311f274011c2471] [BUY] [NSE:CDSL] [NET QTY:2] [ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [P&L: 0]) to Holding T1...
+[BT] [2023-01-30 15:30:00,000] [INFO] [holdings] Created new Holding: Holding: [ID:7fbd5e9d0932410ab7de7579cefb70f3] [BUY] [NSE:CDSL] [QTY_T1:2] [QTY_T2:0] [ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1]
+[BT] [2023-01-31 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-01-31 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-01-31 09:15:00,000] [INFO] [order] [RESUME ORDER] [2023-01-31 09:15:00+05:30] [88e76aec77cd43e093028f7193534e12] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1017.35] [PRICE:1017.35] [TRIGGER PRICE:1017.35] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]]
+[BT] [2023-01-31 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:88e76aec77cd43e093028f7193534e12] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-01-31 09:15:00+05:30] [88e76aec77cd43e093028f7193534e12] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1017.35] [PRICE:1017.35] [TRIGGER PRICE:1017.35] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE)]
+[BT] [2023-01-31 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-01-31 09:15:00+05:30] [88e76aec77cd43e093028f7193534e12] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1017.35] [PRICE:1017.35] [TRIGGER PRICE:1017.35] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-01-31 09:15:00,000] [INFO] [tls] Adding instrument NSE_EQ:CDSL to instruments_launched & instruments_running
+[BT] [2023-01-31 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-31 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-01-31 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.59       -8.79
+  (LATEST)       -7.58       -8.55
+[BT] [2023-01-31 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-31 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-31 10:15:00+05:30)...
+[BT] [2023-01-31 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.56       -8.53
+  (LATEST)       -5.93       -8.01
+[BT] [2023-01-31 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-31 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-31 11:15:00+05:30)...
+[BT] [2023-01-31 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -5.91       -7.99
+  (LATEST)       -4.28       -7.25
+[BT] [2023-01-31 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-31 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-31 12:15:00+05:30)...
+[BT] [2023-01-31 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -4.27       -7.23
+  (LATEST)       -2.66       -6.32
+[BT] [2023-01-31 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-31 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-31 13:15:00+05:30)...
+[BT] [2023-01-31 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -2.64        -6.3
+  (LATEST)       -1.15       -5.27
+[BT] [2023-01-31 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-31 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-31 14:15:00+05:30)...
+[BT] [2023-01-31 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -1.14       -5.25
+  (LATEST)       -0.21       -4.25
+[BT] [2023-01-31 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-31 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-01-31 15:15:00+05:30)...
+[BT] [2023-01-31 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.19       -4.22
+  (LATEST)        0.82       -3.21
+[BT] [2023-01-31 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-01-31 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-01-31 16:15:00+05:30)...
+[BT] [2023-01-31 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-01-31 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-01 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-02-01 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-02-01 09:15:00,000] [INFO] [order] [RESUME ORDER] [2023-02-01 09:15:00+05:30] [a17523133dbf456a8e0633564917d030] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1017.35] [PRICE:1017.35] [TRIGGER PRICE:1017.35] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]]
+[BT] [2023-02-01 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:a17523133dbf456a8e0633564917d030] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-01 09:15:00+05:30] [a17523133dbf456a8e0633564917d030] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1017.35] [PRICE:1017.35] [TRIGGER PRICE:1017.35] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE)]
+[BT] [2023-02-01 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-02-01 09:15:00+05:30] [a17523133dbf456a8e0633564917d030] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1017.35] [PRICE:1017.35] [TRIGGER PRICE:1017.35] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-02-01 09:15:00,000] [INFO] [tls] Adding instrument NSE_EQ:CDSL to instruments_launched & instruments_running
+[BT] [2023-02-01 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-01 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-01 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        0.83        -3.2
+  (LATEST)        1.82       -2.19
+[BT] [2023-02-01 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-01 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-01 10:15:00+05:30)...
+[BT] [2023-02-01 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        1.83       -2.19
+  (LATEST)        3.46       -1.06
+[BT] [2023-02-01 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-01 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-01 11:15:00+05:30)...
+[BT] [2023-02-01 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        3.46       -1.06
+  (LATEST)        5.16        0.19
+[BT] [2023-02-01 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-01 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-01 12:15:00+05:30)...
+[BT] [2023-02-01 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        5.18        0.21
+  (LATEST)        6.27        1.42
+[BT] [2023-02-01 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-01 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-01 13:15:00+05:30)...
+[BT] [2023-02-01 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        6.28        1.44
+  (LATEST)        6.62        2.48
+[BT] [2023-02-01 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-01 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-01 14:15:00+05:30)...
+[BT] [2023-02-01 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        6.62        2.48
+  (LATEST)        5.38        3.06
+[BT] [2023-02-01 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-01 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-01 15:15:00+05:30)...
+[BT] [2023-02-01 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        5.39        3.07
+  (LATEST)        3.32        3.12
+[BT] [2023-02-01 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-01 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-02-01 16:15:00+05:30)...
+[BT] [2023-02-01 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-01 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-02 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-02-02 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-02-02 09:15:00,000] [INFO] [order] [RESUME ORDER] [2023-02-02 09:15:00+05:30] [1285021f55804e4cb36a08d3c46ed380] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1017.35] [PRICE:1017.35] [TRIGGER PRICE:1017.35] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]]
+[BT] [2023-02-02 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:1285021f55804e4cb36a08d3c46ed380] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-02 09:15:00+05:30] [1285021f55804e4cb36a08d3c46ed380] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1017.35] [PRICE:1017.35] [TRIGGER PRICE:1017.35] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE)]
+[BT] [2023-02-02 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-02-02 09:15:00+05:30] [1285021f55804e4cb36a08d3c46ed380] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1017.35] [PRICE:1017.35] [TRIGGER PRICE:1017.35] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-02-02 09:15:00,000] [INFO] [tls] Adding instrument NSE_EQ:CDSL to instruments_launched & instruments_running
+[BT] [2023-02-02 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-02 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-02 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        3.34        3.14
+  (LATEST)        1.67        2.85
+[BT] [2023-02-02 09:15:00,000] [INFO] [utils] Crossover: Cut downwards
+[BT] [2023-02-02 09:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-02-02 09:15:00+05:30] [5c03246e4ab94bde834a73ec365cf980] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 999.9] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+[BT] [2023-02-02 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:5c03246e4ab94bde834a73ec365cf980] [SELL] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-02 09:15:00+05:30] [5c03246e4ab94bde834a73ec365cf980] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 999.9] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[BT] [2023-02-02 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-02-02 09:15:00+05:30] [5c03246e4ab94bde834a73ec365cf980] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 999.9] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT] [STATUS:COMPLETE]
+[BT] [2023-02-02 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        3.34        3.14
+  (LATEST)        1.67        2.85
+[BT] [2023-02-02 09:15:00,000] [INFO] [utils] Crossover: Cut downwards
+[BT] [2023-02-02 09:15:00,000] [INFO] [tls] Entering position for instrument: NSE_EQ:CDSL...
+[BT] [2023-02-02 09:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-02-02 09:15:00+05:30] [df32145e1e8f4a77ba2e2447753634b0] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 999.9] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-02-02 09:15:00,000] [ERROR] [oms] OMS Validation error reason: Short selling of Equity Delivery Order is not permitted. No matching order found in Positions/Holdings. Order: [2023-02-02 09:15:00+05:30] [df32145e1e8f4a77ba2e2447753634b0] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 999.9] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-02-02 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:df32145e1e8f4a77ba2e2447753634b0] [SELL] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-02 09:15:00+05:30] [df32145e1e8f4a77ba2e2447753634b0] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 999.9] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> REJECTED)]
+[BT] [2023-02-02 09:15:00,000] [ERROR] [order] [NEW ORDER FAILED] [2023-02-02 09:15:00+05:30] [df32145e1e8f4a77ba2e2447753634b0] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 999.9] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:REJECTED]
+[BT] [2023-02-02 09:15:00,000] [ERROR] [tls] Order Rejected. Did not enter position for instrument: NSE_EQ:CDSL
+[BT] [2023-02-02 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-02 10:15:00+05:30)...
+[BT] [2023-02-02 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-02 11:15:00+05:30)...
+[BT] [2023-02-02 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-02 12:15:00+05:30)...
+[BT] [2023-02-02 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-02 13:15:00+05:30)...
+[BT] [2023-02-02 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-02 14:15:00+05:30)...
+[BT] [2023-02-02 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-02 15:15:00+05:30)...
+[BT] [2023-02-02 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-02-02 16:15:00+05:30)...
+[BT] [2023-02-02 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-02 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-03 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-02-03 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-02-03 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-03 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-03 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -4.22       -0.76
+  (LATEST)        -5.2       -1.65
+[BT] [2023-02-03 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-03 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-03 10:15:00+05:30)...
+[BT] [2023-02-03 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -5.21       -1.67
+  (LATEST)       -5.72       -2.48
+[BT] [2023-02-03 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-03 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-03 11:15:00+05:30)...
+[BT] [2023-02-03 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -5.73        -2.5
+  (LATEST)       -6.48       -3.29
+[BT] [2023-02-03 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-03 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-03 12:15:00+05:30)...
+[BT] [2023-02-03 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.52       -3.34
+  (LATEST)       -6.74       -4.02
+[BT] [2023-02-03 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-03 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-03 13:15:00+05:30)...
+[BT] [2023-02-03 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.77       -4.07
+  (LATEST)       -6.75        -4.6
+[BT] [2023-02-03 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-03 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-03 14:15:00+05:30)...
+[BT] [2023-02-03 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.78       -4.64
+  (LATEST)       -6.72       -5.06
+[BT] [2023-02-03 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-03 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-03 15:15:00+05:30)...
+[BT] [2023-02-03 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.75        -5.1
+  (LATEST)       -6.54       -5.39
+[BT] [2023-02-03 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-03 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-02-03 16:15:00+05:30)...
+[BT] [2023-02-03 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-03 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-06 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-02-06 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-02-06 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-06 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-06 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.82        -5.8
+  (LATEST)       -6.81        -6.0
+[BT] [2023-02-06 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-06 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-06 10:15:00+05:30)...
+[BT] [2023-02-06 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.81        -6.0
+  (LATEST)       -6.57       -6.12
+[BT] [2023-02-06 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-06 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-06 11:15:00+05:30)...
+[BT] [2023-02-06 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.57       -6.12
+  (LATEST)        -6.3       -6.15
+[BT] [2023-02-06 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-06 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-06 12:15:00+05:30)...
+[BT] [2023-02-06 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        -6.3       -6.15
+  (LATEST)       -5.88        -6.1
+[BT] [2023-02-06 12:15:00,000] [INFO] [utils] Crossover: Cut upwards 
+[BT] [2023-02-06 12:15:00,000] [INFO] [tls] Entering position for instrument: NSE_EQ:CDSL...
+[BT] [2023-02-06 12:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-02-06 12:15:00+05:30] [d3af7a50a2be4248bce05543ea51347a] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1012.65] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-02-06 12:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:d3af7a50a2be4248bce05543ea51347a] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-06 12:15:00+05:30] [d3af7a50a2be4248bce05543ea51347a] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1012.65] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[BT] [2023-02-06 12:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-02-06 12:15:00+05:30] [d3af7a50a2be4248bce05543ea51347a] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1012.65] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-02-06 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-06 13:15:00+05:30)...
+[BT] [2023-02-06 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -5.88        -6.1
+  (LATEST)       -5.66       -6.01
+[BT] [2023-02-06 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-06 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-06 14:15:00+05:30)...
+[BT] [2023-02-06 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -5.66       -6.01
+  (LATEST)        -5.4       -5.89
+[BT] [2023-02-06 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-06 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-06 15:15:00+05:30)...
+[BT] [2023-02-06 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        -5.4       -5.89
+  (LATEST)       -5.19       -5.75
+[BT] [2023-02-06 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-06 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-02-06 16:15:00+05:30)...
+[BT] [2023-02-06 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-06 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-06 15:30:00,000] [INFO] [oms] Converting Position (Position: [ID:5a7467d9b30741d9a43905ef9d30613a] [BUY] [NSE:CDSL] [NET QTY:2] [ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [P&L: 0]) to Holding T1...
+[BT] [2023-02-06 15:30:00,000] [INFO] [holdings] Created new Holding: Holding: [ID:43c144dfa17040309087495606913ee3] [BUY] [NSE:CDSL] [QTY_T1:2] [QTY_T2:0] [ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1]
+[BT] [2023-02-07 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-02-07 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-02-07 09:15:00,000] [INFO] [order] [RESUME ORDER] [2023-02-07 09:15:00+05:30] [f39cdcd4bf5d47fb8bc6993f4ff01bbb] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1012.65] [PRICE:1012.65] [TRIGGER PRICE:1012.65] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]]
+[BT] [2023-02-07 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:f39cdcd4bf5d47fb8bc6993f4ff01bbb] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-07 09:15:00+05:30] [f39cdcd4bf5d47fb8bc6993f4ff01bbb] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1012.65] [PRICE:1012.65] [TRIGGER PRICE:1012.65] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE)]
+[BT] [2023-02-07 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-02-07 09:15:00+05:30] [f39cdcd4bf5d47fb8bc6993f4ff01bbb] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1012.65] [PRICE:1012.65] [TRIGGER PRICE:1012.65] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-02-07 09:15:00,000] [INFO] [tls] Adding instrument NSE_EQ:CDSL to instruments_launched & instruments_running
+[BT] [2023-02-07 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-07 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-07 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -5.19       -5.75
+  (LATEST)       -4.85       -5.57
+[BT] [2023-02-07 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-07 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-07 10:15:00+05:30)...
+[BT] [2023-02-07 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -4.85       -5.57
+  (LATEST)        -4.7       -5.39
+[BT] [2023-02-07 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-07 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-07 11:15:00+05:30)...
+[BT] [2023-02-07 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -4.69       -5.38
+  (LATEST)       -5.05       -5.31
+[BT] [2023-02-07 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-07 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-07 12:15:00+05:30)...
+[BT] [2023-02-07 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -5.04        -5.3
+  (LATEST)       -5.29        -5.3
+[BT] [2023-02-07 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-07 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-07 13:15:00+05:30)...
+[BT] [2023-02-07 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -5.28       -5.28
+  (LATEST)       -5.45       -5.32
+[BT] [2023-02-07 13:15:00,000] [INFO] [utils] Crossover: val1 (P) and val2 (P) are equal. Will check the previous value...
+[BT] [2023-02-07 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -5.03       -5.29
+  (LATEST)       -5.45       -5.32
+[BT] [2023-02-07 13:15:00,000] [INFO] [utils] Crossover: Cut downwards
+[BT] [2023-02-07 13:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-02-07 13:15:00+05:30] [d8e5855816a44e8aa4a65a301b8533e4] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1001.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+[BT] [2023-02-07 13:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:d8e5855816a44e8aa4a65a301b8533e4] [SELL] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-07 13:15:00+05:30] [d8e5855816a44e8aa4a65a301b8533e4] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 1001.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[BT] [2023-02-07 13:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-02-07 13:15:00+05:30] [d8e5855816a44e8aa4a65a301b8533e4] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 1001.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT] [STATUS:COMPLETE]
+[BT] [2023-02-07 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -5.28       -5.28
+  (LATEST)       -5.45       -5.32
+[BT] [2023-02-07 13:15:00,000] [INFO] [utils] Crossover: val1 (P) and val2 (P) are equal. Will check the previous value...
+[BT] [2023-02-07 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -5.03       -5.29
+  (LATEST)       -5.45       -5.32
+[BT] [2023-02-07 13:15:00,000] [INFO] [utils] Crossover: Cut downwards
+[BT] [2023-02-07 13:15:00,000] [INFO] [tls] Entering position for instrument: NSE_EQ:CDSL...
+[BT] [2023-02-07 13:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-02-07 13:15:00+05:30] [e0ad826463ca4f65940abc699ce03a60] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1001.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-02-07 13:15:00,000] [ERROR] [oms] OMS Validation error reason: Short selling of Equity Delivery Order is not permitted. No matching order found in Positions/Holdings. Order: [2023-02-07 13:15:00+05:30] [e0ad826463ca4f65940abc699ce03a60] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1001.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-02-07 13:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:e0ad826463ca4f65940abc699ce03a60] [SELL] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-07 13:15:00+05:30] [e0ad826463ca4f65940abc699ce03a60] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1001.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> REJECTED)]
+[BT] [2023-02-07 13:15:00,000] [ERROR] [order] [NEW ORDER FAILED] [2023-02-07 13:15:00+05:30] [e0ad826463ca4f65940abc699ce03a60] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1001.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:REJECTED]
+[BT] [2023-02-07 13:15:00,000] [ERROR] [tls] Order Rejected. Did not enter position for instrument: NSE_EQ:CDSL
+[BT] [2023-02-07 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-07 14:15:00+05:30)...
+[BT] [2023-02-07 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-07 15:15:00+05:30)...
+[BT] [2023-02-07 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-02-07 16:15:00+05:30)...
+[BT] [2023-02-07 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-07 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-08 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-02-08 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-02-08 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-08 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-08 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -5.47       -5.31
+  (LATEST)       -5.36       -5.32
+[BT] [2023-02-08 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-08 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-08 10:15:00+05:30)...
+[BT] [2023-02-08 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -5.34        -5.3
+  (LATEST)       -6.31        -5.5
+[BT] [2023-02-08 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-08 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-08 11:15:00+05:30)...
+[BT] [2023-02-08 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.29       -5.47
+  (LATEST)       -6.78       -5.73
+[BT] [2023-02-08 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-08 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-08 12:15:00+05:30)...
+[BT] [2023-02-08 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.73       -5.67
+  (LATEST)       -6.79        -5.9
+[BT] [2023-02-08 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-08 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-08 13:15:00+05:30)...
+[BT] [2023-02-08 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.74       -5.83
+  (LATEST)       -6.78       -6.02
+[BT] [2023-02-08 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-08 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-08 14:15:00+05:30)...
+[BT] [2023-02-08 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.73       -5.94
+  (LATEST)       -6.82       -6.12
+[BT] [2023-02-08 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-08 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-08 15:15:00+05:30)...
+[BT] [2023-02-08 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.77       -6.04
+  (LATEST)       -6.77       -6.19
+[BT] [2023-02-08 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-08 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-02-08 16:15:00+05:30)...
+[BT] [2023-02-08 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-08 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-09 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-02-09 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-02-09 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-09 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-09 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.71       -6.11
+  (LATEST)       -6.93       -6.28
+[BT] [2023-02-09 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-09 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-09 10:15:00+05:30)...
+[BT] [2023-02-09 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        -6.9       -6.23
+  (LATEST)       -7.56       -6.49
+[BT] [2023-02-09 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-09 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-09 11:15:00+05:30)...
+[BT] [2023-02-09 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.52       -6.44
+  (LATEST)       -7.56       -6.67
+[BT] [2023-02-09 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-09 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-09 12:15:00+05:30)...
+[BT] [2023-02-09 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.52        -6.6
+  (LATEST)       -7.77       -6.84
+[BT] [2023-02-09 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-09 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-09 13:15:00+05:30)...
+[BT] [2023-02-09 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.72       -6.76
+  (LATEST)       -7.86       -6.98
+[BT] [2023-02-09 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-09 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-09 14:15:00+05:30)...
+[BT] [2023-02-09 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.81       -6.91
+  (LATEST)       -7.76       -7.08
+[BT] [2023-02-09 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-09 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-09 15:15:00+05:30)...
+[BT] [2023-02-09 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -7.72       -7.03
+  (LATEST)        -6.2       -6.86
+[BT] [2023-02-09 15:15:00,000] [INFO] [utils] Crossover: Cut upwards 
+[BT] [2023-02-09 15:15:00,000] [INFO] [tls] Entering position for instrument: NSE_EQ:CDSL...
+[BT] [2023-02-09 15:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-02-09 15:15:00+05:30] [70d939974ff1481d90a67ef64d671c75] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1000.4] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-02-09 15:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:70d939974ff1481d90a67ef64d671c75] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-09 15:15:00+05:30] [70d939974ff1481d90a67ef64d671c75] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1000.4] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[BT] [2023-02-09 15:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-02-09 15:15:00+05:30] [70d939974ff1481d90a67ef64d671c75] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1000.4] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-02-09 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-02-09 16:15:00+05:30)...
+[BT] [2023-02-09 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-09 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-09 15:30:00,000] [INFO] [oms] Converting Position (Position: [ID:e59552fda0094c57a36c258dfb0933ab] [BUY] [NSE:CDSL] [NET QTY:2] [ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [P&L: 0]) to Holding T1...
+[BT] [2023-02-09 15:30:00,000] [INFO] [holdings] Created new Holding: Holding: [ID:0357b8d922df4d3c8582b0f43959bbdd] [BUY] [NSE:CDSL] [QTY_T1:2] [QTY_T2:0] [ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1]
+[BT] [2023-02-10 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-02-10 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-02-10 09:15:00,000] [INFO] [order] [RESUME ORDER] [2023-02-10 09:15:00+05:30] [a50ac4b9615b4ac6be6c34bfa33b0fa1] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1000.4] [PRICE:1000.4] [TRIGGER PRICE:1000.4] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]]
+[BT] [2023-02-10 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:a50ac4b9615b4ac6be6c34bfa33b0fa1] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-10 09:15:00+05:30] [a50ac4b9615b4ac6be6c34bfa33b0fa1] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1000.4] [PRICE:1000.4] [TRIGGER PRICE:1000.4] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE)]
+[BT] [2023-02-10 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-02-10 09:15:00+05:30] [a50ac4b9615b4ac6be6c34bfa33b0fa1] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1000.4] [PRICE:1000.4] [TRIGGER PRICE:1000.4] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-02-10 09:15:00,000] [INFO] [tls] Adding instrument NSE_EQ:CDSL to instruments_launched & instruments_running
+[BT] [2023-02-10 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-10 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-10 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -6.18       -6.83
+  (LATEST)       -4.75       -6.42
+[BT] [2023-02-10 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-10 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-10 10:15:00+05:30)...
+[BT] [2023-02-10 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -4.75       -6.42
+  (LATEST)       -2.47       -5.63
+[BT] [2023-02-10 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-10 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-10 11:15:00+05:30)...
+[BT] [2023-02-10 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -2.47       -5.63
+  (LATEST)       -0.92       -4.68
+[BT] [2023-02-10 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-10 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-10 12:15:00+05:30)...
+[BT] [2023-02-10 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.92       -4.68
+  (LATEST)       -0.06       -3.76
+[BT] [2023-02-10 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-10 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-10 13:15:00+05:30)...
+[BT] [2023-02-10 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.06       -3.76
+  (LATEST)         0.3       -2.95
+[BT] [2023-02-10 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-10 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-10 14:15:00+05:30)...
+[BT] [2023-02-10 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)         0.3       -2.95
+  (LATEST)        0.22       -2.31
+[BT] [2023-02-10 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-10 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-10 15:15:00+05:30)...
+[BT] [2023-02-10 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        0.22       -2.31
+  (LATEST)        0.27        -1.8
+[BT] [2023-02-10 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-10 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-02-10 16:15:00+05:30)...
+[BT] [2023-02-10 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-10 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-13 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-02-13 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-02-13 09:15:00,000] [INFO] [order] [RESUME ORDER] [2023-02-13 09:15:00+05:30] [196f0464354e446792d6a79c8710b089] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1000.4] [PRICE:1000.4] [TRIGGER PRICE:1000.4] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]]
+[BT] [2023-02-13 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:196f0464354e446792d6a79c8710b089] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-13 09:15:00+05:30] [196f0464354e446792d6a79c8710b089] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1000.4] [PRICE:1000.4] [TRIGGER PRICE:1000.4] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE)]
+[BT] [2023-02-13 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-02-13 09:15:00+05:30] [196f0464354e446792d6a79c8710b089] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1000.4] [PRICE:1000.4] [TRIGGER PRICE:1000.4] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-02-13 09:15:00,000] [INFO] [tls] Adding instrument NSE_EQ:CDSL to instruments_launched & instruments_running
+[BT] [2023-02-13 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-13 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-13 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        0.08       -2.06
+  (LATEST)        0.14       -1.62
+[BT] [2023-02-13 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-13 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-13 10:15:00+05:30)...
+[BT] [2023-02-13 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        0.14       -1.62
+  (LATEST)       -0.83       -1.46
+[BT] [2023-02-13 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-13 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-13 11:15:00+05:30)...
+[BT] [2023-02-13 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.83       -1.46
+  (LATEST)       -1.49       -1.47
+[BT] [2023-02-13 11:15:00,000] [INFO] [utils] Crossover: Cut downwards
+[BT] [2023-02-13 11:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-02-13 11:15:00+05:30] [016a58671eee450387322969271418da] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.75] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+[BT] [2023-02-13 11:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:016a58671eee450387322969271418da] [SELL] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-13 11:15:00+05:30] [016a58671eee450387322969271418da] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 989.75] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[BT] [2023-02-13 11:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-02-13 11:15:00+05:30] [016a58671eee450387322969271418da] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 989.75] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT] [STATUS:COMPLETE]
+[BT] [2023-02-13 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.83       -1.46
+  (LATEST)       -1.49       -1.47
+[BT] [2023-02-13 11:15:00,000] [INFO] [utils] Crossover: Cut downwards
+[BT] [2023-02-13 11:15:00,000] [INFO] [tls] Entering position for instrument: NSE_EQ:CDSL...
+[BT] [2023-02-13 11:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-02-13 11:15:00+05:30] [ea5ae3f8e47b4ff28d5f23a3c36726c5] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.75] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-02-13 11:15:00,000] [ERROR] [oms] OMS Validation error reason: Short selling of Equity Delivery Order is not permitted. No matching order found in Positions/Holdings. Order: [2023-02-13 11:15:00+05:30] [ea5ae3f8e47b4ff28d5f23a3c36726c5] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.75] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-02-13 11:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:ea5ae3f8e47b4ff28d5f23a3c36726c5] [SELL] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-13 11:15:00+05:30] [ea5ae3f8e47b4ff28d5f23a3c36726c5] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.75] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> REJECTED)]
+[BT] [2023-02-13 11:15:00,000] [ERROR] [order] [NEW ORDER FAILED] [2023-02-13 11:15:00+05:30] [ea5ae3f8e47b4ff28d5f23a3c36726c5] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.75] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:REJECTED]
+[BT] [2023-02-13 11:15:00,000] [ERROR] [tls] Order Rejected. Did not enter position for instrument: NSE_EQ:CDSL
+[BT] [2023-02-13 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-13 12:15:00+05:30)...
+[BT] [2023-02-13 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-13 13:15:00+05:30)...
+[BT] [2023-02-13 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-13 14:15:00+05:30)...
+[BT] [2023-02-13 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-13 15:15:00+05:30)...
+[BT] [2023-02-13 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-02-13 16:15:00+05:30)...
+[BT] [2023-02-13 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-13 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-14 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-02-14 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-02-14 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-14 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-14 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -2.63       -2.05
+  (LATEST)       -2.77       -2.19
+[BT] [2023-02-14 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-14 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-14 10:15:00+05:30)...
+[BT] [2023-02-14 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -2.79       -2.23
+  (LATEST)       -3.09        -2.4
+[BT] [2023-02-14 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-14 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-14 11:15:00+05:30)...
+[BT] [2023-02-14 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -3.12       -2.44
+  (LATEST)       -3.49       -2.65
+[BT] [2023-02-14 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-14 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-14 12:15:00+05:30)...
+[BT] [2023-02-14 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -3.51       -2.69
+  (LATEST)       -3.71       -2.89
+[BT] [2023-02-14 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-14 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-14 13:15:00+05:30)...
+[BT] [2023-02-14 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -3.74       -2.94
+  (LATEST)        -3.9       -3.13
+[BT] [2023-02-14 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-14 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-14 14:15:00+05:30)...
+[BT] [2023-02-14 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -3.93       -3.17
+  (LATEST)       -4.05       -3.34
+[BT] [2023-02-14 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-14 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-14 15:15:00+05:30)...
+[BT] [2023-02-14 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -4.07       -3.38
+  (LATEST)       -4.13       -3.53
+[BT] [2023-02-14 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-14 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-02-14 16:15:00+05:30)...
+[BT] [2023-02-14 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-14 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-15 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-02-15 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-02-15 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-15 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-15 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -4.16       -3.57
+  (LATEST)       -3.96       -3.65
+[BT] [2023-02-15 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-15 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-15 10:15:00+05:30)...
+[BT] [2023-02-15 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -3.98       -3.67
+  (LATEST)       -3.58       -3.65
+[BT] [2023-02-15 10:15:00,000] [INFO] [utils] Crossover: Cut upwards 
+[BT] [2023-02-15 10:15:00,000] [INFO] [tls] Entering position for instrument: NSE_EQ:CDSL...
+[BT] [2023-02-15 10:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-02-15 10:15:00+05:30] [5b64a260ee10401193ac9dbedb55326f] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.1] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-02-15 10:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:5b64a260ee10401193ac9dbedb55326f] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-15 10:15:00+05:30] [5b64a260ee10401193ac9dbedb55326f] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.1] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[BT] [2023-02-15 10:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-02-15 10:15:00+05:30] [5b64a260ee10401193ac9dbedb55326f] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.1] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-02-15 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-15 11:15:00+05:30)...
+[BT] [2023-02-15 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -3.59       -3.66
+  (LATEST)       -3.19       -3.57
+[BT] [2023-02-15 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-15 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-15 12:15:00+05:30)...
+[BT] [2023-02-15 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -3.19       -3.57
+  (LATEST)       -3.22        -3.5
+[BT] [2023-02-15 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-15 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-15 13:15:00+05:30)...
+[BT] [2023-02-15 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -3.22        -3.5
+  (LATEST)       -3.07       -3.42
+[BT] [2023-02-15 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-15 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-15 14:15:00+05:30)...
+[BT] [2023-02-15 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -3.07       -3.42
+  (LATEST)        -2.9       -3.31
+[BT] [2023-02-15 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-15 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-15 15:15:00+05:30)...
+[BT] [2023-02-15 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        -2.9       -3.31
+  (LATEST)       -2.53       -3.15
+[BT] [2023-02-15 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-15 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-02-15 16:15:00+05:30)...
+[BT] [2023-02-15 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-15 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-15 15:30:00,000] [INFO] [oms] Converting Position (Position: [ID:9dc70f80ed9340eeb99831f6f6dfec1a] [BUY] [NSE:CDSL] [NET QTY:2] [ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [P&L: 0]) to Holding T1...
+[BT] [2023-02-15 15:30:00,000] [INFO] [holdings] Created new Holding: Holding: [ID:06bd20f3938748a18a254973c589d959] [BUY] [NSE:CDSL] [QTY_T1:2] [QTY_T2:0] [ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1]
+[BT] [2023-02-16 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-02-16 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-02-16 09:15:00,000] [INFO] [order] [RESUME ORDER] [2023-02-16 09:15:00+05:30] [f4759f26deb04c47a2708c9cad5f1d58] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.1] [PRICE:989.1] [TRIGGER PRICE:989.1] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]]
+[BT] [2023-02-16 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:f4759f26deb04c47a2708c9cad5f1d58] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-16 09:15:00+05:30] [f4759f26deb04c47a2708c9cad5f1d58] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.1] [PRICE:989.1] [TRIGGER PRICE:989.1] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE)]
+[BT] [2023-02-16 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-02-16 09:15:00+05:30] [f4759f26deb04c47a2708c9cad5f1d58] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.1] [PRICE:989.1] [TRIGGER PRICE:989.1] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-02-16 09:15:00,000] [INFO] [tls] Adding instrument NSE_EQ:CDSL to instruments_launched & instruments_running
+[BT] [2023-02-16 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-16 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-16 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -2.52       -3.14
+  (LATEST)       -2.37       -2.99
+[BT] [2023-02-16 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-16 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-16 10:15:00+05:30)...
+[BT] [2023-02-16 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -2.35       -2.96
+  (LATEST)       -1.21       -2.61
+[BT] [2023-02-16 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-16 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-16 11:15:00+05:30)...
+[BT] [2023-02-16 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -1.18       -2.57
+  (LATEST)        0.14       -2.03
+[BT] [2023-02-16 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-16 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-16 12:15:00+05:30)...
+[BT] [2023-02-16 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        0.16       -1.99
+  (LATEST)        1.23       -1.34
+[BT] [2023-02-16 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-16 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-16 13:15:00+05:30)...
+[BT] [2023-02-16 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        1.25       -1.31
+  (LATEST)         2.0       -0.65
+[BT] [2023-02-16 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-16 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-16 14:15:00+05:30)...
+[BT] [2023-02-16 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)         2.0       -0.64
+  (LATEST)        2.29       -0.06
+[BT] [2023-02-16 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-16 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-16 15:15:00+05:30)...
+[BT] [2023-02-16 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        2.29       -0.06
+  (LATEST)        2.28        0.41
+[BT] [2023-02-16 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-16 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-02-16 16:15:00+05:30)...
+[BT] [2023-02-16 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-16 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-17 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-02-17 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-02-17 09:15:00,000] [INFO] [order] [RESUME ORDER] [2023-02-17 09:15:00+05:30] [8e4f61000ee747548c5aeae1c01c2ef7] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.1] [PRICE:989.1] [TRIGGER PRICE:989.1] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]]
+[BT] [2023-02-17 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:8e4f61000ee747548c5aeae1c01c2ef7] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-17 09:15:00+05:30] [8e4f61000ee747548c5aeae1c01c2ef7] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.1] [PRICE:989.1] [TRIGGER PRICE:989.1] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE)]
+[BT] [2023-02-17 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-02-17 09:15:00+05:30] [8e4f61000ee747548c5aeae1c01c2ef7] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.1] [PRICE:989.1] [TRIGGER PRICE:989.1] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-02-17 09:15:00,000] [INFO] [tls] Adding instrument NSE_EQ:CDSL to instruments_launched & instruments_running
+[BT] [2023-02-17 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-17 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-17 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        2.28        0.41
+  (LATEST)        2.13        0.76
+[BT] [2023-02-17 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-17 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-17 10:15:00+05:30)...
+[BT] [2023-02-17 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        2.14        0.77
+  (LATEST)        2.65        1.15
+[BT] [2023-02-17 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-17 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-17 11:15:00+05:30)...
+[BT] [2023-02-17 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        2.65        1.16
+  (LATEST)        3.28        1.58
+[BT] [2023-02-17 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-17 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-17 12:15:00+05:30)...
+[BT] [2023-02-17 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        3.28        1.57
+  (LATEST)        3.69         2.0
+[BT] [2023-02-17 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-17 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-17 13:15:00+05:30)...
+[BT] [2023-02-17 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        3.69        1.99
+  (LATEST)         4.1        2.41
+[BT] [2023-02-17 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-17 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-17 14:15:00+05:30)...
+[BT] [2023-02-17 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        4.09        2.41
+  (LATEST)        4.36         2.8
+[BT] [2023-02-17 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-17 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-17 15:15:00+05:30)...
+[BT] [2023-02-17 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        4.36        2.79
+  (LATEST)        4.32        3.09
+[BT] [2023-02-17 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-17 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-02-17 16:15:00+05:30)...
+[BT] [2023-02-17 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-17 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-20 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-02-20 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-02-20 09:15:00,000] [INFO] [order] [RESUME ORDER] [2023-02-20 09:15:00+05:30] [18204427c52340cab044fba0525d140c] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.1] [PRICE:989.1] [TRIGGER PRICE:989.1] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]]
+[BT] [2023-02-20 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:18204427c52340cab044fba0525d140c] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-20 09:15:00+05:30] [18204427c52340cab044fba0525d140c] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.1] [PRICE:989.1] [TRIGGER PRICE:989.1] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE)]
+[BT] [2023-02-20 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-02-20 09:15:00+05:30] [18204427c52340cab044fba0525d140c] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.1] [PRICE:989.1] [TRIGGER PRICE:989.1] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-02-20 09:15:00,000] [INFO] [tls] Adding instrument NSE_EQ:CDSL to instruments_launched & instruments_running
+[BT] [2023-02-20 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-20 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-20 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        4.25        2.99
+  (LATEST)        4.23        3.23
+[BT] [2023-02-20 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-20 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-20 10:15:00+05:30)...
+[BT] [2023-02-20 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        4.23        3.23
+  (LATEST)         3.7        3.33
+[BT] [2023-02-20 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-20 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-20 11:15:00+05:30)...
+[BT] [2023-02-20 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)         3.7        3.33
+  (LATEST)        3.09        3.28
+[BT] [2023-02-20 11:15:00,000] [INFO] [utils] Crossover: Cut downwards
+[BT] [2023-02-20 11:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-02-20 11:15:00+05:30] [5788a3cc2ae14889a8d2579c17ca87fb] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 999.65] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+[BT] [2023-02-20 11:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:5788a3cc2ae14889a8d2579c17ca87fb] [SELL] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-20 11:15:00+05:30] [5788a3cc2ae14889a8d2579c17ca87fb] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 999.65] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[BT] [2023-02-20 11:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-02-20 11:15:00+05:30] [5788a3cc2ae14889a8d2579c17ca87fb] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 999.65] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT] [STATUS:COMPLETE]
+[BT] [2023-02-20 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)         3.7        3.33
+  (LATEST)        3.09        3.28
+[BT] [2023-02-20 11:15:00,000] [INFO] [utils] Crossover: Cut downwards
+[BT] [2023-02-20 11:15:00,000] [INFO] [tls] Entering position for instrument: NSE_EQ:CDSL...
+[BT] [2023-02-20 11:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-02-20 11:15:00+05:30] [98aeb33e8aba49dc8e8e588ddbec5f4d] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 999.65] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-02-20 11:15:00,000] [ERROR] [oms] OMS Validation error reason: Short selling of Equity Delivery Order is not permitted. No matching order found in Positions/Holdings. Order: [2023-02-20 11:15:00+05:30] [98aeb33e8aba49dc8e8e588ddbec5f4d] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 999.65] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-02-20 11:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:98aeb33e8aba49dc8e8e588ddbec5f4d] [SELL] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-20 11:15:00+05:30] [98aeb33e8aba49dc8e8e588ddbec5f4d] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 999.65] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> REJECTED)]
+[BT] [2023-02-20 11:15:00,000] [ERROR] [order] [NEW ORDER FAILED] [2023-02-20 11:15:00+05:30] [98aeb33e8aba49dc8e8e588ddbec5f4d] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 999.65] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:REJECTED]
+[BT] [2023-02-20 11:15:00,000] [ERROR] [tls] Order Rejected. Did not enter position for instrument: NSE_EQ:CDSL
+[BT] [2023-02-20 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-20 12:15:00+05:30)...
+[BT] [2023-02-20 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-20 13:15:00+05:30)...
+[BT] [2023-02-20 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-20 14:15:00+05:30)...
+[BT] [2023-02-20 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-20 15:15:00+05:30)...
+[BT] [2023-02-20 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-02-20 16:15:00+05:30)...
+[BT] [2023-02-20 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-20 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-21 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-02-21 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-02-21 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-21 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-21 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        0.92        2.32
+  (LATEST)        0.34        1.92
+[BT] [2023-02-21 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-21 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-21 10:15:00+05:30)...
+[BT] [2023-02-21 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        0.35        1.94
+  (LATEST)        0.29        1.61
+[BT] [2023-02-21 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-21 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-21 11:15:00+05:30)...
+[BT] [2023-02-21 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        0.31        1.63
+  (LATEST)        0.39        1.38
+[BT] [2023-02-21 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-21 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-21 12:15:00+05:30)...
+[BT] [2023-02-21 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        0.42        1.42
+  (LATEST)        0.46        1.23
+[BT] [2023-02-21 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-21 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-21 13:15:00+05:30)...
+[BT] [2023-02-21 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        0.48        1.26
+  (LATEST)         0.5        1.11
+[BT] [2023-02-21 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-21 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-21 14:15:00+05:30)...
+[BT] [2023-02-21 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        0.52        1.13
+  (LATEST)         0.4        0.99
+[BT] [2023-02-21 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-21 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-21 15:15:00+05:30)...
+[BT] [2023-02-21 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        0.41        1.01
+  (LATEST)        0.21        0.85
+[BT] [2023-02-21 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-21 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-02-21 16:15:00+05:30)...
+[BT] [2023-02-21 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-21 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-22 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-02-22 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-02-22 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-22 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-22 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        0.23        0.87
+  (LATEST)         0.0         0.7
+[BT] [2023-02-22 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-22 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-22 10:15:00+05:30)...
+[BT] [2023-02-22 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        0.01        0.72
+  (LATEST)       -0.73        0.43
+[BT] [2023-02-22 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-22 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-22 11:15:00+05:30)...
+[BT] [2023-02-22 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.72        0.44
+  (LATEST)       -1.01        0.15
+[BT] [2023-02-22 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-22 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-22 12:15:00+05:30)...
+[BT] [2023-02-22 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -1.01        0.15
+  (LATEST)       -1.23       -0.13
+[BT] [2023-02-22 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-22 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-22 13:15:00+05:30)...
+[BT] [2023-02-22 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -1.23       -0.12
+  (LATEST)       -1.34       -0.37
+[BT] [2023-02-22 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-22 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-22 14:15:00+05:30)...
+[BT] [2023-02-22 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -1.33       -0.36
+  (LATEST)       -1.43       -0.58
+[BT] [2023-02-22 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-22 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-22 15:15:00+05:30)...
+[BT] [2023-02-22 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -1.43       -0.57
+  (LATEST)       -1.17       -0.69
+[BT] [2023-02-22 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-22 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-02-22 16:15:00+05:30)...
+[BT] [2023-02-22 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-22 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-23 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-02-23 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-02-23 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-23 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-23 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -1.17       -0.69
+  (LATEST)       -0.78       -0.71
+[BT] [2023-02-23 09:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-23 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-23 10:15:00+05:30)...
+[BT] [2023-02-23 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.79       -0.72
+  (LATEST)       -1.14        -0.8
+[BT] [2023-02-23 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-23 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-23 11:15:00+05:30)...
+[BT] [2023-02-23 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -1.15       -0.81
+  (LATEST)       -1.42       -0.93
+[BT] [2023-02-23 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-23 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-23 12:15:00+05:30)...
+[BT] [2023-02-23 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -1.42       -0.94
+  (LATEST)       -1.33       -1.02
+[BT] [2023-02-23 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-23 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-23 13:15:00+05:30)...
+[BT] [2023-02-23 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -1.34       -1.03
+  (LATEST)       -1.19       -1.06
+[BT] [2023-02-23 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-23 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-23 14:15:00+05:30)...
+[BT] [2023-02-23 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        -1.2       -1.07
+  (LATEST)       -1.12       -1.08
+[BT] [2023-02-23 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-23 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-23 15:15:00+05:30)...
+[BT] [2023-02-23 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -1.12       -1.09
+  (LATEST)       -1.19       -1.11
+[BT] [2023-02-23 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-23 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-02-23 16:15:00+05:30)...
+[BT] [2023-02-23 15:30:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-23 15:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-24 09:15:00,000] [INFO] [tls] Opening current intraday positions, if any...
+[BT] [2023-02-24 09:15:00,000] [INFO] [tls] Opening current holdings, if any...
+[BT] [2023-02-24 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2023-02-24 09:15:00+05:30 for NSE_EQ:CDSL 
+[BT] [2023-02-24 09:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        -1.2       -1.13
+  (LATEST)       -0.89       -1.08
+[BT] [2023-02-24 09:15:00,000] [INFO] [utils] Crossover: Cut upwards 
+[BT] [2023-02-24 09:15:00,000] [INFO] [tls] Entering position for instrument: NSE_EQ:CDSL...
+[BT] [2023-02-24 09:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2023-02-24 09:15:00+05:30] [77eebd19940744699a386e72db7bda32] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 998.9] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2023-02-24 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:77eebd19940744699a386e72db7bda32] [BUY] [NSE_EQ:CDSL] [Order ID: (Order: [2023-02-24 09:15:00+05:30] [77eebd19940744699a386e72db7bda32] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 998.9] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[BT] [2023-02-24 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2023-02-24 09:15:00+05:30] [77eebd19940744699a386e72db7bda32] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 998.9] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2023-02-24 09:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-24 10:15:00+05:30)...
+[BT] [2023-02-24 10:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)        -0.9       -1.11
+  (LATEST)       -0.86       -1.06
+[BT] [2023-02-24 10:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-24 10:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-24 11:15:00+05:30)...
+[BT] [2023-02-24 11:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.87       -1.07
+  (LATEST)       -0.98       -1.05
+[BT] [2023-02-24 11:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-24 11:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-24 12:15:00+05:30)...
+[BT] [2023-02-24 12:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.99       -1.07
+  (LATEST)       -0.88       -1.03
+[BT] [2023-02-24 12:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-24 12:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-24 13:15:00+05:30)...
+[BT] [2023-02-24 13:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.89       -1.05
+  (LATEST)       -0.79        -1.0
+[BT] [2023-02-24 13:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-24 13:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-24 14:15:00+05:30)...
+[BT] [2023-02-24 14:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.81       -1.02
+  (LATEST)       -0.82       -0.98
+[BT] [2023-02-24 14:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-24 14:15:00,000] [INFO] [clock] Waiting for 3600.00 seconds until end of current candle (2023-02-24 15:15:00+05:30)...
+[BT] [2023-02-24 15:15:00,000] [INFO] [utils] Crossover Details:
+         #        val1        val2
+(PREVIOUS)       -0.81       -1.02
+  (LATEST)       -0.82       -0.98
+[BT] [2023-02-24 15:15:00,000] [INFO] [utils] Crossover: Did not cut yet
+[BT] [2023-02-24 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2023-02-24 16:15:00+05:30)...
+[BT] [2023-02-24 15:30:00,000] [INFO] [oms] Converting Position (Position: [ID:dcef36dc7bfe4a1a8d1f161be04c3170] [BUY] [NSE:CDSL] [NET QTY:2] [ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [P&L: 0]) to Holding T1...
+[BT] [2023-02-24 15:30:00,000] [INFO] [holdings] Created new Holding: Holding: [ID:39cda7ecefd04550aa966edaf1530bf5] [BUY] [NSE:CDSL] [QTY_T1:2] [QTY_T2:0] [ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1]
+[BT] [2023-02-25 15:30:00,000] [INFO] [clock] Candle generation has been stopped...
+[BT] [2023-02-25 15:30:00,000] [INFO] [tls] Received event END OF MARKET. Stopping AlgoBulls Trading Core Engine...
+[BT] [2023-02-25 15:30:00,000] [INFO] [tls] Cancelling all open orders (if any)...
+[BT] [2023-02-25 15:30:00,000] [INFO] [tls] Exiting all open positions with order code: ORDER_CODE_INTRADAY (if any)...
+[BT] [2023-02-25 15:30:00,000] [INFO] [oms] 
+
+PENDING ORDERS:
+
+
+COMPLETED ORDERS:
+[2023-01-04 10:15:00+05:30] [e442c8eda26542159bf857d1af7e523a] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1139.55] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> REJECTED
+
+[2023-01-11 14:15:00+05:30] [35f10a9af5754cafa5f0231d0f89f488] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1098.45] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2023-01-12 09:15:00+05:30] [b555b7dfcee64cad8fd7173fed11296c] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 1098.45] [PRICE:1098.45] [TRIGGER PRICE:1098.45] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE
+
+[2023-01-12 10:15:00+05:30] [afde764962cc4b9fb058a76a979dec37] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 1083.55] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2023-01-12 10:15:00+05:30] [e0815e5185bb46129ba4cd7a92370d77] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1083.55] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> REJECTED
+
+[2023-01-13 13:15:00+05:30] [6349b44c3609414d8650e36415ddfd87] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1079.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2023-01-16 09:15:00+05:30] [d8c42e4c7d1345cc9fa7e5a1a28e3cad] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1079.0] [PRICE:1079.0] [TRIGGER PRICE:1079.0] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE
+
+[2023-01-17 09:15:00+05:30] [94683d40a5354a0db78cdb9ee8e676ea] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 1079.0] [PRICE:1079.0] [TRIGGER PRICE:1079.0] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE
+
+[2023-01-17 11:15:00+05:30] [c32f91185b524072aff1d48bd11709e4] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 1061.1] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2023-01-17 11:15:00+05:30] [3653c109447d425882d6714366892d45] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.1] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> REJECTED
+
+[2023-01-18 09:15:00+05:30] [e0dc02084afa44739581a0f1e595bf2e] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.2] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2023-01-19 09:15:00+05:30] [40a5f41f3bf54c42a1657c4b8fd57478] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.2] [PRICE:1061.2] [TRIGGER PRICE:1061.2] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE
+
+[2023-01-20 09:15:00+05:30] [857e7ed6b79147b2963b4fba769a083c] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.2] [PRICE:1061.2] [TRIGGER PRICE:1061.2] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE
+
+[2023-01-23 09:15:00+05:30] [861bde0171874902aeeaaf798d5faf45] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1061.2] [PRICE:1061.2] [TRIGGER PRICE:1061.2] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE
+
+[2023-01-24 09:15:00+05:30] [b9acdf2c2d744a5792abdd7da91079cb] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 1061.2] [PRICE:1061.2] [TRIGGER PRICE:1061.2] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE
+
+[2023-01-24 12:15:00+05:30] [638fe2add6294e1080843a6a7ece7fac] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 1051.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2023-01-24 12:15:00+05:30] [35b7ba023eb142499ec608eb994825a6] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1051.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> REJECTED
+
+[2023-01-30 11:15:00+05:30] [2b82ef51c69d49a89f081405d98514ce] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1017.35] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2023-01-31 09:15:00+05:30] [88e76aec77cd43e093028f7193534e12] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1017.35] [PRICE:1017.35] [TRIGGER PRICE:1017.35] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE
+
+[2023-02-01 09:15:00+05:30] [a17523133dbf456a8e0633564917d030] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1017.35] [PRICE:1017.35] [TRIGGER PRICE:1017.35] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE
+
+[2023-02-02 09:15:00+05:30] [1285021f55804e4cb36a08d3c46ed380] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 1017.35] [PRICE:1017.35] [TRIGGER PRICE:1017.35] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE
+
+[2023-02-02 09:15:00+05:30] [5c03246e4ab94bde834a73ec365cf980] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 999.9] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2023-02-02 09:15:00+05:30] [df32145e1e8f4a77ba2e2447753634b0] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 999.9] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> REJECTED
+
+[2023-02-06 12:15:00+05:30] [d3af7a50a2be4248bce05543ea51347a] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1012.65] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2023-02-07 09:15:00+05:30] [f39cdcd4bf5d47fb8bc6993f4ff01bbb] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 1012.65] [PRICE:1012.65] [TRIGGER PRICE:1012.65] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE
+
+[2023-02-07 13:15:00+05:30] [d8e5855816a44e8aa4a65a301b8533e4] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 1001.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2023-02-07 13:15:00+05:30] [e0ad826463ca4f65940abc699ce03a60] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1001.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> REJECTED
+
+[2023-02-09 15:15:00+05:30] [70d939974ff1481d90a67ef64d671c75] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1000.4] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2023-02-10 09:15:00+05:30] [a50ac4b9615b4ac6be6c34bfa33b0fa1] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 1000.4] [PRICE:1000.4] [TRIGGER PRICE:1000.4] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE
+
+[2023-02-13 09:15:00+05:30] [196f0464354e446792d6a79c8710b089] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 1000.4] [PRICE:1000.4] [TRIGGER PRICE:1000.4] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE
+
+[2023-02-13 11:15:00+05:30] [016a58671eee450387322969271418da] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 989.75] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2023-02-13 11:15:00+05:30] [ea5ae3f8e47b4ff28d5f23a3c36726c5] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.75] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> REJECTED
+
+[2023-02-15 10:15:00+05:30] [5b64a260ee10401193ac9dbedb55326f] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.1] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2023-02-16 09:15:00+05:30] [f4759f26deb04c47a2708c9cad5f1d58] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.1] [PRICE:989.1] [TRIGGER PRICE:989.1] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE
+
+[2023-02-17 09:15:00+05:30] [8e4f61000ee747548c5aeae1c01c2ef7] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 989.1] [PRICE:989.1] [TRIGGER PRICE:989.1] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE
+
+[2023-02-20 09:15:00+05:30] [18204427c52340cab044fba0525d140c] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 989.1] [PRICE:989.1] [TRIGGER PRICE:989.1] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T2] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> COMPLETE
+
+[2023-02-20 11:15:00+05:30] [5788a3cc2ae14889a8d2579c17ca87fb] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 0] [ENTRY PRICE: 999.65] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2023-02-20 11:15:00+05:30] [98aeb33e8aba49dc8e8e588ddbec5f4d] [SELL] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 999.65] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> REJECTED
+
+[2023-02-24 09:15:00+05:30] [77eebd19940744699a386e72db7bda32] [BUY] [NSE_EQ:CDSL] [QTY:2] [QTY PENDING: 2] [ENTRY PRICE: 998.9] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T0] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+
+POSITIONS:
+
+
+HOLDINGS:
+Holding: [ID:39cda7ecefd04550aa966edaf1530bf5] [BUY] [NSE:CDSL] [QTY_T1:2] [QTY_T2:0] [ORDER_TYPE_REGULAR] [ORDER_CODE_DELIVERY_T1]
+
+
+
+[BT] [2023-02-25 15:30:00,000] [INFO] [tls] [User: ALGOBULLS VIRTUAL USER] Trading session completed
