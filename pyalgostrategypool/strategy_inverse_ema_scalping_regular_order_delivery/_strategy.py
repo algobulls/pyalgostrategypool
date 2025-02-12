@@ -80,4 +80,5 @@ class StrategyInverseEMAScalpingRegularOrderDelivery(StrategyBase):
             self.main_order_map[instrument].exit_position()
             self.main_order_map[instrument] = None
             return True
+
         return False
