@@ -7,6 +7,7 @@
     Strategy Resources:
         - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/macd_crossover/
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_strategy_guide/
+
 """
 
 import talib
@@ -30,7 +31,7 @@ class StrategyMACDCrossoverIntraday(StrategyBase):
     def initialize(self):
         self.main_order_map = {}
 
-    def get_crossover(self, instrument, candle):
+    def get_crossover(self, instrument):
         hist_data = self.get_historical_data(instrument=instrument, candle_size=self.candle_interval_additional_1)
         macdline, macdsignal, _ = talib.MACD(hist_data['close'], fastperiod=self.timeperiod_fast, slowperiod=self.timeperiod_slow, signalperiod=self.timeperiod_signal)
         crossover_value = self.utils.crossover(macdline, macdsignal)
@@ -41,7 +42,7 @@ class StrategyMACDCrossoverIntraday(StrategyBase):
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is None:
-                crossover = self.get_crossover(instrument, candle)
+                crossover = self.get_crossover(instrument)
                 action_constants = {1: 'BUY', -1: 'SELL'}
 
                 if crossover in [-1, 1]:
@@ -50,8 +51,8 @@ class StrategyMACDCrossoverIntraday(StrategyBase):
 
         return selected_instruments, meta
 
-    def strategy_enter_position(self, candle, instrument, sideband_info):
-        self.main_order_map[instrument] = _ = self.broker.OrderRegular(instrument, sideband_info['action'], quantity=self.number_of_lots * instrument.lot_size)
+    def strategy_enter_position(self, candle, instrument, meta):
+        self.main_order_map[instrument] = _ = self.broker.OrderRegular(instrument, meta['action'], quantity=self.number_of_lots * instrument.lot_size)
         return _
 
     def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
@@ -59,7 +60,7 @@ class StrategyMACDCrossoverIntraday(StrategyBase):
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is not None:
-                crossover = self.get_crossover(instrument, candle)
+                crossover = self.get_crossover(instrument)
 
                 if crossover in [1, -1]:
                     selected_instruments.append(instrument)
@@ -67,8 +68,8 @@ class StrategyMACDCrossoverIntraday(StrategyBase):
 
         return selected_instruments, meta
 
-    def strategy_exit_position(self, candle, instrument, sideband_info):
-        if sideband_info['action'] == 'EXIT':
+    def strategy_exit_position(self, candle, instrument, meta):
+        if meta['action'] == 'EXIT':
             self.main_order_map[instrument].exit_position()
             self.main_order_map[instrument] = None  # clear the map for the base instrument, so it can take new orders for placement in the next cycle depending on signal.
             return True
