@@ -1,8 +1,8 @@
 """
     Strategy Description:
-        The VWAP Crossover Delivery strategy uses the Volume-Weighted Average Price (VWAP) to determine entry and exit points based on price crossovers.
-        Trades are initiated when the price crosses above or below the VWAP, signaling potential trends.
-        The strategy exits positions when the crossover condition is met again, aiming to capitalize on trend reversals.
+        The VWAP Crossover Delivery strategy identifies trade opportunities based on price movements relative to the Volume Weighted Average Price (VWAP).
+        A buy signal occurs when the price crosses above the VWAP, while a sell signal is triggered when it crosses below.
+        Positions are exited upon a reverse crossover, signaling a potential trend shift for delivery-based trades.
 
     Strategy Resources:
         - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/vwap_crossover/

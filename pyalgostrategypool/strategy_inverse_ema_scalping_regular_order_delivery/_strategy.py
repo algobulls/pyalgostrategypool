@@ -1,8 +1,8 @@
 """
     Strategy Description:
-        The Inverse EMA Scalping Regular Order Delivery strategy focuses on exploiting inverse EMA crossovers for delivery-based trades.
-        A buy position is entered when the shorter EMA crosses below the longer EMA, and a sell position is triggered when the shorter EMA crosses above.
-        Positions are exited on subsequent crossovers, making it a contrarian approach to capitalize on short-term market reversals.
+        The Inverse EMA Scalping Regular Order Delivery strategy leverages inverse EMA crossovers to identify delivery-based trading opportunities.
+        A buy position is initiated when the shorter EMA crosses below the longer EMA, while a sell position is triggered when the shorter EMA crosses above.
+        Positions are exited upon subsequent crossovers, following a contrarian approach to capture short-term market reversals.
 
     Strategy Resources:
         - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/inverse_ema_scalping/

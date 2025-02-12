@@ -1,8 +1,8 @@
 """
     Strategy Description:
-        The Mean Reversion Bollinger Bands Delivery strategy uses Bollinger Bands to identify price reversals near the upper or lower bands.
-        A buy signal is generated when the price rebounds from the lower band, while a sell signal occurs on reversals from the upper band.
-        This strategy is tailored for delivery mode, focusing on capturing mean reversion opportunities.
+        The Mean Reversion Bollinger Bands Delivery strategy leverages Bollinger Bands to identify price reversals near the upper or lower bands.
+        A buy signal is triggered when the price rebounds from the lower band, while a sell signal occurs on reversals from the upper band.
+        This strategy focuses on capturing mean reversion opportunities within the delivery trading framework.
 
     Strategy Resources:
         - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/mean_reversion_bollinger_bands/

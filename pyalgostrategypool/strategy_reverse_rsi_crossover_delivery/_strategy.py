@@ -1,8 +1,8 @@
 """
     Strategy Description:
-        The Reverse RSI Crossover Delivery strategy involves trading based on the reversal of the RSI indicator, entering positions when the RSI crosses over the overbought or oversold levels.
-        A buy signal is triggered when RSI crosses below the oversold level, and a sell signal when it crosses above the overbought level.
-        The strategy aims to capture price reversals during extreme market conditions for delivery mode trading.
+        The Reverse RSI Crossover Delivery strategy leverages the reversal of the RSI indicator to trigger buy and sell signals for delivery-based trading.
+        A buy signal is generated when the RSI crosses below the oversold level, and a sell signal when it crosses above the overbought level.
+        This strategy focuses on capturing price reversals during extreme market conditions within the delivery trading framework
 
     Strategy Resources:
         - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/reverse_rsi/

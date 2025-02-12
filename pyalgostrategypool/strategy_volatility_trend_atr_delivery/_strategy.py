@@ -1,8 +1,8 @@
 """
     Strategy Description:
-        The Volatility Trend ATR Delivery strategy uses the Average True Range (ATR) to measure volatility and determine trend strength.
-        It enters positions based on whether current volatility exceeds past levels and exits when the trend direction reverses.
-        This strategy targets longer-term delivery trades by tracking shifts in volatility and trend direction.
+        The Volatility Trend ATR Delivery strategy utilizes the Average True Range (ATR) to measure volatility and assess trend strength for delivery-based trades.
+        It enters positions when current volatility surpasses past levels and exits upon trend reversals.
+        This strategy focuses on capturing longer-term market shifts by tracking volatility-driven trends.
 
     Strategy Resources:
         - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/volatility_trent_atr/

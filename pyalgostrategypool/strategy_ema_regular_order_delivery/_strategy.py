@@ -1,9 +1,9 @@
 """
     Strategy Description:
-        The EMA Regular Order Delivery strategy uses the crossover of two Exponential Moving Averages (EMAs) to identify long-term delivery trading opportunities.
-        It enters a buy position when the shorter EMA crosses above the longer EMA, and a sell position when the reverse happens.
-        Positions are exited when a crossover signals a potential trend reversal.
-    
+        The EMA Regular Order Delivery strategy leverages the crossover of two Exponential Moving Averages (EMAs) to identify long-term trading opportunities.
+        A buy position is entered when the shorter EMA crosses above the longer EMA, while a sell position is triggered when the shorter EMA crosses below.
+        Positions are exited when price action signals a trend reversal through another EMA crossover.
+
     Strategy Resources:
         - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/ema_crossover/
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_strategy_guide/

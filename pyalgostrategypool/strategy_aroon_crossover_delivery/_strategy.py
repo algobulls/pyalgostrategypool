@@ -1,8 +1,8 @@
 """
     Strategy Description:
-        The Aroon Crossover Delivery strategy utilizes the Aroon indicator to detect crossovers between the Aroon Up and Aroon Down lines for trade signals.
-        It enters positions based on the direction of the crossover and exits positions when the signal reverses or meets specific exit conditions.
-        This strategy is designed for delivery-based trading, where the first order is stored and managed for each instrument.
+        The Aroon Crossover Delivery strategy uses the Aroon indicator to identify crossovers between the Aroon Up and Aroon Down lines for trade signals.
+        It enters positions based on the crossover direction (buy on upward crossover, sell on downward crossover).
+        Positions are exited when the crossover signal reverses or a predefined exit condition is met.
 
     Strategy Resources:
         - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/aroon_crossover/

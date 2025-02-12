@@ -1,8 +1,8 @@
 """
     Strategy Description:
-        The MACD Crossover Delivery strategy identifies trading opportunities based on MACD line and signal line crossovers.
-        A buy signal occurs when the MACD line crosses above the signal line, and a sell signal is triggered when it crosses below.
-        Positions are exited upon subsequent crossovers, focusing on delivery-based trades for capturing medium-to-long-term trends
+        The MACD Crossover Delivery strategy leverages MACD line and signal line crossovers to identify trading opportunities.
+        A buy signal is generated when the MACD line crosses above the signal line, while a sell signal is triggered when it crosses below.
+        Positions are exited on subsequent crossovers, aiming to capture price movements efficiently within the holding period.
 
     Strategy Resources:
         - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/macd_crossover/

@@ -1,8 +1,8 @@
 """
     Strategy Description:
-        The Stochastic Crossover Delivery strategy uses the Stochastic Oscillator to identify overbought and oversold conditions.
-        A buy signal occurs when the fast Stochastic line crosses above the slow line, while a sell signal triggers when the fast line crosses below the slow line.
-        This strategy focuses on delivery positions, aiming for longer-term trends and reversals.
+        The Stochastic Crossover Delivery strategy utilizes the Stochastic Oscillator to identify overbought and oversold conditions for delivery-based trades.
+        A buy signal is generated when the fast Stochastic line crosses above the slow line, while a sell signal occurs when it crosses below.
+        This strategy focuses on capturing longer-term trends and reversals within the delivery trading framework
 
     Strategy Resources:
         - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/stochastic_crossover/

@@ -1,8 +1,8 @@
 """
     Strategy Description:
-        The RSI MACD Crossover Delivery strategy combines the MACD indicator with RSI to identify potential buy and sell opportunities.
-        A buy signal is triggered when the RSI crosses above the oversold level following a MACD crossover, while a sell signal is generated when the RSI crosses below the overbought level.
-        This strategy aims for longer-term delivery-based positions with a focus on trend reversals.
+        The RSI MACD Crossover Delivery strategy combines the MACD and RSI indicators to identify delivery-based trading opportunities.
+        A buy signal is triggered when the RSI crosses above the oversold level following a MACD crossover, while a sell signal occurs when RSI crosses below the overbought level.
+        This strategy focuses on longer-term positions, aiming to capture trend reversals in the delivery trading framework.
 
     Strategy Resources:
         - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/rsi_macd_crossover/

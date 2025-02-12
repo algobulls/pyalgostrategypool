@@ -1,7 +1,7 @@
 """
     Strategy Description:
-        The Bollinger Bands Delivery strategy trades based on price action relative to Bollinger Bands, entering positions when the price crosses below the lower band (for a buy) or above the upper band (for a sell).
-        It exits positions when the trend reverses according to the same criteria. The strategy is designed for delivery-based trading, managing the first order for each instrument.
+        The Bollinger Bands Delivery strategy leverages Bollinger Bands to identify trading opportunities, entering buy positions when the price rebounds from the lower band or sell positions when it reverses from the upper band.
+        It dynamically exits positions when price action signals a trend reversal. This strategy is designed for delivery-based trading, managing the first order for each instrument.
 
     Strategy Resources:
         - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/bollinger_bands/
