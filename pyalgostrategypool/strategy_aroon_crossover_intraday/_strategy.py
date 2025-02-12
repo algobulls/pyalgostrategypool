@@ -1,37 +1,35 @@
 """
     Strategy Description:
-        The Strategy MACD Crossover trades based on the crossover of the MACD line and signal line to identify market trends.
-        It enters positions with Buy or Sell orders when the crossover indicates a change in momentum.
-        Positions are exited when the MACD signal confirms a reversal or the opposite crossover occurs.
+        The Aroon Crossover Intraday strategy uses the Aroon indicator to identify crossovers between the Aroon Up and Aroon Down lines for trade signals.
+        It enters positions based on the crossover direction (buy on upward crossover, sell on downward crossover).
+        Positions are exited when the crossover signal reverses or a set condition is met.
 
     Strategy Resources:
-        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/macd_crossover/
+        - strategy specific docs here : https://algobulls.github.io/pyalgotrading/strategies/aroon_crossover/
         - generalised docs in detail here : https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_strategy_guide/
 
 """
 
 import talib
+from pyalgotrading.constants import *
 from pyalgotrading.strategy import StrategyBase
 
 
-class StrategyMACDCrossoverIntraday(StrategyBase):
-    name = 'Strategy MACD Crossover Intraday'
+class StrategyAroonCrossoverIntraday(StrategyBase):
+    name = 'Strategy Aroon Crossover Intraday'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        self.timeperiod_fast = self.strategy_parameters['TIMEPERIOD_FAST']  # The short time period used for calculating the fast moving average.
-        self.timeperiod_slow = self.strategy_parameters['TIMEPERIOD_SLOW']  # The long time period used for calculating the slow moving average.
-        self.timeperiod_signal = self.strategy_parameters['TIMEPERIOD_SIGNAL']  # The time period used for calculating the MACD signal line
+        self.time_period = self.strategy_parameters['TIME_PERIOD']
         self.main_order_map = None
 
     def initialize(self):
         self.main_order_map = {}
 
-    def get_crossover(self, instrument):
-        hist_data = self.get_historical_data(instrument=instrument)
-        macdline, macdsignal, _ = talib.MACD(hist_data['close'], fastperiod=self.timeperiod_fast, slowperiod=self.timeperiod_slow, signalperiod=self.timeperiod_signal)
-        crossover_value = self.utils.crossover(macdline, macdsignal)
+    def get_crossover_value(self, instrument):
+        hist_data = self.get_historical_data(instrument)
+        aroon_down, aroon_up = talib.AROON(hist_data['high'], hist_data['low'], timeperiod=self.time_period)
+        crossover_value = self.utils.crossover(aroon_up, aroon_down)
         return crossover_value
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
@@ -39,7 +37,7 @@ class StrategyMACDCrossoverIntraday(StrategyBase):
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is None:
-                crossover = self.get_crossover(instrument)
+                crossover = self.get_crossover_value(instrument)
                 action_constants = {1: 'BUY', -1: 'SELL'}
 
                 if crossover in [-1, 1]:
@@ -56,19 +54,21 @@ class StrategyMACDCrossoverIntraday(StrategyBase):
         selected_instruments, meta = [], []
 
         for instrument in instruments_bucket:
-            if self.main_order_map.get(instrument) is not None:
-                crossover = self.get_crossover(instrument)
+            main_order = self.main_order_map.get(instrument)
+
+            if main_order is not None and main_order.get_order_status() is BrokerOrderStatusConstants.COMPLETE:
+                crossover = self.get_crossover_value(instrument)
 
                 if crossover in [1, -1]:
                     selected_instruments.append(instrument)
-                    meta.append({'action': 'EXIT'})
+                    meta.append({"action": 'EXIT'})
 
         return selected_instruments, meta
 
     def strategy_exit_position(self, candle, instrument, meta):
         if meta['action'] == 'EXIT':
             self.main_order_map[instrument].exit_position()
-            self.main_order_map[instrument] = None  # clear the map for the base instrument, so it can take new orders for placement in the next cycle depending on signal.
+            self.main_order_map[instrument] = None
             return True
 
         return False
