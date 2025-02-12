@@ -25,14 +25,11 @@ class StrategyMACDCrossoverIntraday(StrategyBase):
         self.timeperiod_signal = self.strategy_parameters['TIMEPERIOD_SIGNAL']  # The time period used for calculating the MACD signal line
         self.main_order_map = None
 
-        # Variable that specifies the duration of the scanning candle. For instance, if set to 5, historical data for 5-minute candlesticks will be retrieved. If set to 3, historical data for 3-minute candlesticks will be fetched.
-        self.candle_interval_additional_1 = self.strategy_parameters['CANDLE_INTERVAL_ADDITIONAL_1']
-
     def initialize(self):
         self.main_order_map = {}
 
     def get_crossover(self, instrument):
-        hist_data = self.get_historical_data(instrument=instrument, candle_size=self.candle_interval_additional_1)
+        hist_data = self.get_historical_data(instrument=instrument)
         macdline, macdsignal, _ = talib.MACD(hist_data['close'], fastperiod=self.timeperiod_fast, slowperiod=self.timeperiod_slow, signalperiod=self.timeperiod_signal)
         crossover_value = self.utils.crossover(macdline, macdsignal)
         return crossover_value
