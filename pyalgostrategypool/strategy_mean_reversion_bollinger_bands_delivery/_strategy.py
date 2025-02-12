@@ -75,7 +75,6 @@ class StrategyMeanReversionBollingerBandsDelivery(StrategyBase):
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is not None:
                 action = self.get_decision(instrument)
-                action = None
                 if action is not None:
                     selected_instruments.append(instrument)
                     meta.append({'action': 'EXIT'})
