@@ -37,7 +37,7 @@ class StrategyMACDCrossoverDelivery(StrategyBase):
             # (If there are multiple orders, this method will only store the first one, which may not work as expected.)
             self.main_order_map[instrument] = instrument.orders[0]
 
-    def get_crossover(self, instrument):
+    def get_crossover_value(self, instrument):
         hist_data = self.get_historical_data(instrument)
         macdline, macdsignal, _ = talib.MACD(hist_data['close'], fastperiod=self.timeperiod_fast, slowperiod=self.timeperiod_slow, signalperiod=self.timeperiod_signal)
         crossover_value = self.utils.crossover(macdline, macdsignal)
@@ -48,7 +48,7 @@ class StrategyMACDCrossoverDelivery(StrategyBase):
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is None:
-                crossover = self.get_crossover(instrument)
+                crossover = self.get_crossover_value(instrument)
                 action_constants = {1: 'BUY', -1: 'SELL'}
 
                 if crossover in [-1, 1]:
@@ -66,7 +66,7 @@ class StrategyMACDCrossoverDelivery(StrategyBase):
 
         for instrument in instruments_bucket:
             if self.main_order_map.get(instrument) is not None:
-                crossover = self.get_crossover(instrument)
+                crossover = self.get_crossover_value(instrument)
                 if crossover in [1, -1]:
                     selected_instruments.append(instrument)
                     meta.append({'action': 'EXIT'})
