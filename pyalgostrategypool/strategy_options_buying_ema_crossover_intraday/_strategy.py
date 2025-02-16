@@ -23,10 +23,11 @@ class StrategyOptionsBuyingEMACrossoverIntraday(StrategyOptionsBase):
         self.timeperiod2 = self.strategy_parameters['TIMEPERIOD2']
         self.no_of_strikes_ce = self.strategy_parameters['NO_OF_STRIKES_CE']  # The number of strikes away from the current price to select for call options (e.g., 1 strike away, 2 strikes away, etc.).
         self.no_of_strikes_pe = self.strategy_parameters['NO_OF_STRIKES_PE']  # The number of strikes away from the current price to select for put options (e.g., 1 strike away, 2 strikes away, etc.).
-        self.strike_direction_ce = StrikeDirectionMap[self.strategy_parameters['STRIKE_DIRECTION_CE']]  # The direction of call option strikes, which determines whether to select
-                                                                                                        # In-The-Money (ITM), Out-Of-The-Money (OTM), or At-The-Money (ATM) strikes.
-        self.strike_direction_pe = StrikeDirectionMap[self.strategy_parameters['STRIKE_DIRECTION_PE']]  # The direction of put option strikes, which determines whether to select
-                                                                                                        # In-The-Money (ITM), Out-Of-The-Money (OTM), or At-The-Money (ATM)  strikes.
+        self.strike_direction_ce = OptionsStrikeDirectionMap[self.strategy_parameters['STRIKE_DIRECTION_CE']]  # Determines the strike selection for call options based on the configured parameter.
+                                                                                                        # It maps 0 to In-The-Money (ITM), 1 to At-The-Money (ATM), and 2 to Out-Of-The-Money (OTM) strikes.
+
+        self.strike_direction_pe = OptionsStrikeDirectionMap[self.strategy_parameters['STRIKE_DIRECTION_PE']]  # Determines the strike selection for put options based on the configured parameter.
+                                                                                                        # It maps 0 to In-The-Money (ITM), 1 to At-The-Money (ATM), and 2 to Out-Of-The-Money (OTM) strikes.
 
         # Variable that specifies the duration of the scanning candle. For instance, if set to 5, historical data for 5-minute candlesticks will be retrieved. If set to 3, historical data for 3-minute candlesticks will be fetched.
         self.candle_interval_additional_1 = self.strategy_parameters['CANDLE_INTERVAL_ADDITIONAL_1']
