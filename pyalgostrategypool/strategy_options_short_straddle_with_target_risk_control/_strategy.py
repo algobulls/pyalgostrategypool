@@ -1,6 +1,5 @@
 from constants import *
 from pyalgotrading.strategy import StrategyOptionsBase, OptionsStrikeDirection
-from strategy.utils import check_order_complete_status, check_order_placed_successfully
 from utils.ab_system_exit import ABSystemExit
 from utils.func import check_argument, is_nonnegative_int_or_float
 
@@ -75,7 +74,7 @@ class StrategyOptionsShortStraddleWithTargetRiskControl(StrategyOptionsBase):
         child_instrument = instrument
         _order = self.broker.SellOrderRegular(instrument=child_instrument, order_code=self.order_code, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=self.number_of_lots * child_instrument.lot_size)
 
-        if check_order_placed_successfully(_order):
+        if self.check_order_placed_successfully(_order):
             (self.child_instrument_main_order_ce if meta["tradingsymbol_suffix"] == "CE" else self.child_instrument_main_order_pe)[meta["base_instrument"]] = _order
         else:
             # Protection logic incase any of the legs fail to get placed - this will help avoid having naked positions
@@ -100,14 +99,14 @@ class StrategyOptionsShortStraddleWithTargetRiskControl(StrategyOptionsBase):
                           f"Net Entry Premium : {net_premium_cost} | Current Net Premium : {total_ltp} "
                           f"Stop-loss Threshold : {stop_loss_premium} | Target Threshold : {target_premium}")
 
-        stop_loss_condition = total_ltp > stop_loss_premium
         target_profit_condition = total_ltp < target_premium
-        if stop_loss_condition or target_profit_condition:
-            if stop_loss_condition:
-                self.logger.debug(f"Stop-loss triggered: Current Net Premium ({total_ltp}) exceeded Stop-loss Threshold ({stop_loss_premium}). Exiting position.")
-            else:
-                self.logger.debug(f"Target profit reached: Current Net Premium ({total_ltp}) dropped below Target Threshold ({target_premium}). Exiting position.")
+        if target_profit_condition:
+            self.logger.debug(f"Target profit reached: Current Net Premium ({total_ltp}) dropped below Target Threshold ({target_premium}). Exiting position.")
+            return True
 
+        stop_loss_condition = total_ltp > stop_loss_premium
+        if stop_loss_condition:
+            self.logger.debug(f"Stop-loss triggered: Current Net Premium ({total_ltp}) exceeded Stop-loss Threshold ({stop_loss_premium}). Exiting position.")
             return True
 
     def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
@@ -124,7 +123,7 @@ class StrategyOptionsShortStraddleWithTargetRiskControl(StrategyOptionsBase):
                 main_orders = [self.child_instrument_main_order_ce.get(base_instrument), self.child_instrument_main_order_pe.get(base_instrument)]
 
                 # Check if both CE and PE orders are complete and if exit conditions are met.
-                if all(check_order_complete_status(order) for order in main_orders) and self.check_exit_condition(*main_orders):
+                if all(self.check_order_complete_status(order) for order in main_orders) and self.check_exit_condition(*main_orders):
                     selected_instruments_bucket.extend(order.instrument for order in main_orders if order)
                     meta.extend([{"action": "EXIT", "base_instrument": base_instrument}] * len(main_orders))
 
