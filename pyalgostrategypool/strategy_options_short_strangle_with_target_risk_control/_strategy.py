@@ -33,7 +33,7 @@ class StrategyOptionsShortStrangleWithTargetRiskControl(StrategyOptionsBase):
             raise SystemExit
 
         # Validate parameters
-        for param in (self.target_percentage, self.stoploss_multiplier):
+        for param in (self.target_percentage, self.stoploss_multiplier, self.number_of_strikes):
             check_argument(param, "extern_function", is_nonnegative_int_or_float, "Value should be >0.0")
 
     def initialize(self):
