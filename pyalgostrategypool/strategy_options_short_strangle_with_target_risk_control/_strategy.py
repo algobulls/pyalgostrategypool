@@ -1,7 +1,7 @@
 from constants import *
 from pyalgotrading.strategy import StrategyOptionsBase, OptionsStrikeDirection
 from utils.ab_system_exit import ABSystemExit
-from utils.func import check_argument, is_nonnegative_int_or_float
+from utils.func import check_argument, is_nonnegative_int_or_float, is_positive_int
 
 
 class StrategyOptionsShortStrangleWithTargetRiskControl(StrategyOptionsBase):
@@ -13,9 +13,10 @@ class StrategyOptionsShortStrangleWithTargetRiskControl(StrategyOptionsBase):
         super().__init__(*args, **kwargs)
 
         # Required parameters for this strategy
+        self.number_of_strikes = self.strategy_parameters['NUMBER_OF_STRIKES']
         self.target_percentage = self.strategy_parameters["TARGET_PERCENTAGE"]
         self.stoploss_multiplier = self.strategy_parameters["STOPLOSS_MULTIPLIER"]
-        self.number_of_strikes = self.strategy_parameters['NUMBER_OF_STRIKES']
+
 
         # Internal variables and placeholders
         self.child_instrument_main_order_ce = self.child_instrument_main_order_pe = None  # Tracks Call & Put orders
@@ -25,7 +26,10 @@ class StrategyOptionsShortStrangleWithTargetRiskControl(StrategyOptionsBase):
 
     def validate_parameters(self):
         """ Validates required strategy parameters. """
-        check_argument(self.strategy_parameters, "extern_function", lambda x: len(x) >= 2, err_message="Need 2 parameters for this strategy: \n(1) STOPLOSS_MULTIPLIER \n(2) TARGET_PERCENTAGE")
+        check_argument(self.strategy_parameters, "extern_function", lambda x: len(x) >= 3, err_message="Need 3 parameters for this strategy: \n(1) NUMBER_OF_STRIKES \n(2) TARGET_PERCENTAGE \n(3) STOPLOSS_MULTIPLIER")
+
+        # Validate number of strikes
+        check_argument(self.number_of_strikes, "extern_function", is_positive_int, "Value should be positive integer")
 
         # Validate expiry dates
         if len(self.get_allowed_expiry_dates()) != self.number_of_allowed_expiry_dates:
@@ -33,7 +37,7 @@ class StrategyOptionsShortStrangleWithTargetRiskControl(StrategyOptionsBase):
             raise SystemExit
 
         # Validate parameters
-        for param in (self.target_percentage, self.stoploss_multiplier, self.number_of_strikes):
+        for param in (self.target_percentage, self.stoploss_multiplier):
             check_argument(param, "extern_function", is_nonnegative_int_or_float, "Value should be >0.0")
 
     def initialize(self):
