@@ -17,7 +17,6 @@ class StrategyOptionsShortStrangleWithTargetRiskControl(StrategyOptionsBase):
         self.target_percentage = self.strategy_parameters["TARGET_PERCENTAGE"]
         self.stoploss_multiplier = self.strategy_parameters["STOPLOSS_MULTIPLIER"]
 
-
         # Internal variables and placeholders
         self.child_instrument_main_order_ce = self.child_instrument_main_order_pe = None  # Tracks Call & Put orders
         self.number_of_allowed_expiry_dates = 1  # Restrict how many expiry dates can be used
