@@ -147,3 +147,4 @@ class StrategyOptionsShortStrangleWithTargetRiskControl(StrategyOptionsBase):
         self.exit_all_positions_for_base_instrument(meta['base_instrument'])
 
         return True
+
