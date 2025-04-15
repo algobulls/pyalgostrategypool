@@ -14,20 +14,20 @@ from utils.func import check_argument, is_nonnegative_int_or_float, is_positive_
 
 
 class StrategyOptionsLongIronCondorReentry(StrategyOptionsBase):
-    """ Long Iron Condor Strategy that exits and re-enters based on price-level breaches. """
+    """ Long Iron Condor Strategy that exits and re-enters based on price levels  """
 
     name = "Strategy Options Long Iron Condor With Re-Entry"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Number of strikes away from ATM for each leg
+        # Required parameters for this strategy
         self.no_of_otm_strikes_buy_ce_leg = self.strategy_parameters.get("NUMBER_OF_OTM_STRIKES_BUY_CALL_LEG", 1)
         self.no_of_otm_strikes_sell_ce_leg = self.strategy_parameters.get("NUMBER_OF_OTM_STRIKES_SELL_CALL_LEG", 3)
         self.no_of_otm_strikes_buy_pe_leg = self.strategy_parameters.get("NUMBER_OF_OTM_STRIKES_BUY_PUT_LEG", 1)
         self.no_of_otm_strikes_sell_pe_leg = self.strategy_parameters.get("NUMBER_OF_OTM_STRIKES_SELL_PUT_LEG", 3)
 
-        # Price offsets used to detect breach and trigger exit; enabled via flags
+        # Offset applied to base price to determine re-entry trigger levels
         self.price_breach_upper_offset = self.strategy_parameters.get("PRICE_BREACH_UPPER_OFFSET", 100) if self.strategy_parameters.get("ALLOW_UPPER_PRICE_BREACH", 0) == 1 else None
         self.price_breach_lower_offset = self.strategy_parameters.get("PRICE_BREACH_LOWER_OFFSET", 100) if self.strategy_parameters.get("ALLOW_LOWER_PRICE_BREACH", 0) == 1 else None
 
@@ -48,13 +48,13 @@ class StrategyOptionsLongIronCondorReentry(StrategyOptionsBase):
 
         # Validate parameters
         for param in (self.price_breach_upper_offset, self.price_breach_lower_offset):
-            check_argument(param, "extern_function", is_nonnegative_int_or_float, "PRICE_BREACH_*_OFFSET should be a non-negative number (>= 0.0)")
+            check_argument(param, "extern_function", is_nonnegative_int_or_float, "Value should be >=0.0")
 
         for param in (self.no_of_otm_strikes_buy_ce_leg, self.no_of_otm_strikes_sell_ce_leg, self.no_of_otm_strikes_buy_pe_leg, self.no_of_otm_strikes_sell_pe_leg):
-            check_argument(param, "extern_function", is_positive_int, "NUMBER_OF_OTM_STRIKES_* parameters should be positive integers (> 0)")
+            check_argument(param, 'extern_function', is_positive_int, 'Number of strikes should be an integer > 0')
 
-        for param in [self.strategy_parameters.get("ALLOW_UPPER_PRICE_BREACH", 0), self.strategy_parameters.get("ALLOW_LOWER_PRICE_BREACH", 0)]:
-            check_argument(param, "extern_function", lambda x: isinstance(x, int) and x in [0, 1], f"ALLOW_*_PRICE_BREACH flags should be either 0 (False) or 1 (True)")
+        for param in [self.strategy_parameters.get("ALLOW_REENTRY_UPPER", 0), self.strategy_parameters.get("ALLOW_REENTRY_LOWER", 0)]:
+            check_argument(param, 'extern_function', lambda x: isinstance(x, int) and x in [0, 1], f'ALLOW_REENTRY parameters should be 0 (False) or 1 (True)')
 
     def initialize(self):
         super().initialize()
