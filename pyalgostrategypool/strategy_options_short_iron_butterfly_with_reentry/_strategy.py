@@ -74,10 +74,12 @@ class StrategyOptionsShortIronButterflyReentry(StrategyOptionsBase):
             leg_wise_list = [
                 ("ce_buy_leg", 'CE', OptionsStrikeDirection.OTM.value, self.no_of_otm_strikes_buy_ce_leg, 'BUY',
                  self.child_instrument_main_orders_ce[base_instrument].get("ce_buy_leg") if self.child_instrument_main_orders_ce.get(base_instrument) else None),
-                ("ce_sell_leg", 'CE', OptionsStrikeDirection.ATM.value, 0, 'SELL', self.child_instrument_main_orders_ce[base_instrument].get("ce_sell_leg") if self.child_instrument_main_orders_ce.get(base_instrument) else None),
+                ("ce_sell_leg", 'CE', OptionsStrikeDirection.ATM.value, 0, 'SELL',
+                 self.child_instrument_main_orders_ce[base_instrument].get("ce_sell_leg") if self.child_instrument_main_orders_ce.get(base_instrument) else None),
                 ("pe_buy_leg", 'PE', OptionsStrikeDirection.OTM.value, self.no_of_otm_strikes_buy_pe_leg, 'BUY',
                  self.child_instrument_main_orders_pe[base_instrument].get("pe_buy_leg") if self.child_instrument_main_orders_pe.get(base_instrument) else None),
-                ("pe_sell_leg", 'PE', OptionsStrikeDirection.ATM.value, 0, 'SELL', self.child_instrument_main_orders_pe[base_instrument].get("pe_sell_leg") if self.child_instrument_main_orders_pe.get(base_instrument) else None)
+                ("pe_sell_leg", 'PE', OptionsStrikeDirection.ATM.value, 0, 'SELL',
+                 self.child_instrument_main_orders_pe[base_instrument].get("pe_sell_leg") if self.child_instrument_main_orders_pe.get(base_instrument) else None)
             ]
 
             current_underlying_price = self.broker.get_ltp(base_instrument)
