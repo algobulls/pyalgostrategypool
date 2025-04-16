@@ -44,7 +44,7 @@ class StrategyOptionsLongIronCondorReentry(StrategyOptionsBase):
         # Validate expiry dates
         if len(self.get_allowed_expiry_dates()) != self.number_of_allowed_expiry_dates:
             self.logger.info(f"Allowed expiry dates: {self.number_of_allowed_expiry_dates}, got {len(self.get_allowed_expiry_dates())}. Exiting...")
-            raise SystemExit
+            raise ABSystemExit
 
         # Validate parameters
         for param in (self.price_breach_upper_offset, self.price_breach_lower_offset):
@@ -84,7 +84,7 @@ class StrategyOptionsLongIronCondorReentry(StrategyOptionsBase):
 
             # Calculate re-entry conditions based on the latest price
             flag_upper_re_entry = (self.flag_upper_breach_possible_reentry and (self.base_price_post_breach - current_underlying_price) >= self.price_breach_upper_offset)
-            flag_lower_re_entry = (self.flag_lower_breach_possible_reentry and (current_underlying_price - self.base_price_post_breach) >= self.price_breach_lower_offset)
+            flag_lower_re_entry = (self.flag_lower_breach_possible_reentry and (self.base_price_post_breach - current_underlying_price) <= - self.price_breach_lower_offset)
 
             # Check if there are no active orders (PE/CE legs), re-entry check has been triggered
             flag_empty_orders = (not self.child_instrument_main_orders_pe and not self.child_instrument_main_orders_ce)
@@ -135,7 +135,7 @@ class StrategyOptionsLongIronCondorReentry(StrategyOptionsBase):
 
         current_underlying_price = self.broker.get_ltp(base_instrument)
         self.flag_upper_breach_possible_reentry = current_underlying_price - self.base_price_post_breach >= self.price_breach_upper_offset if self.price_breach_upper_offset else False
-        self.flag_lower_breach_possible_reentry = self.base_price_post_breach - current_underlying_price >= self.price_breach_lower_offset if self.price_breach_lower_offset else False
+        self.flag_lower_breach_possible_reentry = current_underlying_price - self.base_price_post_breach <= - self.price_breach_lower_offset if self.price_breach_lower_offset else False
 
         if self.flag_upper_breach_possible_reentry or self.flag_lower_breach_possible_reentry:
             breach_type_str = 'Upper' if self.flag_upper_breach_possible_reentry else 'Lower'
