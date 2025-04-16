@@ -1,9 +1,9 @@
 """
    Strategy Description:
-       The Options Long Iron Condor strategy involves a four-leg options setup combining both Calls and Puts at different strike prices.
-       The structure includes buying an out-of-the-money Call and Put, and simultaneously selling a nearer-to-the-money Call and Put.
-       This strategy is typically used when a significant price move is expected in either direction, i.e., in high volatility conditions.
-       It offers limited risk and limited profit potential, with gains realized when the underlying price moves outside the range of the short strikes.
+       The Options Short Iron Butterfly strategy is a defined-risk, four-leg options setup centered around an at-the-money strike.
+       It involves selling both a Call and a Put at the same (ATM) strike price, while simultaneously buying a further out-of-the-money Call and Put.
+       This strategy is typically used in low volatility conditions when minimal price movement is expected, and the goal is to profit from time decay.
+       Maximum profit is achieved if the underlying price remains near the short strike at expiration, while losses are capped if the price moves beyond the long wings.
 """
 
 from constants import *
@@ -13,19 +13,17 @@ from utils.ab_system_exit import ABSystemExit
 from utils.func import check_argument, is_nonnegative_int_or_float, is_positive_int
 
 
-class StrategyOptionsLongIronCondorReentry(StrategyOptionsBase):
-    """ Long Iron Condor Strategy that exits and re-enters based on price-level breaches. """
+class StrategyOptionsShortIronButterflyReentry(StrategyOptionsBase):
+    """ Short Iron Butterfly Strategy that exits and re-enters based on price-level breaches. """
 
-    name = "Strategy Options Long Iron Condor With Re-Entry"
+    name = "Strategy Options Short Iron Butterfly With Re-Entry"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Number of strikes away from ATM for each leg
-        self.no_of_otm_strikes_buy_ce_leg = self.strategy_parameters.get("NUMBER_OF_OTM_STRIKES_BUY_CALL_LEG", 1)
-        self.no_of_otm_strikes_sell_ce_leg = self.strategy_parameters.get("NUMBER_OF_OTM_STRIKES_SELL_CALL_LEG", 3)
-        self.no_of_otm_strikes_buy_pe_leg = self.strategy_parameters.get("NUMBER_OF_OTM_STRIKES_BUY_PUT_LEG", 1)
-        self.no_of_otm_strikes_sell_pe_leg = self.strategy_parameters.get("NUMBER_OF_OTM_STRIKES_SELL_PUT_LEG", 3)
+        # Number of strikes away from ATM for the long wings (OTM buys)
+        self.no_of_otm_strikes_buy_ce_leg = self.strategy_parameters.get("NUMBER_OF_OTM_STRIKES_BUY_CALL_LEG", 2)
+        self.no_of_otm_strikes_buy_pe_leg = self.strategy_parameters.get("NUMBER_OF_OTM_STRIKES_BUY_PUT_LEG", 2)
 
         # Price offsets used to detect breach and trigger exit; enabled via flags
         self.price_breach_upper_offset = self.strategy_parameters.get("PRICE_BREACH_UPPER_OFFSET", 100) if self.strategy_parameters.get("ALLOW_UPPER_PRICE_BREACH", 0) == 1 else None
@@ -50,7 +48,7 @@ class StrategyOptionsLongIronCondorReentry(StrategyOptionsBase):
         for param in (self.price_breach_upper_offset, self.price_breach_lower_offset):
             check_argument(param, "extern_function", is_nonnegative_int_or_float, "PRICE_BREACH_*_OFFSET should be a non-negative number (>= 0.0)")
 
-        for param in (self.no_of_otm_strikes_buy_ce_leg, self.no_of_otm_strikes_sell_ce_leg, self.no_of_otm_strikes_buy_pe_leg, self.no_of_otm_strikes_sell_pe_leg):
+        for param in (self.no_of_otm_strikes_buy_ce_leg, self.no_of_otm_strikes_buy_pe_leg):
             check_argument(param, "extern_function", is_positive_int, "NUMBER_OF_OTM_STRIKES_* parameters should be positive integers (> 0)")
 
         for param in [self.strategy_parameters.get("ALLOW_UPPER_PRICE_BREACH", 0), self.strategy_parameters.get("ALLOW_LOWER_PRICE_BREACH", 0)]:
@@ -74,10 +72,14 @@ class StrategyOptionsLongIronCondorReentry(StrategyOptionsBase):
             )
             # Define a list of tuples for managing legs, their types, and relevant orders
             leg_wise_list = [
-                ("ce_buy_leg", 'CE', self.no_of_otm_strikes_buy_ce_leg, 'BUY', self.child_instrument_main_orders_ce[base_instrument].get("ce_buy_leg") if self.child_instrument_main_orders_ce.get(base_instrument) else None),
-                ("ce_sell_leg", 'CE', self.no_of_otm_strikes_sell_ce_leg, 'SELL', self.child_instrument_main_orders_ce[base_instrument].get("ce_sell_leg") if self.child_instrument_main_orders_ce.get(base_instrument) else None),
-                ("pe_buy_leg", 'PE', self.no_of_otm_strikes_buy_pe_leg, 'BUY', self.child_instrument_main_orders_pe[base_instrument].get("pe_buy_leg") if self.child_instrument_main_orders_pe.get(base_instrument) else None),
-                ("pe_sell_leg", 'PE', self.no_of_otm_strikes_sell_pe_leg, 'SELL', self.child_instrument_main_orders_pe[base_instrument].get("pe_sell_leg") if self.child_instrument_main_orders_pe.get(base_instrument) else None)
+                ("ce_buy_leg", 'CE', OptionsStrikeDirection.OTM.value, self.no_of_otm_strikes_buy_ce_leg, 'BUY',
+                 self.child_instrument_main_orders_ce[base_instrument].get("ce_buy_leg") if self.child_instrument_main_orders_ce.get(base_instrument) else None),
+                ("ce_sell_leg", 'CE', OptionsStrikeDirection.ATM.value, 0, 'SELL',
+                 self.child_instrument_main_orders_ce[base_instrument].get("ce_sell_leg") if self.child_instrument_main_orders_ce.get(base_instrument) else None),
+                ("pe_buy_leg", 'PE', OptionsStrikeDirection.OTM.value, self.no_of_otm_strikes_buy_pe_leg, 'BUY',
+                 self.child_instrument_main_orders_pe[base_instrument].get("pe_buy_leg") if self.child_instrument_main_orders_pe.get(base_instrument) else None),
+                ("pe_sell_leg", 'PE', OptionsStrikeDirection.ATM.value, 0, 'SELL',
+                 self.child_instrument_main_orders_pe[base_instrument].get("pe_sell_leg") if self.child_instrument_main_orders_pe.get(base_instrument) else None)
             ]
 
             current_underlying_price = self.broker.get_ltp(base_instrument)
@@ -92,12 +94,12 @@ class StrategyOptionsLongIronCondorReentry(StrategyOptionsBase):
 
             # Proceed only if no open orders or if the re-entry conditions are met with existing orders
             if flag_empty_orders and (flag_upper_re_entry or flag_lower_re_entry or not flag_re_entry_triggered):
-                for leg, tradingsymbol_suffix, no_of_strikes, action, main_order in leg_wise_list:
+                for leg, tradingsymbol_suffix, strike_direction, no_of_strikes, action, main_order in leg_wise_list:
                     if tradingsymbol_suffix not in executed_tradingsymbol_suffix:
                         self.options_instruments_set_up_all_expiries(base_instrument, tradingsymbol_suffix, current_underlying_price)
                         executed_tradingsymbol_suffix.add(tradingsymbol_suffix)
 
-                    child_instrument = self.get_child_instrument_details(base_instrument, tradingsymbol_suffix, OptionsStrikeDirection.OTM.value, no_of_strikes)  # Retrieve OTM child base_instrument details for the given base_instrument
+                    child_instrument = self.get_child_instrument_details(base_instrument, tradingsymbol_suffix, strike_direction, no_of_strikes)  # Retrieve child base_instrument details for the given base_instrument
                     self.instruments_mapper.add_mappings(base_instrument, child_instrument)  # Maps each base_instrument to its child in the instruments' mapper for further processing.
                     selected_instruments.append(child_instrument)
                     meta.append({"leg": leg, "action": action, "base_instrument": base_instrument, "tradingsymbol_suffix": tradingsymbol_suffix})
