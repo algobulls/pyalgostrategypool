@@ -29,7 +29,7 @@ STRATEGY:
   INSTRUMENTS_BUCKET:
     - NSE_IDX:NIFTY BANK
   MODE: INTRADAY
-  NAME: Strategy Options Short Straddle with SL
+  NAME: Strategy Options Short Straddle with SL Intraday
   NUMBER_OF_LOTS: 1
   PARAMETERS:
     START_TIME_HOURS: 9.0

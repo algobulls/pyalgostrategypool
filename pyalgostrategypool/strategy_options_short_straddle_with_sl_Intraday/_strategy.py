@@ -10,8 +10,8 @@
 from pyalgotrading.strategy import StrategyOptionsGiantNewV2
 
 
-class StrategyOptionsShortStraddlewithSL(StrategyOptionsGiantNewV2):
-    name = 'Strategy Options Short Straddle with SL'
+class StrategyOptionsShortStraddlewithSLIntraday(StrategyOptionsGiantNewV2):
+    name = 'Strategy Options Short Straddle with SL Intraday'
 
     def __init__(self, *args, **kwargs):
         # Extract 'strategy_parameters' from kwargs
