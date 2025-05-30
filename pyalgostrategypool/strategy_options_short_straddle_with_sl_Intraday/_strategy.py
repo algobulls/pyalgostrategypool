@@ -22,15 +22,6 @@ class StrategyOptionsShortStraddlewithSLIntraday(StrategyOptionsGiantNewV2):
         # Enable or disable individual legs (1 = active, 0 = inactive)
         strategy_parameters['PLACE_ORDER_LEG_ONE'] = 1
         strategy_parameters['PLACE_ORDER_LEG_TWO'] = 1
-        strategy_parameters['PLACE_ORDER_LEG_THREE'] = 0
-        strategy_parameters['PLACE_ORDER_LEG_FOUR'] = 0
-        strategy_parameters['PLACE_ORDER_LEG_FIVE'] = 0
-        strategy_parameters['PLACE_ORDER_LEG_SIX'] = 0
-        strategy_parameters['PLACE_ORDER_LEG_SEVEN'] = 0
-        strategy_parameters['PLACE_ORDER_LEG_EIGHT'] = 0
-        strategy_parameters['PLACE_ORDER_LEG_NINE'] = 0
-        strategy_parameters['PLACE_ORDER_LEG_TEN'] = 0
-        strategy_parameters['PLACE_ORDER_LEG_ELEVEN'] = 0
 
         # --------------------------------------------
         # 2. Transaction Type for Legs
