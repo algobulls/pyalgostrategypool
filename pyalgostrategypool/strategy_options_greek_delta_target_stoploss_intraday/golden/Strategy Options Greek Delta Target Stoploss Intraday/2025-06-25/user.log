@@ -1,0 +1,205 @@
+[2025-06-25 10:42:53] Performing sanity checks on cfg strategy_parameters, setting up required data structures...
+[2025-06-25 10:42:53] Sanity checks on cfg successful.
+[2025-06-25 10:42:53] Currency set to "INR"
+[2025-06-25 10:42:53] Setting up broker connection...
+[2025-06-25 10:42:54] Broker connection has been setup successfully.
+[2025-06-25 10:42:54] (NSE_IDX) Funds available in client's ABVIRTUALBROKER account is : INR '1000000000.00'
+[2025-06-25 10:42:54] 
+########################################
+ INITIALIZING ALGOBULLS CORE (v3.3.0)... 
+########################################
+[2025-06-25 10:42:54] Welcome ALGOBULLS VIRTUAL USER!
+[2025-06-25 10:42:54] Reading strategy...
+[2025-06-25 10:42:54] Entering Backtesting mode. Henceforth, all timestamps will be Backtesting timestamps...
+[BT] [2025-06-20 09:15:00,000] [INFO] [tls] STARTING ALGOBULLS CORE...
+
+          #####  #######    #    ######  ####### ### #     #  #####
+         #     #    #      # #   #     #    #     #  ##    # #     #
+         #          #     #   #  #     #    #     #  # #   # #
+          #####     #    #     # ######     #     #  #  #  # #  ####
+               #    #    ####### #   #      #     #  #   # # #     #
+         #     #    #    #     # #    #     #     #  #    ## #     #
+          #####     #    #     # #     #    #    ### #     #  #####
+
+            #    #        #####  ####### ######  #     # #       #        #####
+           # #   #       #     # #     # #     # #     # #       #       #     #
+          #   #  #       #       #     # #     # #     # #       #       #
+         #     # #       #  #### #     # ######  #     # #       #        #####
+         ####### #       #     # #     # #     # #     # #       #             #
+         #     # #       #     # #     # #     # #     # #       #       #     #
+         #     # #######  #####  ####### ######   #####  ####### #######  #####
+
+          #####  ####### ######  #######
+         #     # #     # #     # #
+         #       #     # #     # #
+         #       #     # ######  #####
+         #       #     # #   #   #
+         #     # #     # #    #  #
+          #####  ####### #     # #######
+
+        --------------------Master Cfg Parameters:--------------------
+        User: ALGOBULLS VIRTUAL USER
+        Broker: ABVIRTUALBROKER
+        Auto add instruments bucket from positions: False
+        Auto add instruments bucket from holdings tplus1: False
+        Auto add instruments bucket from holdings tplus2: False
+        Resume positions on start: False
+        Resume holdings tplus1 on start: False
+        Resume holdings tplus2 on start: False
+        Exit intraday orders on stop: True
+        Exit tplus0 delivery orders on stop: False
+        Exit tplus1 delivery orders on stop: False
+        Exit tplus2 delivery orders on stop: False
+        --------------------User Cfg Parameters: System Parameters--------------------
+        Trading type: BACKTESTING
+        User trading start time: 2025-06-20 09:15:00+05:30
+        User trading end time: 2025-06-20 15:30:00+05:30
+        Fast mode: False
+        --------------------User Cfg Parameters: Funds Parameters--------------------
+        Credit exposure: 1
+        --------------------User Cfg Parameters: Candle Parameters--------------------
+        Candle interval (sec): 900
+        --------------------User Cfg Parameters: Strategy Parameters--------------------
+        Strategy: Strategy Options Greek Delta Target Stoploss Intraday
+        Version: v1
+        Parameters: [SEE BELOW]
+        Strategy mode: INTRADAY
+        Instruments bucket: instruments_bucket | [NSE_IDX:NIFTY BANK]
+        Number of lots: 1
+        --------------------User Cfg Parameters: Risk Management Parameters--------------------
+        Desired profit: None
+        Risk appetite: None
+        P&L scan frequency (in sec): 30
+        --------------------User Cfg Parameters: Other Parameters--------------------
+        Max orders count: 100
+        Crossover accuracy decimals: 2
+        ------------------------------------------------------------
+        
+[BT] [2025-06-20 09:15:00,000] [INFO] [utils] Instrument (NSE_IDX:NIFTY BANK) subscribed to historical data successfully
+[BT] [2025-06-20 09:15:00,000] [INFO] [utils] 1 Instruments subscribed to historical data successfully
+[BT] [2025-06-20 09:15:00,000] [INFO] [utils] Prefetching historical data for 1 instruments...
+[BT] [2025-06-20 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2025-06-20 09:15:00+05:30 for NSE_IDX:NIFTY BANK 
+[BT] [2025-06-20 09:15:00,000] [INFO] [strategy] 
+####################
+Strategy Parameters:
+StrategyParameters([('DELTA_MIN', 0.5),
+                    ('DELTA_MAX', 0.52),
+                    ('STOPLOSS_PERCENTAGE', 30),
+                    ('TARGET_PERCENTAGE', 45)])
+####################
+[BT] [2025-06-20 09:15:00,000] [INFO] [tls] Not launching PNL tracker...
+[BT] [2025-06-20 09:15:00,000] [INFO] [strategy] Expiry Dates - {'WEEKLY_CURRENT': (datetime.date(2025, 6, 26), 0), 'WEEKLY_NEXT': (datetime.date(2025, 7, 2), 0), 'MONTHLY_CURRENT': (datetime.date(2025, 6, 26), 1), 'MONTHLY_NEXT': (datetime.date(2025, 7, 31), 0)}
+[BT] [2025-06-20 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2025-06-20 09:15:00+05:30 for NSE_IDX:NIFTY BANK 
+[BT] [2025-06-20 09:15:00,000] [INFO] [utils] Instrument (NSE_FO:BANKNIFTY25JUN55600CE) subscribed to historical data successfully
+[BT] [2025-06-20 09:15:00,000] [INFO] [utils] 1 Instruments subscribed to historical data successfully
+[BT] [2025-06-20 09:15:00,000] [INFO] [utils] Prefetching historical data for 1 instruments...
+[BT] [2025-06-20 09:15:00,000] [WARNING] [utils] No historical data found for candle: 2025-06-20 09:15:00+05:30 for NSE_FO:BANKNIFTY25JUN55600CE 
+[BT] [2025-06-20 09:15:00,000] [INFO] [tls] Entering position for instrument: NSE_FO:BANKNIFTY25JUN55600CE...
+[BT] [2025-06-20 09:15:00,000] [INFO] [order] [PLACING NEW ORDER] [2025-06-20 09:15:00+05:30] [74aa2085134b460d87cd52ea4fe5b7f5] [BUY] [NSE_FO:BANKNIFTY25JUN55600CE] [QTY:30] [QTY PENDING: 30] [ENTRY PRICE: 490.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2025-06-20 09:15:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:74aa2085134b460d87cd52ea4fe5b7f5] [BUY] [NSE_FO:BANKNIFTY25JUN55600CE] [Order ID: (Order: [2025-06-20 09:15:00+05:30] [74aa2085134b460d87cd52ea4fe5b7f5] [BUY] [NSE_FO:BANKNIFTY25JUN55600CE] [QTY:30] [QTY PENDING: 30] [ENTRY PRICE: 490.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[BT] [2025-06-20 09:15:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2025-06-20 09:15:00+05:30] [74aa2085134b460d87cd52ea4fe5b7f5] [BUY] [NSE_FO:BANKNIFTY25JUN55600CE] [QTY:30] [QTY PENDING: 30] [ENTRY PRICE: 490.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2025-06-20 09:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 09:30:00+05:30)...
+[BT] [2025-06-20 09:30:00,000] [INFO] [order] [PLACING NEW ORDER] [2025-06-20 09:30:00+05:30] [fd27711cdddb4dc9808f8dea0d42e82d] [SELL] [NSE_FO:BANKNIFTY25JUN55600CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 343.0] [PRICE:343.0] [TRIGGER PRICE:343.0] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_STOPLOSS_LIMIT] [ORDER_POSITION_EXIT]
+[BT] [2025-06-20 09:30:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:fd27711cdddb4dc9808f8dea0d42e82d] [SELL] [NSE_FO:BANKNIFTY25JUN55600CE] [Order ID: (Order: [2025-06-20 09:30:00+05:30] [fd27711cdddb4dc9808f8dea0d42e82d] [SELL] [NSE_FO:BANKNIFTY25JUN55600CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 343.0] [PRICE:343.0] [TRIGGER PRICE:343.0] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_STOPLOSS_LIMIT] [ORDER_POSITION_EXIT])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> TRIGGER PENDING)]
+[BT] [2025-06-20 09:30:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2025-06-20 09:30:00+05:30] [fd27711cdddb4dc9808f8dea0d42e82d] [SELL] [NSE_FO:BANKNIFTY25JUN55600CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 343.0] [PRICE:343.0] [TRIGGER PRICE:343.0] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_STOPLOSS_LIMIT] [ORDER_POSITION_EXIT] [STATUS:TRIGGER PENDING]
+[BT] [2025-06-20 09:30:00,000] [INFO] [order] [PLACING NEW ORDER] [2025-06-20 09:30:00+05:30] [46fc0dc494b14e11be3fb7367f11bd48] [SELL] [NSE_FO:BANKNIFTY25JUN55600CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 710.5] [PRICE:710.5] [TRIGGER PRICE:710.5] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_EXIT]
+[BT] [2025-06-20 09:30:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:46fc0dc494b14e11be3fb7367f11bd48] [SELL] [NSE_FO:BANKNIFTY25JUN55600CE] [Order ID: (Order: [2025-06-20 09:30:00+05:30] [46fc0dc494b14e11be3fb7367f11bd48] [SELL] [NSE_FO:BANKNIFTY25JUN55600CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 710.5] [PRICE:710.5] [TRIGGER PRICE:710.5] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_EXIT])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN)]
+[BT] [2025-06-20 09:30:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2025-06-20 09:30:00+05:30] [46fc0dc494b14e11be3fb7367f11bd48] [SELL] [NSE_FO:BANKNIFTY25JUN55600CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 710.5] [PRICE:710.5] [TRIGGER PRICE:710.5] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_EXIT] [STATUS:OPEN]
+[BT] [2025-06-20 09:30:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 09:45:00+05:30)...
+[BT] [2025-06-20 09:45:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 10:00:00+05:30)...
+[BT] [2025-06-20 10:00:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 10:15:00+05:30)...
+[BT] [2025-06-20 10:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 10:30:00+05:30)...
+[BT] [2025-06-20 10:30:00,000] [INFO] [order] Cancelling order... (Order: [2025-06-20 09:30:00+05:30] [fd27711cdddb4dc9808f8dea0d42e82d] [SELL] [NSE_FO:BANKNIFTY25JUN55600CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 343.0] [PRICE:343.0] [TRIGGER PRICE:343.0] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_STOPLOSS_LIMIT] [ORDER_POSITION_EXIT])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> TRIGGER PENDING)
+[BT] [2025-06-20 10:30:00,000] [INFO] [utils] Instrument (NSE_FO:BANKNIFTY25JUN56000CE) subscribed to historical data successfully
+[BT] [2025-06-20 10:30:00,000] [INFO] [utils] 1 Instruments subscribed to historical data successfully
+[BT] [2025-06-20 10:30:00,000] [INFO] [utils] Prefetching historical data for 1 instruments...
+[BT] [2025-06-20 10:30:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 10:45:00+05:30)...
+[BT] [2025-06-20 10:45:00,000] [INFO] [utils] Instrument (NSE_FO:BANKNIFTY25JUN56100CE) subscribed to historical data successfully
+[BT] [2025-06-20 10:45:00,000] [INFO] [utils] 1 Instruments subscribed to historical data successfully
+[BT] [2025-06-20 10:45:00,000] [INFO] [utils] Prefetching historical data for 1 instruments...
+[BT] [2025-06-20 10:45:00,000] [INFO] [tls] Entering position for instrument: NSE_FO:BANKNIFTY25JUN56100CE...
+[BT] [2025-06-20 10:45:00,000] [INFO] [order] [PLACING NEW ORDER] [2025-06-20 10:45:00+05:30] [ef89f0b8700947abb0aed9839d4c8cdf] [BUY] [NSE_FO:BANKNIFTY25JUN56100CE] [QTY:30] [QTY PENDING: 30] [ENTRY PRICE: 430.05] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+[BT] [2025-06-20 10:45:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:ef89f0b8700947abb0aed9839d4c8cdf] [BUY] [NSE_FO:BANKNIFTY25JUN56100CE] [Order ID: (Order: [2025-06-20 10:45:00+05:30] [ef89f0b8700947abb0aed9839d4c8cdf] [BUY] [NSE_FO:BANKNIFTY25JUN56100CE] [QTY:30] [QTY PENDING: 30] [ENTRY PRICE: 430.05] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[BT] [2025-06-20 10:45:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2025-06-20 10:45:00+05:30] [ef89f0b8700947abb0aed9839d4c8cdf] [BUY] [NSE_FO:BANKNIFTY25JUN56100CE] [QTY:30] [QTY PENDING: 30] [ENTRY PRICE: 430.05] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER] [STATUS:COMPLETE]
+[BT] [2025-06-20 10:45:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 11:00:00+05:30)...
+[BT] [2025-06-20 11:00:00,000] [INFO] [order] [PLACING NEW ORDER] [2025-06-20 11:00:00+05:30] [28bbf8a30a2241a28d6fff3017a5e867] [SELL] [NSE_FO:BANKNIFTY25JUN56100CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 301.0] [PRICE:301.0] [TRIGGER PRICE:301.0] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_STOPLOSS_LIMIT] [ORDER_POSITION_EXIT]
+[BT] [2025-06-20 11:00:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:28bbf8a30a2241a28d6fff3017a5e867] [SELL] [NSE_FO:BANKNIFTY25JUN56100CE] [Order ID: (Order: [2025-06-20 11:00:00+05:30] [28bbf8a30a2241a28d6fff3017a5e867] [SELL] [NSE_FO:BANKNIFTY25JUN56100CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 301.0] [PRICE:301.0] [TRIGGER PRICE:301.0] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_STOPLOSS_LIMIT] [ORDER_POSITION_EXIT])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> TRIGGER PENDING)]
+[BT] [2025-06-20 11:00:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2025-06-20 11:00:00+05:30] [28bbf8a30a2241a28d6fff3017a5e867] [SELL] [NSE_FO:BANKNIFTY25JUN56100CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 301.0] [PRICE:301.0] [TRIGGER PRICE:301.0] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_STOPLOSS_LIMIT] [ORDER_POSITION_EXIT] [STATUS:TRIGGER PENDING]
+[BT] [2025-06-20 11:00:00,000] [INFO] [order] [PLACING NEW ORDER] [2025-06-20 11:00:00+05:30] [6e6f1b2ed12549548060010a78ab31a4] [SELL] [NSE_FO:BANKNIFTY25JUN56100CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 623.55] [PRICE:623.55] [TRIGGER PRICE:623.55] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_EXIT]
+[BT] [2025-06-20 11:00:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:6e6f1b2ed12549548060010a78ab31a4] [SELL] [NSE_FO:BANKNIFTY25JUN56100CE] [Order ID: (Order: [2025-06-20 11:00:00+05:30] [6e6f1b2ed12549548060010a78ab31a4] [SELL] [NSE_FO:BANKNIFTY25JUN56100CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 623.55] [PRICE:623.55] [TRIGGER PRICE:623.55] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_EXIT])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN)]
+[BT] [2025-06-20 11:00:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2025-06-20 11:00:00+05:30] [6e6f1b2ed12549548060010a78ab31a4] [SELL] [NSE_FO:BANKNIFTY25JUN56100CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 623.55] [PRICE:623.55] [TRIGGER PRICE:623.55] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_EXIT] [STATUS:OPEN]
+[BT] [2025-06-20 11:00:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 11:15:00+05:30)...
+[BT] [2025-06-20 11:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 11:30:00+05:30)...
+[BT] [2025-06-20 11:30:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 11:45:00+05:30)...
+[BT] [2025-06-20 11:45:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 12:00:00+05:30)...
+[BT] [2025-06-20 12:00:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 12:15:00+05:30)...
+[BT] [2025-06-20 12:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 12:30:00+05:30)...
+[BT] [2025-06-20 12:30:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 12:45:00+05:30)...
+[BT] [2025-06-20 12:45:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 13:00:00+05:30)...
+[BT] [2025-06-20 13:00:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 13:15:00+05:30)...
+[BT] [2025-06-20 13:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 13:30:00+05:30)...
+[BT] [2025-06-20 13:30:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 13:45:00+05:30)...
+[BT] [2025-06-20 13:45:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 14:00:00+05:30)...
+[BT] [2025-06-20 14:00:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 14:15:00+05:30)...
+[BT] [2025-06-20 14:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 14:30:00+05:30)...
+[BT] [2025-06-20 14:30:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 14:45:00+05:30)...
+[BT] [2025-06-20 14:45:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 15:00:00+05:30)...
+[BT] [2025-06-20 15:00:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 15:15:00+05:30)...
+[BT] [2025-06-20 15:15:00,000] [INFO] [clock] Waiting for 900.00 seconds until end of current candle (2025-06-20 15:30:00+05:30)...
+[BT] [2025-06-20 15:30:00,000] [INFO] [oms] Exiting OPEN POSITION (Order: [2025-06-20 09:15:00+05:30] [74aa2085134b460d87cd52ea4fe5b7f5] [BUY] [NSE_FO:BANKNIFTY25JUN55600CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 490.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])... 
+[BT] [2025-06-20 15:30:00,000] [INFO] [oms] Exiting OPEN POSITION (Order: [2025-06-20 10:45:00+05:30] [ef89f0b8700947abb0aed9839d4c8cdf] [BUY] [NSE_FO:BANKNIFTY25JUN56100CE] [QTY:30] [QTY PENDING: 30] [ENTRY PRICE: 430.05] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER])... 
+[BT] [2025-06-20 15:30:00,000] [INFO] [order] [PLACING NEW ORDER] [2025-06-20 15:30:00+05:30] [54c6a3649ca1464282a31b6432724dff] [SELL] [NSE_FO:BANKNIFTY25JUN56100CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 487.35] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+[BT] [2025-06-20 15:30:00,000] [INFO] [order] [ORDER ID RECEIVED] [ABVIRTUALBROKER] [ID:54c6a3649ca1464282a31b6432724dff] [SELL] [NSE_FO:BANKNIFTY25JUN56100CE] [Order ID: (Order: [2025-06-20 15:30:00+05:30] [54c6a3649ca1464282a31b6432724dff] [SELL] [NSE_FO:BANKNIFTY25JUN56100CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 487.35] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT])
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE)]
+[BT] [2025-06-20 15:30:00,000] [INFO] [order] [NEW ORDER SUCCESS] [2025-06-20 15:30:00+05:30] [54c6a3649ca1464282a31b6432724dff] [SELL] [NSE_FO:BANKNIFTY25JUN56100CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 487.35] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT] [STATUS:COMPLETE]
+[BT] [2025-06-20 15:30:00,000] [INFO] [clock] Candle generation has been stopped...
+[BT] [2025-06-20 15:30:00,000] [INFO] [tls] Received event END OF MARKET. Stopping AlgoBulls Trading Core Engine...
+[BT] [2025-06-20 15:30:00,000] [INFO] [tls] Cancelling all open orders (if any)...
+[BT] [2025-06-20 15:30:00,000] [INFO] [tls] Exiting all open positions with order code: ORDER_CODE_INTRADAY (if any)...
+[BT] [2025-06-20 15:30:00,000] [INFO] [order] Trying to exit position for already exited order! Ignoring...
+[BT] [2025-06-20 15:30:00,000] [INFO] [order] Trying to exit position for already exited order! Ignoring...
+[BT] [2025-06-20 15:30:00,000] [INFO] [order] Trying to exit position for already exited order! Ignoring...
+[BT] [2025-06-20 15:30:00,000] [INFO] [oms] 
+
+PENDING ORDERS:
+
+
+COMPLETED ORDERS:
+[2025-06-20 09:15:00+05:30] [74aa2085134b460d87cd52ea4fe5b7f5] [BUY] [NSE_FO:BANKNIFTY25JUN55600CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 490.0] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2025-06-20 09:30:00+05:30] [46fc0dc494b14e11be3fb7367f11bd48] [SELL] [NSE_FO:BANKNIFTY25JUN55600CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 710.5] [PRICE:710.5] [TRIGGER PRICE:710.5] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_EXIT]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2025-06-20 09:30:00+05:30] [fd27711cdddb4dc9808f8dea0d42e82d] [SELL] [NSE_FO:BANKNIFTY25JUN55600CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 343.0] [PRICE:343.0] [TRIGGER PRICE:343.0] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_STOPLOSS_LIMIT] [ORDER_POSITION_EXIT]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> TRIGGER PENDING --> CANCEL PENDING --> CANCELLED
+
+[2025-06-20 10:45:00+05:30] [ef89f0b8700947abb0aed9839d4c8cdf] [BUY] [NSE_FO:BANKNIFTY25JUN56100CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 430.05] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_ENTER]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2025-06-20 15:30:00+05:30] [54c6a3649ca1464282a31b6432724dff] [SELL] [NSE_FO:BANKNIFTY25JUN56100CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 487.35] [PRICE:None] [TRIGGER PRICE:None] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_MARKET] [ORDER_POSITION_EXIT]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> COMPLETE
+
+[2025-06-20 11:00:00+05:30] [6e6f1b2ed12549548060010a78ab31a4] [SELL] [NSE_FO:BANKNIFTY25JUN56100CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 623.55] [PRICE:623.55] [TRIGGER PRICE:623.55] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_LIMIT] [ORDER_POSITION_EXIT]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> OPEN --> CANCEL PENDING --> CANCELLED
+
+[2025-06-20 11:00:00+05:30] [28bbf8a30a2241a28d6fff3017a5e867] [SELL] [NSE_FO:BANKNIFTY25JUN56100CE] [QTY:30] [QTY PENDING: 0] [ENTRY PRICE: 301.0] [PRICE:301.0] [TRIGGER PRICE:301.0] [EXIT MODE:POS_QTY][ORDER_TYPE_REGULAR] [ORDER_CODE_INTRADAY] [ORDER_VARIETY_STOPLOSS_LIMIT] [ORDER_POSITION_EXIT]
+Status History: PUT ORDER REQ RECEIVED --> VALIDATION PENDING --> OPEN PENDING --> TRIGGER PENDING --> CANCEL PENDING --> CANCELLED
+
+
+POSITIONS:
+
+
+HOLDINGS:
+
+
+
+
+[BT] [2025-06-20 15:30:00,000] [INFO] [tls] [User: ALGOBULLS VIRTUAL USER] Trading session completed
