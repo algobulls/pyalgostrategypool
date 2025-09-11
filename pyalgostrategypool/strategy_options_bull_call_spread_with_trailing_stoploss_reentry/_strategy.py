@@ -158,11 +158,9 @@ class StartegyOptionsBullCallSpreadWithTrailingStoplossRentry(StrategyOptionsBas
             _order = self.broker.SellOrderRegular(instrument=child_instrument, order_code=self.order_code, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=self.number_of_lots * child_instrument.lot_size)
 
         if check_order_placed_successfully(_order):
-            if meta['action'] == BrokerOrderTransactionTypeConstants.SELL:
-                self.child_instrument_main_orders.setdefault(base_instrument, {})[meta['action']] = _order
-            else:
-                self.child_instrument_main_orders.setdefault(base_instrument, {})[meta['action']] = _order
+            self.child_instrument_main_orders.setdefault(base_instrument, {})[meta['action']] = _order
         else:
+
             # Protection logic incase any of the legs fail to get placed - this will help avoid having naked positions
             self.logger.critical('Order placement failed for one of the legs. Exiting position for other leg, if possible and stopping strategy.')
             self.exit_all_positions_for_base_instrument(base_instrument)
