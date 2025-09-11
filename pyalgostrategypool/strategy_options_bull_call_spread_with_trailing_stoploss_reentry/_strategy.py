@@ -152,11 +152,9 @@ class StartegyOptionsBullCallSpreadWithTrailingStoplossRentry(StrategyOptionsBas
 
         child_instrument = instrument
         base_instrument = self.instruments_mapper.get_base_instrument(child_instrument)
-        if meta['action'] == BrokerOrderTransactionTypeConstants.BUY:
-            _order = self.broker.BuyOrderRegular(instrument=child_instrument, order_code=self.order_code, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=self.number_of_lots * child_instrument.lot_size)
-        else:
-            _order = self.broker.SellOrderRegular(instrument=child_instrument, order_code=self.order_code, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=self.number_of_lots * child_instrument.lot_size)
+        _order = self.broker.OrderRegular(instrument=child_instrument, order_transaction_type=meta['action'], order_code=self.order_code, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=self.number_of_lots * child_instrument.lot_size)
 
+        # Store details of successful orders
         if check_order_placed_successfully(_order):
             self.child_instrument_main_orders.setdefault(base_instrument, {})[meta['action']] = _order
         else:
