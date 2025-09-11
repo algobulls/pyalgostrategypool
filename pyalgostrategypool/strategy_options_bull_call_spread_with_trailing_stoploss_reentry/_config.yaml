@@ -30,12 +30,12 @@ STRATEGY:
   INSTRUMENTS_BUCKET:
     - NSE_IDX:NIFTY 50
   MODE: INTRADAY
-  NAME: Strategy Options Bull Call Spread With Stop-loss & Re-entry
+  NAME: Strategy Options Bull Call Spread With Trailing Stop-loss & Re-entry
   NUMBER_OF_LOTS: 1
   PARAMETERS:
-    NUMBER_OF_OTM_STRIKES_SELL_CALL_LEG: 3
+    NUMBER_OF_OTM_STRIKES_SELL_LEG: 3
     TRAILING_STOPLOSS_PERCENTAGE: 20
-    RE_ENTRY_COUNT: 3
+    RE_ENTRY_LIMIT: 3
   SECURE: true      
 SYSTEM:
   TRADING_TYPE: BACKTESTING
