@@ -50,7 +50,7 @@ class StartegyOptionsBullCallSpreadWithTargetStopsAndReentry(StrategyOptionsBase
         # Validate expiry dates
         if len(self.get_allowed_expiry_dates()) != self.number_of_allowed_expiry_dates:
             self.logger.info(f"Allowed expiry dates: {self.number_of_allowed_expiry_dates}, got {len(self.get_allowed_expiry_dates())}. Exiting...")
-            raise SystemExit
+            raise ABSystemExit
 
         # Validate parameters
         for param in (self.re_entry_limit, self.tsl_percentage):
@@ -69,8 +69,8 @@ class StartegyOptionsBullCallSpreadWithTargetStopsAndReentry(StrategyOptionsBase
         Evaluate all exit rules for the Bull Call Spread.
 
         Checks:
-        • Hard stop-loss – exit if spread falls below the stop-loss threshold.
         • Target profit – exit if spread rises to the profit target.
+        • Hard stop-loss – exit if spread falls below the stop-loss threshold.
         • Trailing stop-loss – once the spread makes new highs, trail a stop to lock in profits.
         """
 
