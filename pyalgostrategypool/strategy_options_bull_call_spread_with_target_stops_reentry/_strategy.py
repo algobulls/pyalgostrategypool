@@ -14,7 +14,7 @@ from pyalgotrading.strategy import StrategyOptionsBase, OptionsStrikeDirection
 from pyalgotrading.strategy.utils import check_order_placed_successfully, check_order_complete_status
 
 
-class StartegyOptionsBullCallSpreadWithTargetStopsAndReentry(StrategyOptionsBase):
+class StrategyOptionsBullCallSpreadWithTargetStopsAndReentry(StrategyOptionsBase):
     """
     Bull Call Spread strategy with multiple exit mechanisms:
         • Target Profit
