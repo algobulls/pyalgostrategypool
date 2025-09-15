@@ -1,31 +1,37 @@
 """
 Strategy Description:
     The Options Bull Call Spread strategy establishes a bullish position by buying an at-the-money (ATM) Call option and selling a higher-strike Call option with the same expiry.
-    This variant adds a trailing stop-loss to protect profits.
-    It also allows controlled re-entries when the trailing stop is triggered and market conditions justify a new entry.
+    This variant adds a target profit, a hard stop-loss, and a trailing stop-loss to manage risk and lock in gains.
+    It also allows controlled re-entries when the exit conditions are met and market conditions justify a new entry.
 
 Strategy Resources:
     - Strategy-specific docs: https://algobulls.github.io/pyalgotrading/strategies/options_bull_call_spread_with_trailing_stoploss_reentry/
     - General strategy guide: https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_strategy_guide/
 """
 
-from constants import BrokerOrderTransactionTypeConstants, BrokerOrderVarietyConstants
+from pyalgotrading.constants import ABSystemExit
 from pyalgotrading.strategy import StrategyOptionsBase, OptionsStrikeDirection
-from strategy.utils import check_order_placed_successfully, check_order_complete_status
-from utils.ab_system_exit import ABSystemExit
-from utils.func import check_argument, is_nonnegative_int_or_float
+from pyalgotrading.strategy.utils import check_order_placed_successfully, check_order_complete_status
 
 
-class StartegyOptionsBullCallSpreadWithTrailingStoplossRentry(StrategyOptionsBase):
-    """ Bull Call Spread Strategy with Trailing Stop-loss and Re-entry. """
+class StartegyOptionsBullCallSpreadWithTargetStopsAndReentry(StrategyOptionsBase):
+    """
+    Bull Call Spread strategy with multiple exit mechanisms:
+        • Target Profit
+        • Hard Stop-Loss
+        • Trailing Stop-Loss
+        • Optional Re-entry
+    """
 
-    name = "Strategy Options Bull Call Spread With Trailing Stop-loss & Re-entry"
+    name = "Strategy Options Bull Call Spread With Target Stops And Re-entry"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # Required parameters for this strategy
         self.no_of_otm_strikes_leg_sell = self.strategy_parameters["NUMBER_OF_OTM_STRIKES_SELL_LEG"]
+        self.stoploss_percentage = self.strategy_parameters['STOPLOSS_PERCENTAGE']
+        self.target_percentage = self.strategy_parameters['TARGET_PERCENTAGE']
         self.tsl_percentage = self.strategy_parameters["TRAILING_STOPLOSS_PERCENTAGE"]
         self.re_entry_limit = self.strategy_parameters['RE_ENTRY_LIMIT']
 
@@ -36,7 +42,10 @@ class StartegyOptionsBullCallSpreadWithTrailingStoplossRentry(StrategyOptionsBas
 
     def validate_parameters(self):
         """ Validates required strategy parameters. """
-        check_argument(self.strategy_parameters, "extern_function", lambda x: len(x) >= 2, err_message="Need 2 parameters for this strategy: \n(1) TRAILING STOPLOSS PERCENTAGE \n(2) REENTRY COUNT")
+        check_argument(
+            self.strategy_parameters, "extern_function", lambda x: len(x) >= 2,
+            err_message="Need 5 parameters for this strategy: \n(1) NUMBER_OF_OTM_STRIKES_SELL_LEG \n(2) TARGET_PERCENTAGE \n(3) STOPLOSS_PERCENTAGE \n(4) TRAILING_STOPLOSS_PERCENTAGE \n(5) RE_ENTRY_LIMIT"
+        )
 
         # Validate expiry dates
         if len(self.get_allowed_expiry_dates()) != self.number_of_allowed_expiry_dates:
@@ -52,47 +61,75 @@ class StartegyOptionsBullCallSpreadWithTrailingStoplossRentry(StrategyOptionsBas
 
         # Reset main orders, trailing stops and re-entry counts
         self.child_instrument_main_orders = {}
-        self.spread_current = self.spread_entry = self.highest = self.stop = None
+        self.spread_current = self.spread_entry = self.highest = self.trailing_stop = self.stoploss_premium = self.target_premium = None
         self.re_entry_count = {}
 
-    def trailing_stop_spread(self, base_instrument, trail_percentage=20):
+    def check_exit_conditions(self, base_instrument):
         """
-        Manage a trailing stop-loss for Bull Call Spread (BUY leg price- SELL leg price).
+        Evaluate all exit rules for the Bull Call Spread.
+
+        Checks:
+        • Hard stop-loss – exit if spread falls below the stop-loss threshold.
+        • Target profit – exit if spread rises to the profit target.
+        • Trailing stop-loss – once the spread makes new highs, trail a stop to lock in profits.
         """
 
         ltp_leg_buy = self.broker.get_ltp(self.child_instrument_main_orders.get(base_instrument)[BrokerOrderTransactionTypeConstants.BUY].instrument)
         ltp_leg_sell = self.broker.get_ltp(self.child_instrument_main_orders.get(base_instrument)[BrokerOrderTransactionTypeConstants.SELL].instrument)
 
-        # Define initial spread and trailing stop
+        # Initialize key levels at entry:
         if not self.spread_entry:
             entry_price_leg_buy = self.child_instrument_main_orders.get(base_instrument)[BrokerOrderTransactionTypeConstants.BUY].entry_price
             entry_price_leg_sell = self.child_instrument_main_orders.get(base_instrument)[BrokerOrderTransactionTypeConstants.SELL].entry_price
             self.spread_entry = entry_price_leg_buy - entry_price_leg_sell  # spread at entry
-            self.highest = self.spread_entry  # set highest spread so far
-            self.stop = self.highest * (1 - trail_percentage / 100)  # trailing stop
+            self.stoploss_premium = self.spread_entry * (1 - self.stoploss_percentage / 100)
+            self.target_premium = self.spread_entry * (1 + self.target_percentage / 100)
 
         # Current spread price
         self.spread_current = ltp_leg_buy - ltp_leg_sell
 
-        self.logger.info(f"TSL check triggered. Monitoring stop-loss..")
-        self.logger.info(
-            f"TSL update: new_highest={self.highest:.2f} "
-            f"stop={self.stop:.2f} (trail%={trail_percentage})"
-        )
+        self.logger.info(f"Target and Hard Stoploss Check: Entry Spread price: {self.spread_entry:.2f}"
+                         f"Current Spread price: {self.spread_current:.2f}"
+                         f"Target Threshold: {self.target_premium:.2f}"
+                         f"Stoploss Threshold : {self.stoploss_premium:.2f}")
 
-        # Update trailing stop whenever current spread exceeds previous high
-        if self.spread_current > self.highest:
-            self.highest = self.spread_current
-            self.stop = self.highest * (1 - trail_percentage / 100)
-
-        # Trigger exit if current spread falls below traiing stop
-        if self.spread_current < self.stop:
-            self.logger.info(f'Entry Spread price: {self.spread_entry:.2f} | Current Spread price:{self.spread_current:.2f} | Trailing stop:{self.stop:.2f}'
-                             f'Trailing stop loss hit. Exiting order')
-
-            # Reset so next entry can be reinitialize
-            self.highest = self.spread_entry = self.stop = None
+        # Target Profit Check
+        if self.spread_current > self.target_premium:
+            self.logger.debug(f"Target profit reached: Current Net Premium ({self.spread_current}) dropped below Target Threshold ({self.target_premium}). Exiting positions.")
+            self.spread_entry = None
             return True
+
+        # Hard Stoploss Check
+        if self.spread_current < self.stoploss_premium:
+            self.logger.debug(f"Stop-loss triggered: Current Net Premium ({self.spread_current}) exceeded Stop-loss Threshold ({self.stoploss_premium}). Exiting positions.")
+            self.spread_entry = None
+            return True
+
+        # Arm trailing stop only after spread moves by at least trailing % above entry.
+        if not self.highest and self.spread_current > self.spread_entry / (1 - self.tsl_percentage / 100):
+            self.highest = self.spread_current  # first highest spread
+            self.trailing_stop = self.highest * (1 - self.tsl_percentage / 100)  # initial trailing stop
+
+        # Trailing Stop-loss (TSL) check
+        if self.highest:
+            self.logger.info(f"Trailing Stoploss Check: Entry Spread price: {self.spread_entry:.2f} "
+                             f"Current Spread price: {self.spread_current:.2f}"
+                             f"New Highest: {self.highest:.2f}"
+                             f"Trailing Stop: {self.trailing_stop:.2f}"
+                             f"(Trail %={self.tsl_percentage})")
+
+            # Update trailing stop whenever current spread exceeds previous high
+            if self.spread_current > self.highest:
+                self.highest = self.spread_current
+                self.trailing_stop = self.highest * (1 - self.tsl_percentage / 100)
+
+            # Trigger TSL exit if current spread falls below traiing stop
+            if self.spread_current < self.trailing_stop:
+                self.logger.info(f"Trailing Stop-loss triggered: Current Net Premium ({self.spread_current} dropped below Trailing Stop ({self.trailing_stop}. Exiting positions.")
+
+                # Reset so next entry can be reinitialize
+                self.highest = self.spread_entry = self.trailing_stop = None
+                return True
 
         return False
 
@@ -180,7 +217,7 @@ class StartegyOptionsBullCallSpreadWithTrailingStoplossRentry(StrategyOptionsBas
 
                 # Check if CE orders are complete and if trailing stop-loss condition is met.
                 if self.child_instrument_main_orders.get(base_instrument):
-                    if all(check_order_complete_status(order) for order in list(self.child_instrument_main_orders.get(base_instrument).values())) and (self.trailing_stop_spread(base_instrument, self.tsl_percentage)):
+                    if all(check_order_complete_status(order) for order in list(self.child_instrument_main_orders.get(base_instrument).values())) and (self.check_exit_conditions(base_instrument)):
                         selected_instruments_bucket.extend(order.instrument for order in list(self.child_instrument_main_orders.get(base_instrument).values()) if order)
                         meta.extend([{"action": "EXIT", "base_instrument": base_instrument}] * len(self.child_instrument_main_orders))
 
