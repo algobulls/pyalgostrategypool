@@ -62,7 +62,7 @@ class StrategyOptionsBullCallSpreadWithTargetStopsAndReentry(StrategyOptionsBase
 
         # Validate numeric strategy parameters
         for param in (self.re_entry_limit, self.no_of_otm_strikes_leg_sell):
-            check_argument(param, "extern_function", is_nonnegative_int_or_float, "Value should be postive integer")
+            check_argument(param, "extern_function", is_positive_int, "Value should be a positive integer")
 
         # Validate percentage strategy parameters
         for param in (self.target_percentage, self.stoploss_percentage, self.tsl_percentage,):
