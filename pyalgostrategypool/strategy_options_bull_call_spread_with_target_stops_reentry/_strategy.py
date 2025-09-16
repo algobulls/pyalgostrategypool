@@ -5,7 +5,7 @@ Strategy Description:
     It also allows controlled re-entries when the exit conditions are met and market conditions justify a new entry.
 
 Strategy Resources:
-    - Strategy-specific docs: https://algobulls.github.io/pyalgotrading/strategies/options_bull_call_spread_with_trailing_stoploss_reentry/
+    - Strategy-specific docs: https://algobulls.github.io/pyalgotrading/strategies/options_bull_call_spread_with_target_stops_and_reentry/
     - General strategy guide: https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_strategy_guide/
 """
 
@@ -64,7 +64,7 @@ class StrategyOptionsBullCallSpreadWithTargetStopsAndReentry(StrategyOptionsBase
         self.spread_current = self.spread_entry = self.highest = self.trailing_stop = self.stoploss_premium = self.target_premium = None
         self.re_entry_count = {}
 
-    def check_exit_conditions(self, base_instrument):
+    def check_exit_conditions(self, base_instrument, child_leg_orders_dict):
         """
         Evaluate all exit rules for the Bull Call Spread.
 
@@ -74,8 +74,10 @@ class StrategyOptionsBullCallSpreadWithTargetStopsAndReentry(StrategyOptionsBase
         • Trailing stop-loss – once the spread makes new highs, trail a stop to lock in profits.
         """
 
-        ltp_leg_buy = self.broker.get_ltp(self.child_instrument_main_orders.get(base_instrument)[BrokerOrderTransactionTypeConstants.BUY].instrument)
-        ltp_leg_sell = self.broker.get_ltp(self.child_instrument_main_orders.get(base_instrument)[BrokerOrderTransactionTypeConstants.SELL].instrument)
+        # Retrieve current orders and latest traded prices (LTP) for both legs
+        # child_leg_orders_dict = self.child_instrument_main_orders.get(base_instrument)
+        ltp_leg_buy = self.broker.get_ltp(child_leg_orders_dict[BrokerOrderTransactionTypeConstants.BUY].instrument)
+        ltp_leg_sell = self.broker.get_ltp(child_leg_orders_dict[BrokerOrderTransactionTypeConstants.SELL].instrument)
 
         # Initialize key levels at entry:
         if not self.spread_entry:
@@ -216,9 +218,10 @@ class StrategyOptionsBullCallSpreadWithTargetStopsAndReentry(StrategyOptionsBase
                 _base_instruments_processed_list.append(base_instrument)
 
                 # Check if CE orders are complete and if trailing stop-loss condition is met.
-                if self.child_instrument_main_orders.get(base_instrument):
-                    if all(check_order_complete_status(order) for order in list(self.child_instrument_main_orders.get(base_instrument).values())) and (self.check_exit_conditions(base_instrument)):
-                        selected_instruments_bucket.extend(order.instrument for order in list(self.child_instrument_main_orders.get(base_instrument).values()) if order)
+                child_leg_orders_dict = self.child_instrument_main_orders.get(base_instrument)
+                if child_leg_orders_dict:
+                    if all(check_order_complete_status(order) for order in list(child_leg_orders_dict.values())) and (self.check_exit_conditions(base_instrument, child_leg_orders_dict)):
+                        selected_instruments_bucket.extend(order.instrument for order in list(child_leg_orders_dict.values()) if order)
                         meta.extend([{"action": "EXIT", "base_instrument": base_instrument}] * len(self.child_instrument_main_orders))
 
         return selected_instruments_bucket, meta
