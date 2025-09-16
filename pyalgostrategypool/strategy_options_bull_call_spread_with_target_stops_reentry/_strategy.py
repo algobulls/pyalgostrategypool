@@ -38,13 +38,21 @@ class StrategyOptionsBullCallSpreadWithTargetStopsAndReentry(StrategyOptionsBase
         # Internal variables and placeholders
         self.child_instrument_main_orders = None  # Tracks Call orders
         self.number_of_allowed_expiry_dates = 1  # Restrict how many expiry dates can be used
+
         self.validate_parameters()
 
     def validate_parameters(self):
         """ Validates required strategy parameters. """
         check_argument(
-            self.strategy_parameters, "extern_function", lambda x: len(x) >= 2,
-            err_message="Need 5 parameters for this strategy: \n(1) NUMBER_OF_OTM_STRIKES_SELL_LEG \n(2) TARGET_PERCENTAGE \n(3) STOPLOSS_PERCENTAGE \n(4) TRAILING_STOPLOSS_PERCENTAGE \n(5) RE_ENTRY_LIMIT"
+            self.strategy_parameters, "extern_function", lambda x: len(x) >= 5,
+            err_message=(
+                "Need 5 parameters for this strategy: \n"
+                "(1) NUMBER_OF_OTM_STRIKES_SELL_LEG \n"
+                "(2) TARGET_PERCENTAGE \n"
+                "(3) STOPLOSS_PERCENTAGE \n"
+                "(4) TRAILING_STOPLOSS_PERCENTAGE \n"
+                "(5) RE_ENTRY_LIMIT"
+            )
         )
 
         # Validate expiry dates
@@ -52,8 +60,12 @@ class StrategyOptionsBullCallSpreadWithTargetStopsAndReentry(StrategyOptionsBase
             self.logger.info(f"Allowed expiry dates: {self.number_of_allowed_expiry_dates}, got {len(self.get_allowed_expiry_dates())}. Exiting...")
             raise ABSystemExit
 
-        # Validate parameters
-        for param in (self.re_entry_limit, self.tsl_percentage):
+        # Validate numeric strategy parameters
+        for param in (self.re_entry_limit, self.no_of_otm_strikes_leg_sell):
+            check_argument(param, "extern_function", is_nonnegative_int_or_float, "Value should be postive integer")
+
+        # Validate percentage strategy parameters
+        for param in (self.target_percentage, self.stoploss_percentage, self.tsl_percentage,):
             check_argument(param, "extern_function", is_nonnegative_int_or_float, "Value should be >0")
 
     def initialize(self):
@@ -75,7 +87,6 @@ class StrategyOptionsBullCallSpreadWithTargetStopsAndReentry(StrategyOptionsBase
         """
 
         # Retrieve current orders and latest traded prices (LTP) for both legs
-        # child_leg_orders_dict = self.child_instrument_main_orders.get(base_instrument)
         ltp_leg_buy = self.broker.get_ltp(child_leg_orders_dict[BrokerOrderTransactionTypeConstants.BUY].instrument)
         ltp_leg_sell = self.broker.get_ltp(child_leg_orders_dict[BrokerOrderTransactionTypeConstants.SELL].instrument)
 
@@ -107,7 +118,7 @@ class StrategyOptionsBullCallSpreadWithTargetStopsAndReentry(StrategyOptionsBase
             self.spread_entry = None
             return True
 
-        # Arm trailing stop only after spread moves by at least trailing % above entry.
+        # Activate trailing stop only after spread moves by at least trailing % above entry.
         if not self.highest and self.spread_current > self.spread_entry / (1 - self.tsl_percentage / 100):
             self.highest = self.spread_current  # first highest spread
             self.trailing_stop = self.highest * (1 - self.tsl_percentage / 100)  # initial trailing stop
@@ -220,8 +231,8 @@ class StrategyOptionsBullCallSpreadWithTargetStopsAndReentry(StrategyOptionsBase
                 # Check if CE orders are complete and if trailing stop-loss condition is met.
                 child_leg_orders_dict = self.child_instrument_main_orders.get(base_instrument)
                 if child_leg_orders_dict:
-                    if all(check_order_complete_status(order) for order in list(child_leg_orders_dict.values())) and (self.check_exit_conditions(base_instrument, child_leg_orders_dict)):
-                        selected_instruments_bucket.extend(order.instrument for order in list(child_leg_orders_dict.values()) if order)
+                    if all(check_order_complete_status(order) for order in child_leg_orders_dict.values()) and (self.check_exit_conditions(base_instrument, child_leg_orders_dict)):
+                        selected_instruments_bucket.extend(order.instrument for order in child_leg_orders_dict.values() if order)
                         meta.extend([{"action": "EXIT", "base_instrument": base_instrument}] * len(self.child_instrument_main_orders))
 
         return selected_instruments_bucket, meta
