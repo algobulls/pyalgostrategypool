@@ -42,7 +42,7 @@ class StrategyOptionsLongCallDiagonalSpreadWithTrailingStoplossReentry(StrategyO
     def validate_parameters(self):
         """ Validates required strategy parameters. """
         check_argument(
-            self.strategy_parameters, "extern_function", lambda x: len(x) >= 4,
+            self.strategy_parameters, "extern_function", lambda _: len(_) >= 4,
             err_message=(
                 "Need 4 parameters for this strategy: \n"
                 "(1) NUMBER_OF_OTM_STRIKES_SELL_LEG \n"
@@ -94,7 +94,8 @@ class StrategyOptionsLongCallDiagonalSpreadWithTrailingStoplossReentry(StrategyO
 
         # Absolute Stoploss Check
         if self.spread_current < self.stoploss_premium:
-            self.logger.debug(f"Absolute stoploss triggered: Current Net Premium ({self.spread_current}) exceeded stoploss threshold ({self.stoploss_premium}). Exiting positions...")
+            self.logger.debug(f"Absolute stoploss triggered: Current Net Premium: {self.spread_current:.2f} | Absolute Stoploss threshold: {self.stoploss_premium:.2f} | "
+                              f"Exiting positions...")
 
             # Reset so next entry can be reinitialized
             self.highest = self.spread_entry = self.trailing_stop = self.trailing_stoploss_activated = None
@@ -105,7 +106,7 @@ class StrategyOptionsLongCallDiagonalSpreadWithTrailingStoplossReentry(StrategyO
         # Activate trailing stop only after spread moves by at least trailing % above entry.
         # Update trailing stop whenever current spread exceeds previous high
         if self.spread_current > self.highest:
-            if not self.trailing_stoploss_activated and self.spread_current > self.spread_entry / (1 - self.tsl_percentage / 100):
+            if not self.trailing_stoploss_activated:
                 self.logger.info(f"Trailing Stoploss Activated")
                 self.trailing_stoploss_activated = True
             new_stop = self.spread_current * (1 - self.tsl_percentage / 100)
@@ -121,8 +122,7 @@ class StrategyOptionsLongCallDiagonalSpreadWithTrailingStoplossReentry(StrategyO
         return False
 
     def exit_all_positions_for_base_instrument(self, base_instrument):
-
-        for order in filter(None, self.child_instrument_main_orders.get(base_instrument).values()):  # Exit all active positions for the base instrument.
+        for order in filter(None, self.child_instrument_main_orders.get(base_instrument, {}).values()):  # Exit all active positions for the base instrument.
             order.exit_position()
 
         # Remove references to the base instrument after exiting CE orders.
@@ -175,25 +175,38 @@ class StrategyOptionsLongCallDiagonalSpreadWithTrailingStoplossReentry(StrategyO
                 self.instruments_mapper.add_mappings(instrument, child_instrument)
 
                 selected_instruments.append(child_instrument)
-                meta.append({"action": action, "base_instrument": instrument})
+                meta.append({"action": action})
 
         return selected_instruments, meta
 
     def strategy_enter_position(self, candle, instrument, meta):
-
+        _order = None
         child_instrument = instrument
         base_instrument = self.instruments_mapper.get_base_instrument(child_instrument)
-        _order = self.broker.OrderRegular(instrument=child_instrument, order_transaction_type=meta['action'], order_code=self.order_code, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=self.number_of_lots * child_instrument.lot_size)
+        main_orders = self.child_instrument_main_orders.get(base_instrument)
+        action_other_leg = BrokerOrderTransactionTypeConstants.BUY if meta['action'] == BrokerOrderTransactionTypeConstants.SELL else BrokerOrderTransactionTypeConstants.SELL
 
-        # Store details of successful orders
-        if check_order_placed_successfully(_order):
-            self.child_instrument_main_orders.setdefault(base_instrument, {})[meta['action']] = _order
-        else:
+        # If the opposite leg is expected but not present, abort entry and clear any partial state for this base instrument
+        if main_orders and not main_orders.get(action_other_leg):
+            self.child_instrument_main_orders.pop(base_instrument, None)
+            return _order
+
+        # Attempt to place market order for the current leg
+        try:
+            _order = self.broker.OrderRegular(instrument=child_instrument, order_transaction_type=meta['action'], order_code=self.order_code, order_variety=BrokerOrderVarietyConstants.MARKET, quantity=self.number_of_lots * child_instrument.lot_size)
+        except Exception as e:
+            # Order placement failure is logged; downstream validation will handle cleanup
+            self.logger.debug(f"No orders placed due to the following error: {e}")
+
+        # Store details of orders
+        self.child_instrument_main_orders.setdefault(base_instrument, {})[meta['action']] = _order
+
+        if not check_order_placed_successfully(_order):
             # Protection logic incase any of the legs fail to get placed - this will help avoid having naked positions
-            self.logger.critical('Order placement failed for one of the legs. Exiting position for other leg, if possible and stopping strategy.')
-            self.exit_all_positions_for_base_instrument(base_instrument)
-            raise ABSystemExit
-
+            self.logger.critical('Order placement failed for one of the legs. Exiting position for other leg, if possible and stopping further entries..')
+            if _order:
+                self.exit_all_positions_for_base_instrument(base_instrument)
+            self.execution_complete = True  # Stop further strategy execution for safety
         return _order
 
     def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
