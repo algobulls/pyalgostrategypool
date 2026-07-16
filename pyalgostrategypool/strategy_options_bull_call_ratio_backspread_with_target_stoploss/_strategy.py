@@ -162,6 +162,7 @@ class StrategyOptionsBullCallRatioBackspreadWithTargetStoploss(StrategyOptionsBa
 
                     selected_instruments.append(child_instrument)
                     meta.append({"action": action, "base_instrument": instrument, "strike_direction": strike_direction})
+
         # Increment re-entry count for each base instrument entry
         if selected_instruments:
             self.re_entry_count[instrument] = self.re_entry_count[instrument] + 1 if self.re_entry_count.get(instrument) is not None else 0
