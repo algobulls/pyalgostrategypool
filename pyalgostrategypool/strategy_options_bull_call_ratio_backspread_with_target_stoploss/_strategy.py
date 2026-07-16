@@ -101,7 +101,8 @@ class StrategyOptionsBullCallRatioBackspreadWithTargetStoploss(StrategyOptionsBa
         # Target Profit and Stop-Loss Threshold Check based on spread value
         if self.spread_current > self.target_premium or self.spread_current < self.stoploss_premium:
             (threshold_name, threshold) = ("Target", self.target_premium) if self.spread_current > self.target_premium else ("Stoploss", self.stoploss_premium)
-            self.logger.info(f"{threshold_name} threshold reached: Transaction Type: {self.transaction_type} | Current Net Premium: {abs(self.spread_current):.2f} | {threshold_name} Threshold: {abs(threshold):.2f} - Exiting positions...")
+            self.logger.info(
+                f"{threshold_name} threshold reached: Transaction Type: {self.transaction_type} | Entry Net Premium: {self.spread_entry:.2f} | Current Net Premium: {self.spread_current:.2f} | {threshold_name} Threshold: {threshold:.2f} - Exiting positions...")
             self.spread_entry = None
             return True
 
@@ -124,28 +125,25 @@ class StrategyOptionsBullCallRatioBackspreadWithTargetStoploss(StrategyOptionsBa
         selected_instruments, meta = [], []
 
         for instrument in instruments_bucket:
+            # Skip the instrument if active order already exists
+            if self.child_instrument_main_orders.get(instrument):
+                continue
+
             self.logger.debug(
                 f"Checking entry conditions for base instrument: {instrument} | "
                 f"Determining ATM/OTM option instruments and verifying if CE orders are already placed."
             )
 
-            # Skip the instrument if active order already exists
-            if self.child_instrument_main_orders.get(instrument):
-                continue
-
             # Retrieve LTP of the base instrument to setup child instruments
             base_instrument_ltp = self.broker.get_ltp(instrument)
 
             # Track re-entry count for this instrument
-            re_entry_count = self.re_entry_count.get(instrument, 0)
+            re_entry_count = self.re_entry_count.get(instrument)
 
             # If re-entry count exceeds the allowed limit, skip further re-entries
-            if re_entry_count >= self.re_entry_limit:
+            if re_entry_count is not None and re_entry_count >= self.re_entry_limit:
+                self.logger.debug(f"Reentry limit ({self.re_entry_limit}) exceeded. Skipping reentries for {instrument}...")
                 continue
-
-            # otherwise increment re-entry count
-            else:
-                re_entry_count += 1
 
             leg_wise_list = [
                 (BrokerOrderTransactionTypeConstants.BUY, OptionsStrikeDirection.ATM.value, 0),
@@ -164,6 +162,10 @@ class StrategyOptionsBullCallRatioBackspreadWithTargetStoploss(StrategyOptionsBa
 
                     selected_instruments.append(child_instrument)
                     meta.append({"action": action, "base_instrument": instrument, "strike_direction": strike_direction})
+
+        # Increment re-entry count for each base instrument entry
+        if selected_instruments:
+            self.re_entry_count[instrument] = self.re_entry_count[instrument] + 1 if self.re_entry_count.get(instrument) is not None else 0
 
         return selected_instruments, meta
 
